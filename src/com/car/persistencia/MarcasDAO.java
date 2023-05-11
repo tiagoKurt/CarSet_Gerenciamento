@@ -2,6 +2,7 @@ package com.car.persistencia;
 
 import com.car.Ferramentas.ConexaoBD;
 import com.car.Modelos.Marcas;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -25,12 +26,18 @@ public class MarcasDAO implements IMarcasDAO{
     @Override
     public void InserirMarca(Marcas marca) throws Exception {
         try {
+            FileInputStream fis = new FileInputStream(marca.getImageFile());
+            
             String sql = "insert into marcas(descricao, urlMarcas, imagemMarca) values (?, ?, ?)";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             
             preparedStatement.setString(1, marca.getDescricao());
             preparedStatement.setString(2, marca.getUrl());
+            preparedStatement.setBinaryStream(3, fis);
             preparedStatement.executeUpdate();
+            fis.close();
+            
+            conexao.close();
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage()); 
         }

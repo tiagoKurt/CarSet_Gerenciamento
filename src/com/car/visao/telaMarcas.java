@@ -4,9 +4,13 @@
  */
 package com.car.visao;
 
+import com.car.Modelos.Marcas;
+import com.car.persistencia.IMarcasDAO;
+import com.car.persistencia.MarcasDAO;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.io.File;
+import java.io.FileInputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -60,7 +64,9 @@ public class telaMarcas extends javax.swing.JFrame {
         jTextField1_IDMarcas = new javax.swing.JTextField();
         jTextField1_DescricaoMarca1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jTextField1_urlImagens = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,6 +88,7 @@ public class telaMarcas extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 630, 130, 40));
 
+        BuscarMarcas.setBackground(new java.awt.Color(153, 153, 153));
         BuscarMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         BuscarMarcas.setForeground(new java.awt.Color(0, 0, 0));
         BuscarMarcas.setText("BUSCAR");
@@ -105,6 +112,7 @@ public class telaMarcas extends javax.swing.JFrame {
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 470, 40));
 
+        jButton_Remover.setBackground(new java.awt.Color(153, 153, 153));
         jButton_Remover.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_Remover.setForeground(new java.awt.Color(0, 0, 0));
         jButton_Remover.setText("REMOVER");
@@ -117,6 +125,7 @@ public class telaMarcas extends javax.swing.JFrame {
         });
         getContentPane().add(jButton_Remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 290, 130, 40));
 
+        jButton_Alterar.setBackground(new java.awt.Color(153, 153, 153));
         jButton_Alterar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_Alterar.setForeground(new java.awt.Color(0, 0, 0));
         jButton_Alterar.setText("ALTERAR");
@@ -129,6 +138,7 @@ public class telaMarcas extends javax.swing.JFrame {
         });
         getContentPane().add(jButton_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 340, 130, 40));
 
+        jButton_iNCLUIR.setBackground(new java.awt.Color(153, 153, 153));
         jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_iNCLUIR.setForeground(new java.awt.Color(0, 0, 0));
         jButton_iNCLUIR.setText("INCLUIR");
@@ -142,10 +152,12 @@ public class telaMarcas extends javax.swing.JFrame {
         getContentPane().add(jButton_iNCLUIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 240, 130, 40));
 
         jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(552, 290, -1, 40));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, -1, 40));
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204), 3));
+        jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204)));
 
+        jTable1.setBackground(new java.awt.Color(153, 153, 153));
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jTable1.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -167,25 +179,36 @@ public class telaMarcas extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("DESCRIÇÃO");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, -1, 40));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, -1, 40));
 
         jLabel7.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("ID");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 290, -1, 40));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, -1, 40));
 
+        jTextField1_IDMarcas.setBackground(new java.awt.Color(153, 153, 153));
+        jTextField1_IDMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
+        jTextField1_IDMarcas.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1_IDMarcas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_IDMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 80, 40));
+        getContentPane().add(jTextField1_IDMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 130, 40));
 
+        jTextField1_DescricaoMarca1.setBackground(new java.awt.Color(153, 153, 153));
         jTextField1_DescricaoMarca1.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
+        jTextField1_DescricaoMarca1.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1_DescricaoMarca1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_DescricaoMarca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 460, 40));
+        getContentPane().add(jTextField1_DescricaoMarca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 460, 40));
 
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 94, 450, -1));
 
+        jLabel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204), 4), "OPÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 170, 390, 220));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jTextField1_urlImagens.setText("jTextField1");
+        getContentPane().add(jTextField1_urlImagens, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 130, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -201,11 +224,13 @@ public class telaMarcas extends javax.swing.JFrame {
         try {
             JFileChooser fc = new JFileChooser("./src/com/car/imagensMarcas");
             File buscar = new File(".src/com/car/imagensMarcas");
+            
             fc.setCurrentDirectory(buscar);
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fc.showOpenDialog(this);
             File arquivo = fc.getSelectedFile();
             String nomeDoArquivo = arquivo.getPath();
+           jTextField1_urlImagens.setText(nomeDoArquivo);
             ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
             iconLogo.setImage(iconLogo.getImage().getScaledInstance(
                     ImagensMarcas.getWidth(), ImagensMarcas.getHeight(), 1));
@@ -224,7 +249,17 @@ public class telaMarcas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_AlterarActionPerformed
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
-        // TODO add your handling code here:
+        try {
+            File fis = new File(jTextField1_urlImagens.getText());
+            Marcas marca = null;
+            marca = new Marcas(0, jTextField1_DescricaoMarca1.getText(), jTextField1_urlImagens.getText(), fis);
+            
+            IMarcasDAO marcasBD = null;
+            marcasBD = new MarcasDAO();
+            marcasBD.InserirMarca(marca);
+            
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
 
     /**
@@ -277,9 +312,11 @@ public class telaMarcas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1_DescricaoMarca1;
     private javax.swing.JTextField jTextField1_IDMarcas;
+    private javax.swing.JTextField jTextField1_urlImagens;
     // End of variables declaration//GEN-END:variables
 }
