@@ -62,6 +62,7 @@ public class telaMarcas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton4_voltar = new javax.swing.JButton();
         BuscarMarcas = new javax.swing.JButton();
+        ImagensMarcas1 = new javax.swing.JLabel();
         ImagensMarcas = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton_Remover = new javax.swing.JButton();
@@ -112,6 +113,10 @@ public class telaMarcas extends javax.swing.JFrame {
         });
         getContentPane().add(BuscarMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 190, 130, 40));
 
+        ImagensMarcas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/insiraImagem.gif"))); // NOI18N
+        ImagensMarcas1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        getContentPane().add(ImagensMarcas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 190, 230, 190));
+
         ImagensMarcas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/insiraImagem.gif"))); // NOI18N
         ImagensMarcas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(ImagensMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 190, 230, 190));
@@ -134,7 +139,7 @@ public class telaMarcas extends javax.swing.JFrame {
                 jButton_RemoverActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_Remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 290, 130, 40));
+        getContentPane().add(jButton_Remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 340, 130, 40));
 
         jButton_Alterar.setBackground(new java.awt.Color(153, 153, 153));
         jButton_Alterar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
@@ -147,7 +152,7 @@ public class telaMarcas extends javax.swing.JFrame {
                 jButton_AlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 340, 130, 40));
+        getContentPane().add(jButton_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 290, 130, 40));
 
         jButton_iNCLUIR.setBackground(new java.awt.Color(153, 153, 153));
         jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
@@ -264,17 +269,36 @@ public class telaMarcas extends javax.swing.JFrame {
             iconLogo.setImage(iconLogo.getImage().getScaledInstance(
                     ImagensMarcas.getWidth(), ImagensMarcas.getHeight(), 1));
             ImagensMarcas.setIcon(iconLogo);
+            ImagensMarcas1.setVisible(false);
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro);
         }
     }//GEN-LAST:event_BuscarMarcasActionPerformed
 
     private void jButton_RemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RemoverActionPerformed
-        // TODO add your handling code here:
+        try {
+            IMarcasDAO marcasDao = null;
+            marcasDao = new MarcasDAO();
+            marcasDao.excluirMarca(Integer.parseInt(jTextField1_IDMarcas.getText()));
+            limparTela();
+            imprimirDadosNaGrid(marcasDao.listaDeMarcas());
+            ImagensMarcas1.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
     }//GEN-LAST:event_jButton_RemoverActionPerformed
 
     private void jButton_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AlterarActionPerformed
-        // TODO add your handling code here:
+        try {
+            IMarcasDAO marcasDAO = null;
+            marcasDAO = new MarcasDAO();
+            alterarMarca();
+            limparTela();
+            imprimirDadosNaGrid(marcasDAO.listaDeMarcas());
+            ImagensMarcas1.setVisible(true);
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(this, err);
+        }
     }//GEN-LAST:event_jButton_AlterarActionPerformed
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
@@ -283,12 +307,14 @@ public class telaMarcas extends javax.swing.JFrame {
             Marcas marca = null;
             marca = new Marcas(0, jTextField1_DescricaoMarca1.getText(), jTextField1_urlImagens.getText(), fis);
             
-            IMarcasDAO marcasBD = null;
-            marcasBD = new MarcasDAO();
-            marcasBD.InserirMarca(marca);
+            IMarcasDAO marcasDAO = null;
+            marcasDAO = new MarcasDAO();
+            marcasDAO.InserirMarca(marca);
             limparTela();
-            imprimirDadosNaGrid(marcasBD.listaDeMarcas());
-        } catch (Exception e) {
+            ImagensMarcas1.setVisible(true);
+            imprimirDadosNaGrid(marcasDAO.listaDeMarcas());
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(this, err);
         }
     }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
 
@@ -301,12 +327,26 @@ public class telaMarcas extends javax.swing.JFrame {
             iconLogo.setImage(iconLogo.getImage().getScaledInstance(
                     ImagensMarcas.getWidth(), ImagensMarcas.getHeight(), 1));
             ImagensMarcas.setIcon(iconLogo);
+            ImagensMarcas1.setVisible(false);
     }//GEN-LAST:event_jTable1_tabelaMarcasMouseClicked
 
     public void limparTela(){
         jTextField1_IDMarcas.setText("");
         jTextField1_urlImagens.setText("");
         jTextField1_DescricaoMarca1.setText("");
+    }
+    
+    private void alterarMarca(){
+        try {
+            File fis = new File(jTextField1_urlImagens.getText());
+            Marcas marcas = new Marcas(Integer.parseInt(jTextField1_IDMarcas.getText()), jTextField1_DescricaoMarca1.getText(), 
+                    jTextField1_urlImagens.getText(), fis);
+            
+            MarcasDAO marc  = new MarcasDAO();
+            marc.alterarMarca(marcas);
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(this, err);
+        }
     }
     
     private void imprimirDadosNaGrid(ArrayList<Marcas> listaDeMarcas){
@@ -375,6 +415,7 @@ public class telaMarcas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BuscarMarcas;
     private javax.swing.JLabel ImagensMarcas;
+    private javax.swing.JLabel ImagensMarcas1;
     private javax.swing.JButton jButton4_voltar;
     private javax.swing.JButton jButton_Alterar;
     private javax.swing.JButton jButton_Remover;
