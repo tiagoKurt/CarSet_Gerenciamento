@@ -4,6 +4,7 @@
  */
 package com.car.visao;
 
+import com.car.Ferramentas.JTableRenderer;
 import com.car.Modelos.Marcas;
 import com.car.persistencia.IMarcasDAO;
 import com.car.persistencia.MarcasDAO;
@@ -11,10 +12,13 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,6 +41,13 @@ public class telaMarcas extends javax.swing.JFrame {
         
         
         jTextField1_IDMarcas.setEnabled(false);
+        
+        IMarcasDAO marcasBD = null;
+        try {
+            marcasBD = new MarcasDAO();
+            imprimirDadosNaGrid(marcasBD.listaDeMarcas());
+        } catch (Exception e) {
+        } 
     }
 
     /**
@@ -58,7 +69,7 @@ public class telaMarcas extends javax.swing.JFrame {
         jButton_iNCLUIR = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable1_tabelaMarcas = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jTextField1_IDMarcas = new javax.swing.JTextField();
@@ -157,10 +168,10 @@ public class telaMarcas extends javax.swing.JFrame {
         jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204)));
 
-        jTable1.setBackground(new java.awt.Color(153, 153, 153));
-        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jTable1.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1_tabelaMarcas.setBackground(new java.awt.Color(153, 153, 153));
+        jTable1_tabelaMarcas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jTable1_tabelaMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jTable1_tabelaMarcas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -168,11 +179,29 @@ public class telaMarcas extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "DESCRIÇÃO", ".", "LOGO"
+                "ID", "DESCRIÇÃO", "", "LOGO"
             }
-        ));
-        jTable1.setRowHeight(45);
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1_tabelaMarcas.setRowHeight(60);
+        jTable1_tabelaMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1_tabelaMarcasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1_tabelaMarcas);
+        if (jTable1_tabelaMarcas.getColumnModel().getColumnCount() > 0) {
+            jTable1_tabelaMarcas.getColumnModel().getColumn(1).setPreferredWidth(300);
+            jTable1_tabelaMarcas.getColumnModel().getColumn(2).setPreferredWidth(0);
+            jTable1_tabelaMarcas.getColumnModel().getColumn(3).setPreferredWidth(210);
+        }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, 710, 250));
 
@@ -230,7 +259,7 @@ public class telaMarcas extends javax.swing.JFrame {
             fc.showOpenDialog(this);
             File arquivo = fc.getSelectedFile();
             String nomeDoArquivo = arquivo.getPath();
-           jTextField1_urlImagens.setText(nomeDoArquivo);
+            jTextField1_urlImagens.setText(nomeDoArquivo);
             ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
             iconLogo.setImage(iconLogo.getImage().getScaledInstance(
                     ImagensMarcas.getWidth(), ImagensMarcas.getHeight(), 1));
@@ -257,11 +286,56 @@ public class telaMarcas extends javax.swing.JFrame {
             IMarcasDAO marcasBD = null;
             marcasBD = new MarcasDAO();
             marcasBD.InserirMarca(marca);
-            
+            limparTela();
+            imprimirDadosNaGrid(marcasBD.listaDeMarcas());
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
 
+    private void jTable1_tabelaMarcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1_tabelaMarcasMouseClicked
+        jTextField1_IDMarcas.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 0).toString());
+        jTextField1_DescricaoMarca1.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 1).toString());
+        jTextField1_urlImagens.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 2).toString());
+        String nomeDoArquivo = jTextField1_urlImagens.getText();
+        ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
+            iconLogo.setImage(iconLogo.getImage().getScaledInstance(
+                    ImagensMarcas.getWidth(), ImagensMarcas.getHeight(), 1));
+            ImagensMarcas.setIcon(iconLogo);
+    }//GEN-LAST:event_jTable1_tabelaMarcasMouseClicked
+
+    public void limparTela(){
+        jTextField1_IDMarcas.setText("");
+        jTextField1_urlImagens.setText("");
+        jTextField1_DescricaoMarca1.setText("");
+    }
+    
+    private void imprimirDadosNaGrid(ArrayList<Marcas> listaDeMarcas){
+            
+            try{
+            DefaultTableModel model = (DefaultTableModel) jTable1_tabelaMarcas.getModel();
+            JTableRenderer JtableRenderer = new JTableRenderer();
+            jTable1_tabelaMarcas.getColumnModel().getColumn(3).setCellRenderer(JtableRenderer);
+            
+            model.setNumRows(0);
+            Iterator<Marcas> lista = listaDeMarcas.iterator();
+            
+            while(lista.hasNext()){
+                String[] saida = new String[3];
+                Marcas aux = lista.next();
+                saida[0] = aux.getId() + "";
+                saida[1] = aux.getDescricao();
+                saida[2] = aux.getUrl();
+                
+                ImageIcon iconlogo = new ImageIcon((aux.getUrl()));
+                Object[] dados = {saida[0], saida[1], saida[2], iconlogo};
+                model.addRow(dados);
+                
+            }
+            }catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -314,7 +388,7 @@ public class telaMarcas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable1_tabelaMarcas;
     private javax.swing.JTextField jTextField1_DescricaoMarca1;
     private javax.swing.JTextField jTextField1_IDMarcas;
     private javax.swing.JTextField jTextField1_urlImagens;
