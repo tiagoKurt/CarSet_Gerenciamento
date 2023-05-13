@@ -91,7 +91,7 @@ public class MarcasDAO implements IMarcasDAO {
 
         } catch (Exception e) {
         }
-        return listaDeMarcas();  
+        return listaDeMarcas;  
     }
     public ResultSet listarMarcas() throws Exception{
         String sql = "SELECT descricao from marcas ORDER BY descricao";
@@ -100,24 +100,10 @@ public class MarcasDAO implements IMarcasDAO {
             st = conexao.prepareStatement(sql);
             return st.executeQuery();
             
+            
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
         
     }
-
-    @Override
-    public Marcas buscar(int idMarcas) throws Exception {
-
-        String sql = "SELECT descricao from marcas where idmarcas = ?";
-        try {
-            st = conexao.prepareStatement(sql);
-            st.setInt(1, idMarcas);
-            
-        } catch (SQLException erro) {
-            throw new Exception("SQL Erro: " + erro.getMessage());
-        }
-        return null;
-    }
-
 }
