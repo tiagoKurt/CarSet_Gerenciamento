@@ -1,6 +1,7 @@
 package com.car.persistencia;
 
 import com.car.Modelos.Marcas;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 
@@ -9,4 +10,5 @@ public interface IMarcasDAO {
     void alterarMarca(Marcas marca) throws Exception;
     boolean excluirMarca(int idmarcas) throws Exception;
     ArrayList<Marcas> listaDeMarcas() throws Exception;
+    Marcas buscar(int idMarcas) throws Exception; 
 }

@@ -6,10 +6,10 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 /**
  *
@@ -37,7 +37,6 @@ public class MarcasDAO implements IMarcasDAO {
             preparedStatement.setBinaryStream(3, fis);
             preparedStatement.executeUpdate();
             fis.close();
-
             conexao.close();
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
@@ -77,8 +76,9 @@ public class MarcasDAO implements IMarcasDAO {
     @Override
     public ArrayList<Marcas> listaDeMarcas() throws Exception {
         ArrayList<Marcas> listaDeMarcas = new ArrayList<Marcas>();
-        String sql = "select * from marcas";
+        
         try {
+            String sql = "select * from marcas";
             Statement statement = conexao.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -86,13 +86,38 @@ public class MarcasDAO implements IMarcasDAO {
                 marca.setId(rs.getInt("idMarcas"));
                 marca.setDescricao(rs.getString("descricao"));
                 marca.setUrl(rs.getString("urlMarcas"));
-
                 listaDeMarcas.add(marca);
             }
 
         } catch (Exception e) {
         }
-        return listaDeMarcas;
+        return listaDeMarcas();  
+    }
+    public ResultSet listarMarcas() throws Exception{
+        String sql = "SELECT descricao from marcas ORDER BY descricao";
+        
+        try {
+            st = conexao.prepareStatement(sql);
+            return st.executeQuery();
+            
+        } catch (SQLException erro) {
+            throw new Exception("SQL Erro: " + erro.getMessage());
+        }
+        
+    }
+
+    @Override
+    public Marcas buscar(int idMarcas) throws Exception {
+
+        String sql = "SELECT descricao from marcas where idmarcas = ?";
+        try {
+            st = conexao.prepareStatement(sql);
+            st.setInt(1, idMarcas);
+            
+        } catch (SQLException erro) {
+            throw new Exception("SQL Erro: " + erro.getMessage());
+        }
+        return null;
     }
 
 }

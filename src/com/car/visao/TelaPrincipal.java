@@ -63,6 +63,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -127,15 +128,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/cadastro.png"))); // NOI18N
         jMenu1.setText("CADASTRO");
         jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu1.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jMenu1.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/Gestor.png"))); // NOI18N
         jMenu2.setText("GESTOR");
         jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu2.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Bodoni MT", 3, 17)); // NOI18N
+        jMenuItem1.setFont(new java.awt.Font("Bodoni MT", 3, 20)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/marcarework.png"))); // NOI18N
         jMenuItem1.setText("MARCAS");
         jMenuItem1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -146,14 +147,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem1);
 
+        jMenuItem4.setFont(new java.awt.Font("Bodoni MT", 3, 20)); // NOI18N
+        jMenuItem4.setText("MODELOS");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/opcoes.png"))); // NOI18N
         jMenu3.setText("OPÇÕES");
         jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu3.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jMenu3.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
 
-        jMenuItem3.setFont(new java.awt.Font("Bodoni MT", 3, 17)); // NOI18N
+        jMenuItem3.setFont(new java.awt.Font("Bodoni MT", 3, 20)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/ponto-de-interrogacao.png"))); // NOI18N
         jMenuItem3.setText("AJUDA");
         jMenuItem3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -164,7 +174,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem3);
 
-        jMenuItem2.setFont(new java.awt.Font("Bodoni MT", 3, 17)); // NOI18N
+        jMenuItem2.setFont(new java.awt.Font("Bodoni MT", 3, 20)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/sair.png"))); // NOI18N
         jMenuItem2.setText("SAIR");
         jMenuItem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -220,6 +230,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        TelaModelos mod = new TelaModelos();
+        mod.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -273,5 +289,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }
