@@ -9,4 +9,5 @@ public interface IModelosDAO {
     void alterar(Modelos modelos) throws Exception;
     boolean excluir(int idModelos)throws Exception;
     ArrayList<Modelos> listagemDeModelos()throws Exception;
+    
 }

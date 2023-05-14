@@ -311,7 +311,7 @@ public class TelaModelos extends javax.swing.JFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1_tabelaMarcas.getModel();
             JTableRenderer JtableRenderer = new JTableRenderer();
-            jTable1_tabelaMarcas.getColumnModel().getColumn(3).setCellRenderer(JtableRenderer);
+            jTable1_tabelaMarcas.getColumnModel().getColumn(4).setCellRenderer(JtableRenderer);
 
             model.setNumRows(0);
             Iterator<Modelos> lista = listaDeMarcas.iterator();
@@ -340,10 +340,10 @@ public class TelaModelos extends javax.swing.JFrame {
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
-            
+
             IMarcasDAO marcaaaa = null;
             marcaaaa = new MarcasDAO();
-            
+
             int a = 0;
             File fis = new File(jTextField1_urlImagens.getText());
             Modelos modelo = null;
@@ -355,15 +355,15 @@ public class TelaModelos extends javax.swing.JFrame {
                 if (jComboBox1_ListaMarcas.getSelectedItem().equals(lista.get(i).getDescricao())) {
                     modelo.setMarca(lista.get(i));
                 }
-
-                IModelosDAO modelosDAO = null;
-                modelosDAO = new ModelosDAO();
-                modelosDAO.inserirModelos(modelo);
-                limparTela();
-                ImagensMarcas1.setVisible(true);
-                imprimirDadosNaGrid(modelosDAO.listagemDeModelos());
             }
-             }catch (Exception err) {
+            IModelosDAO modelosDAO = null;
+            modelosDAO = new ModelosDAO();
+            modelosDAO.inserirModelos(modelo);
+            limparTela();
+            ImagensMarcas1.setVisible(true);
+            imprimirDadosNaGrid(modelosDAO.listagemDeModelos());
+
+        } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }
     }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
