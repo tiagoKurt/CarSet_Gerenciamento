@@ -81,7 +81,7 @@ public class ModelosDAO implements IModelosDAO{
     @Override
     public boolean excluir(int idModelos) throws Exception {
            try {
-            st = conexao.prepareStatement("DELETE FROM marcas WHERE idmarcas = ?");
+            st = conexao.prepareStatement("DELETE FROM marcas WHERE idmodelos = ?");
             st.setInt(1, idModelos);
             st.executeUpdate();
             st.close();
@@ -91,6 +91,19 @@ public class ModelosDAO implements IModelosDAO{
         return false;
     }
 
+    public ResultSet listarMarcasIma(int idmarcas) throws Exception{
+
+        try {
+             st = conexao.prepareStatement("SELECT urlmarcas from marcas where idmarcas = ?");
+            st.setInt(1, idmarcas);
+            
+            return st.executeQuery();
+            
+        } catch (SQLException erro) {
+            throw new Exception("SQL Erro: " + erro.getMessage());
+        }
+        
+    }
     
     
 }

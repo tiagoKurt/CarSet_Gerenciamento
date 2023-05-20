@@ -29,15 +29,13 @@ public class MarcasDAO implements IMarcasDAO {
         try {
             FileInputStream fis = new FileInputStream(marca.getImageFile());
 
-            String sql = "insert into marcas(descricao, urlMarcas, imagemMarca) values (?, ?, ?)";
-            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            st = conexao.prepareStatement("insert into marcas( descricao, urlMarcas, imagemMarca) values (?, ?, ?)");
+            st.setString(1, marca.getDescricao());
+            st.setString(2, marca.getUrl());
+            st.setBinaryStream(3, fis);
+            st.executeUpdate();
+            st.close();
 
-            preparedStatement.setString(1, marca.getDescricao());
-            preparedStatement.setString(2, marca.getUrl());
-            preparedStatement.setBinaryStream(3, fis);
-            preparedStatement.executeUpdate();
-            fis.close();
-            conexao.close();
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
@@ -80,12 +78,14 @@ public class MarcasDAO implements IMarcasDAO {
         try {
             String sql = "select * from marcas";
             Statement statement = conexao.createStatement();
+            
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Marcas marca = new Marcas();
                 marca.setId(rs.getInt("idMarcas"));
                 marca.setDescricao(rs.getString("descricao"));
                 marca.setUrl(rs.getString("urlMarcas"));
+                marca.setImageFile(marca.getImageFile());
                 listaDeMarcas.add(marca);
             }
 
@@ -106,6 +106,8 @@ public class MarcasDAO implements IMarcasDAO {
         }
         
     }
+    
+    
     @Override
     public Marcas buscar(int id) throws Exception {
             
@@ -114,11 +116,10 @@ public class MarcasDAO implements IMarcasDAO {
             ResultSet rs = statement.executeQuery(sql);
             
             while(rs.next()){
-                Marcas objetoMarca = new Marcas();
                 
+                Marcas objetoMarca = new Marcas();
                 objetoMarca.setDescricao(rs.getString("descricaomodelos"));
                 objetoMarca.setUrl(rs.getString("urlmodelos"));
-                
                 
                 if(objetoMarca.getId()== id){
                     return new Marcas(0, "descricao", "urlMarcas", objetoMarca.getImageFile());
