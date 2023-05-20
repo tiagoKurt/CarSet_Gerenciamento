@@ -35,17 +35,17 @@ public class ModelosDAO implements IModelosDAO{
     public void inserirModelos(Modelos modelos) throws Exception {
         try {
             FileInputStream fis = new FileInputStream(modelos.getImagemModelo());
-            String sql = "Insert into modelos(nomemarcas, descricaomodelos, urlmodelos, imagemmodelo) values (?, ?, ?, ?)";
-            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             
-            preparedStatement.setString(1, modelos.getMarca().getDescricao());
-            preparedStatement.setString(2, modelos.getDescricao());
-            preparedStatement.setString(3, modelos.getUrl());
-            preparedStatement.setBinaryStream(4, fis);
-            preparedStatement.close();
-            fis.close();
-            conexao.close();
             
+            st = conexao.prepareStatement("insert into modelos(nomemarcas, descricaomodelos, urlmodelos, imagemmodelo) values (?, ?, ?, ?)");
+            
+            st.setString(1, modelos.getMarca().getDescricao());
+            st.setString(2, modelos.getDescricao());
+            st.setString(3, modelos.getUrl());
+            st.setBinaryStream(4, fis);
+            st.executeUpdate();
+            st.close();
+            fis.close();         
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
@@ -66,10 +66,12 @@ public class ModelosDAO implements IModelosDAO{
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Modelos modelo = new Modelos();
+                Marcas marca = new Marcas();
                 modelo.setIdModelos(rs.getInt("idmodelos"));
                 modelo.setMarca((Marcas) rs.getObject(modelo.getMarca().getDescricao()));
                 modelo.setDescricao(rs.getString("descricaomodelos"));
                 modelo.setUrl(rs.getString("urlmodelos"));
+                modelo.setImagemModelo(modelo.getImagemModelo());
                 listagemDeModelos.add(modelo);
             }
         
@@ -103,6 +105,11 @@ public class ModelosDAO implements IModelosDAO{
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
         
+    }
+
+    @Override
+    public Marcas buscar(int id) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

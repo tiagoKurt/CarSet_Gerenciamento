@@ -86,7 +86,7 @@ public class telaMarcas extends javax.swing.JFrame {
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        jButton4_voltar.setBackground(new java.awt.Color(0, 0, 0));
+        jButton4_voltar.setBackground(new java.awt.Color(102, 102, 102));
         jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton4_voltar.setForeground(new java.awt.Color(255, 0, 153));
         jButton4_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/voltar.png"))); // NOI18N
@@ -98,12 +98,13 @@ public class telaMarcas extends javax.swing.JFrame {
                 jButton4_voltarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 630, 130, 40));
+        getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 630, 140, 40));
 
-        BuscarMarcas.setBackground(new java.awt.Color(0, 0, 0));
+        BuscarMarcas.setBackground(new java.awt.Color(102, 102, 102));
         BuscarMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         BuscarMarcas.setForeground(new java.awt.Color(255, 0, 153));
-        BuscarMarcas.setText("BUSCAR");
+        BuscarMarcas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/buscarImagemIcon.png"))); // NOI18N
+        BuscarMarcas.setText("  BUSCAR");
         BuscarMarcas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         BuscarMarcas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BuscarMarcas.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +112,7 @@ public class telaMarcas extends javax.swing.JFrame {
                 BuscarMarcasActionPerformed(evt);
             }
         });
-        getContentPane().add(BuscarMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 190, 130, 40));
+        getContentPane().add(BuscarMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 190, 140, 40));
 
         ImagensMarcas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/PinkImages.gif"))); // NOI18N
         ImagensMarcas1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -128,9 +129,10 @@ public class telaMarcas extends javax.swing.JFrame {
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 470, 30));
 
-        jButton_Remover.setBackground(new java.awt.Color(0, 0, 0));
+        jButton_Remover.setBackground(new java.awt.Color(102, 102, 102));
         jButton_Remover.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_Remover.setForeground(new java.awt.Color(255, 0, 153));
+        jButton_Remover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/removeriten.png"))); // NOI18N
         jButton_Remover.setText("REMOVER");
         jButton_Remover.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jButton_Remover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -139,11 +141,12 @@ public class telaMarcas extends javax.swing.JFrame {
                 jButton_RemoverActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_Remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 340, 130, 40));
+        getContentPane().add(jButton_Remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 340, 140, 40));
 
-        jButton_Alterar.setBackground(new java.awt.Color(0, 0, 0));
+        jButton_Alterar.setBackground(new java.awt.Color(102, 102, 102));
         jButton_Alterar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_Alterar.setForeground(new java.awt.Color(255, 0, 153));
+        jButton_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/alterar.png"))); // NOI18N
         jButton_Alterar.setText("ALTERAR");
         jButton_Alterar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jButton_Alterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -152,12 +155,13 @@ public class telaMarcas extends javax.swing.JFrame {
                 jButton_AlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 290, 130, 40));
+        getContentPane().add(jButton_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 290, 140, 40));
 
-        jButton_iNCLUIR.setBackground(new java.awt.Color(0, 0, 0));
+        jButton_iNCLUIR.setBackground(new java.awt.Color(102, 102, 102));
         jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_iNCLUIR.setForeground(new java.awt.Color(255, 0, 153));
-        jButton_iNCLUIR.setText("INCLUIR");
+        jButton_iNCLUIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/adicionarItens.png"))); // NOI18N
+        jButton_iNCLUIR.setText("  INCLUIR");
         jButton_iNCLUIR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jButton_iNCLUIR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_iNCLUIR.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +169,7 @@ public class telaMarcas extends javax.swing.JFrame {
                 jButton_iNCLUIRActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_iNCLUIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 240, 130, 40));
+        getContentPane().add(jButton_iNCLUIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 240, 140, 40));
 
         jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, -1, 40));
@@ -237,7 +241,7 @@ public class telaMarcas extends javax.swing.JFrame {
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 450, -1));
 
         jLabel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4), "OPÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 22), new java.awt.Color(0, 0, 0))); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 160, 390, 230));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 160, 400, 230));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -287,7 +291,7 @@ public class telaMarcas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e);
         }
     }//GEN-LAST:event_jButton_RemoverActionPerformed
-
+    
     private void jButton_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AlterarActionPerformed
         try {
             IMarcasDAO marcasDAO = null;

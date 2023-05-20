@@ -35,7 +35,7 @@ public class MarcasDAO implements IMarcasDAO {
             st.setBinaryStream(3, fis);
             st.executeUpdate();
             st.close();
-
+            fis.close();
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
@@ -93,6 +93,7 @@ public class MarcasDAO implements IMarcasDAO {
         }
         return listaDeMarcas;  
     }
+    
     public ResultSet listarMarcas() throws Exception{
         String sql = "SELECT descricao from marcas ORDER BY descricao";
         
@@ -110,19 +111,19 @@ public class MarcasDAO implements IMarcasDAO {
     
     @Override
     public Marcas buscar(int id) throws Exception {
-            
-            String sql = "select * from modelos where idmodelos = ?";
+            String sql = "SELECT * FROM marcas WHERE idmarcas = ?";
             Statement statement = conexao.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             
             while(rs.next()){
-                
                 Marcas objetoMarca = new Marcas();
-                objetoMarca.setDescricao(rs.getString("descricaomodelos"));
-                objetoMarca.setUrl(rs.getString("urlmodelos"));
+                objetoMarca.setId(rs.getInt("idmarcas"));
+                objetoMarca.setDescricao(rs.getString("descricao"));
+                objetoMarca.setUrl(rs.getString("urlMarcas"));
+                objetoMarca.setImageFile(objetoMarca.getImageFile());
                 
                 if(objetoMarca.getId()== id){
-                    return new Marcas(0, "descricao", "urlMarcas", objetoMarca.getImageFile());
+                    return new Marcas(objetoMarca.getId(), "descricao", "urlMarcas", objetoMarca.getImageFile());
                 }
                 
             }
