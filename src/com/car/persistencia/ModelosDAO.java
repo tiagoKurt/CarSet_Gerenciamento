@@ -56,15 +56,15 @@ public class ModelosDAO implements IModelosDAO {
     public ArrayList<Modelos> listagemDeModelos() throws Exception {
         ArrayList<Modelos> listagemDeModelos = new ArrayList<Modelos>();
         try {
-            String sql = "select * from modelos";
+            String sql = "select * from modelos order by idmodelos";
             Statement statement = conexao.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Modelos modelo = new Modelos();
-                Marcas marca = new Marcas();
+                MarcasDAO marca = new MarcasDAO();
                 modelo.setIdModelos(rs.getInt("idmodelos"));
-                modelo.setMarca((Marcas) rs.getObject(modelo.getMarca().getDescricao()));
+                modelo.setMarca(marca.listaDeMarcas().get(0));
                 modelo.setDescricao(rs.getString("descricaomodelos"));
                 modelo.setUrl(rs.getString("urlmodelos"));
                 modelo.setImagemModelo(modelo.getImagemModelo());

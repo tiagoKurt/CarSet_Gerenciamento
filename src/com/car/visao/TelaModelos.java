@@ -230,7 +230,7 @@ public class TelaModelos extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -382,7 +382,7 @@ public class TelaModelos extends javax.swing.JFrame {
         jTextField1_DescricaoModelo.setText("");
     }
 
-    private void imprimirDadosNaGrid(ArrayList<Modelos> listaModeloses) {
+    private void imprimirDadosNaGrid(ArrayList<Modelos> listagemDeModelos) {
 
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1_tabelaModelos.getModel();
@@ -390,19 +390,20 @@ public class TelaModelos extends javax.swing.JFrame {
             jTable1_tabelaModelos.getColumnModel().getColumn(5).setCellRenderer(JtableRenderer);
 
             model.setNumRows(0);
-            Iterator<Modelos> lista = listaModeloses.iterator();
+            Iterator<Modelos> lista = listagemDeModelos.iterator();
 
             while (lista.hasNext()) {
                 String[] saida = new String[4];
                 Modelos aux = lista.next();
                 saida[0] = aux.getIdModelos() + "";
-                saida[1] = aux.getMarca().getDescricao();
+                saida[1] = aux.getMarca().getDescricao()+"";
                 saida[2] = aux.getDescricao();
                 saida[3] = aux.getUrl();
 
                 ImageIcon iconlogo = new ImageIcon((aux.getUrl()));
-                ImageIcon marca = new ImageIcon(aux.getMarca().getUrl());
-                Object[] dados = {saida[0], saida[1], marca, saida[2], saida[3], iconlogo};
+                ImageIcon marca = new ImageIcon((aux.getMarca().getUrl()));
+                
+                Object[] dados = {saida[0], saida[1],marca, saida[2], saida[3],iconlogo};
                 model.addRow(dados);
 
             }
