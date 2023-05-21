@@ -19,33 +19,29 @@ import java.util.ArrayList;
  *
  * @author Pichau
  */
-public class ModelosDAO implements IModelosDAO{
-    
-    private Connection conexao = null; 
+public class ModelosDAO implements IModelosDAO {
+
+    private Connection conexao = null;
     PreparedStatement st;
-    
-    public ModelosDAO()throws Exception{
+
+    public ModelosDAO() throws Exception {
         conexao = ConexaoBD.getConexao();
     }
-    
-    
-    
-    
+
     @Override
     public void inserirModelos(Modelos modelos) throws Exception {
         try {
             FileInputStream fis = new FileInputStream(modelos.getImagemModelo());
-            
-            
+
             st = conexao.prepareStatement("insert into modelos(nomemarcas, descricaomodelos, urlmodelos, imagemmodelo) values (?, ?, ?, ?)");
-            
+
             st.setString(1, modelos.getMarca().getDescricao());
             st.setString(2, modelos.getDescricao());
             st.setString(3, modelos.getUrl());
             st.setBinaryStream(4, fis);
             st.executeUpdate();
             st.close();
-            fis.close();         
+            fis.close();
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
@@ -59,10 +55,10 @@ public class ModelosDAO implements IModelosDAO{
     @Override
     public ArrayList<Modelos> listagemDeModelos() throws Exception {
         ArrayList<Modelos> listagemDeModelos = new ArrayList<Modelos>();
-        try{
-        String sql = "select * from modelos";
-        
-        Statement statement = conexao.createStatement();
+        try {
+            String sql = "select * from modelos";
+            Statement statement = conexao.createStatement();
+            
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Modelos modelo = new Modelos();
@@ -74,15 +70,15 @@ public class ModelosDAO implements IModelosDAO{
                 modelo.setImagemModelo(modelo.getImagemModelo());
                 listagemDeModelos.add(modelo);
             }
-        
-        }catch (Exception e) {
+
+        } catch (Exception e) {
         }
         return listagemDeModelos;
     }
 
     @Override
     public boolean excluir(int idModelos) throws Exception {
-           try {
+        try {
             st = conexao.prepareStatement("DELETE FROM marcas WHERE idmodelos = ?");
             st.setInt(1, idModelos);
             st.executeUpdate();
@@ -93,24 +89,23 @@ public class ModelosDAO implements IModelosDAO{
         return false;
     }
 
-    public ResultSet listarMarcasIma(int idmarcas) throws Exception{
+    public ResultSet listarMarcasIma(int idmarcas) throws Exception {
 
         try {
-             st = conexao.prepareStatement("SELECT urlmarcas from marcas where idmarcas = ?");
+            st = conexao.prepareStatement("SELECT urlmarcas from marcas where idmarcas = ?");
             st.setInt(1, idmarcas);
-            
+
             return st.executeQuery();
-            
+
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
-        
+
     }
 
     @Override
     public Marcas buscar(int id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
+
 }
