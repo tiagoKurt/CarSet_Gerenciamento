@@ -111,17 +111,17 @@ public class TelaModelos extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("MARCAS");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 160, -1, 40));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, -1, 40));
 
         jLabel13.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText("MODELOS");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, -1, 40));
+        jLabel13.setText("MODELO");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 160, -1, 40));
 
         jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 330, -1));
 
-        jButton4_voltar.setBackground(new java.awt.Color(102, 102, 102));
+        jButton4_voltar.setBackground(new java.awt.Color(255, 255, 255));
         jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton4_voltar.setForeground(new java.awt.Color(255, 51, 153));
         jButton4_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/voltar.png"))); // NOI18N
@@ -135,7 +135,7 @@ public class TelaModelos extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 630, 140, 40));
 
-        BuscarMarcas.setBackground(new java.awt.Color(102, 102, 102));
+        BuscarMarcas.setBackground(new java.awt.Color(255, 255, 255));
         BuscarMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         BuscarMarcas.setForeground(new java.awt.Color(255, 51, 153));
         BuscarMarcas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/buscarImagemIcon.png"))); // NOI18N
@@ -167,7 +167,7 @@ public class TelaModelos extends javax.swing.JFrame {
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(836, 200, -1, 190));
 
-        jButton_Remover.setBackground(new java.awt.Color(102, 102, 102));
+        jButton_Remover.setBackground(new java.awt.Color(255, 255, 255));
         jButton_Remover.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_Remover.setForeground(new java.awt.Color(255, 51, 153));
         jButton_Remover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/removeriten.png"))); // NOI18N
@@ -181,7 +181,7 @@ public class TelaModelos extends javax.swing.JFrame {
         });
         getContentPane().add(jButton_Remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 350, 140, 40));
 
-        jButton_Alterar.setBackground(new java.awt.Color(102, 102, 102));
+        jButton_Alterar.setBackground(new java.awt.Color(255, 255, 255));
         jButton_Alterar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_Alterar.setForeground(new java.awt.Color(255, 51, 153));
         jButton_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/alterar.png"))); // NOI18N
@@ -195,7 +195,7 @@ public class TelaModelos extends javax.swing.JFrame {
         });
         getContentPane().add(jButton_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 300, 140, 40));
 
-        jButton_iNCLUIR.setBackground(new java.awt.Color(102, 102, 102));
+        jButton_iNCLUIR.setBackground(new java.awt.Color(255, 255, 255));
         jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_iNCLUIR.setForeground(new java.awt.Color(255, 51, 153));
         jButton_iNCLUIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/adicionarItens.png"))); // NOI18N
@@ -217,7 +217,7 @@ public class TelaModelos extends javax.swing.JFrame {
 
         jTable1_tabelaModelos.setBackground(new java.awt.Color(153, 153, 153));
         jTable1_tabelaModelos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jTable1_tabelaModelos.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jTable1_tabelaModelos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTable1_tabelaModelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -237,13 +237,21 @@ public class TelaModelos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1_tabelaModelos.setRowHeight(60);
+        jTable1_tabelaModelos.setRequestFocusEnabled(false);
+        jTable1_tabelaModelos.setRowHeight(75);
         jTable1_tabelaModelos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1_tabelaModelosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1_tabelaModelos);
+        if (jTable1_tabelaModelos.getColumnModel().getColumnCount() > 0) {
+            jTable1_tabelaModelos.getColumnModel().getColumn(1).setPreferredWidth(170);
+            jTable1_tabelaModelos.getColumnModel().getColumn(2).setPreferredWidth(0);
+            jTable1_tabelaModelos.getColumnModel().getColumn(3).setPreferredWidth(170);
+            jTable1_tabelaModelos.getColumnModel().getColumn(4).setPreferredWidth(0);
+            jTable1_tabelaModelos.getColumnModel().getColumn(5).setPreferredWidth(150);
+        }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 420, 800, 250));
 
@@ -403,7 +411,7 @@ public class TelaModelos extends javax.swing.JFrame {
                 ImageIcon iconlogo = new ImageIcon((aux.getUrl()));
                 ImageIcon marca = new ImageIcon((aux.getMarca().getUrl()));
                 
-                Object[] dados = {saida[0], saida[1],marca, saida[2], saida[3],iconlogo};
+                Object[] dados = {saida[0], saida[1], marca,  saida[2], saida[3],iconlogo};
                 model.addRow(dados);
 
             }
@@ -450,14 +458,17 @@ public class TelaModelos extends javax.swing.JFrame {
 
     private void jTable1_tabelaModelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1_tabelaModelosMouseClicked
         jTextField1_IDModelos.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 0).toString());
-        jTextField1_DescricaoModelo.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 1).toString());
-        jTextField1_urlImagens.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 2).toString());
+        jTextField1_DescricaoModelo.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 3).toString());
+        jTextField1_urlImagens.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 4).toString());
         String nomeDoArquivo = jTextField1_urlImagens.getText();
         ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
         iconLogo.setImage(iconLogo.getImage().getScaledInstance(
-                ImagensMarcas.getWidth(), ImagensMarcas.getHeight(), 1));
+                ImagensModelos.getWidth(), ImagensModelos.getHeight(), 1));
         ImagensMarcas.setIcon(iconLogo);
         ImagensModelos.setVisible(false);
+        
+        jComboBox1_ListaMarcas.setSelectedItem(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 1).toString());
+        
     }//GEN-LAST:event_jTable1_tabelaModelosMouseClicked
 
     private void jComboBox1_ListaMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_ListaMarcasActionPerformed

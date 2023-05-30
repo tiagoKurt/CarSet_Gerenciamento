@@ -62,9 +62,12 @@ public class ModelosDAO implements IModelosDAO {
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Modelos modelo = new Modelos();
+                ModelosDAO modeloo = new ModelosDAO();
+                
                 MarcasDAO marca = new MarcasDAO();
+                
                 modelo.setIdModelos(rs.getInt("idmodelos"));
-                modelo.setMarca(marca.listaDeMarcas().get(0));
+                modelo.setMarca(marca.listaDeMarcas().get(0));   
                 modelo.setDescricao(rs.getString("descricaomodelos"));
                 modelo.setUrl(rs.getString("urlmodelos"));
                 modelo.setImagemModelo(modelo.getImagemModelo());
@@ -79,7 +82,7 @@ public class ModelosDAO implements IModelosDAO {
     @Override
     public boolean excluir(int idModelos) throws Exception {
         try {
-            st = conexao.prepareStatement("DELETE FROM marcas WHERE idmodelos = ?");
+            st = conexao.prepareStatement("DELETE FROM modelos WHERE idmodelos = ?");
             st.setInt(1, idModelos);
             st.executeUpdate();
             st.close();
@@ -87,20 +90,6 @@ public class ModelosDAO implements IModelosDAO {
         } catch (Exception e) {
         }
         return false;
-    }
-
-    public ResultSet listarMarcasIma(int idmarcas) throws Exception {
-
-        try {
-            st = conexao.prepareStatement("SELECT urlmarcas from marcas where idmarcas = ?");
-            st.setInt(1, idmarcas);
-
-            return st.executeQuery();
-
-        } catch (SQLException erro) {
-            throw new Exception("SQL Erro: " + erro.getMessage());
-        }
-
     }
 
     @Override

@@ -43,18 +43,18 @@ public class MarcasDAO implements IMarcasDAO {
 
     @Override
     public void alterarMarca(Marcas marca) throws Exception {
-        
-        try{
-        FileInputStream fis = new FileInputStream(marca.getImageFile());
-        st = conexao.prepareStatement("UPDATE marcas SET descricao = ?, urlmarcas = ?, imagemmarca = ? WHERE idmarcas = ?");
-        st.setString(1, marca.getDescricao());
-        st.setString(2, marca.getUrl());
-        st.setBinaryStream(3, fis);
-        st.setInt(4, marca.getId());
-        st.executeUpdate();
-        st.close();
-        }catch (SQLException e) {
-            JOptionPane.showMessageDialog(null , "ALTERAR" + e);
+
+        try {
+            FileInputStream fis = new FileInputStream(marca.getImageFile());
+            st = conexao.prepareStatement("UPDATE marcas SET descricao = ?, urlmarcas = ?, imagemmarca = ? WHERE idmarcas = ?");
+            st.setString(1, marca.getDescricao());
+            st.setString(2, marca.getUrl());
+            st.setBinaryStream(3, fis);
+            st.setInt(4, marca.getId());
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ALTERAR" + e);
         }
     }
 
@@ -74,11 +74,11 @@ public class MarcasDAO implements IMarcasDAO {
     @Override
     public ArrayList<Marcas> listaDeMarcas() throws Exception {
         ArrayList<Marcas> listaDeMarcas = new ArrayList<Marcas>();
-        
+
         try {
             String sql = "select * from marcas";
             Statement statement = conexao.createStatement();
-            
+
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Marcas marca = new Marcas();
@@ -91,42 +91,39 @@ public class MarcasDAO implements IMarcasDAO {
 
         } catch (Exception e) {
         }
-        return listaDeMarcas;  
+        return listaDeMarcas;
     }
-    
-    public ResultSet listarMarcas() throws Exception{
+
+    public ResultSet listarMarcas() throws Exception {
         String sql = "SELECT descricao from marcas ORDER BY descricao";
-        
+
         try {
             st = conexao.prepareStatement(sql);
             return st.executeQuery();
-            
-            
+
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
-        
+
     }
-    
-    
+
     @Override
     public Marcas buscar(int id) throws Exception {
-            String sql = "SELECT * FROM marcas WHERE idmarcas = ?";
-            Statement statement = conexao.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            
-            while(rs.next()){
-                Marcas objetoMarca = new Marcas();
-                objetoMarca.setId(rs.getInt("idmarcas"));
-                objetoMarca.setDescricao(rs.getString("descricao"));
-                objetoMarca.setUrl(rs.getString("urlMarcas"));
-                objetoMarca.setImageFile(objetoMarca.getImageFile());
-                
-                if(objetoMarca.getId()== id){
-                    return new Marcas(objetoMarca.getId(), "descricao", "urlMarcas", objetoMarca.getImageFile());
-                }
-                
+        String sql = "SELECT descricao FROM marcas WHERE idmarcas = ?";
+        Statement statement = conexao.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        while (rs.next()) {
+            Marcas objetoMarca = new Marcas();
+            objetoMarca.setId(rs.getInt("idmarcas"));
+            objetoMarca.setDescricao(rs.getString("descricao"));
+            objetoMarca.setUrl(rs.getString("urlMarcas"));
+            objetoMarca.setImageFile(objetoMarca.getImageFile());
+            if(objetoMarca.getId() == id){
+            return new Marcas(objetoMarca.getId(), objetoMarca.getDescricao(), objetoMarca.getUrl(), objetoMarca.getImageFile());
             }
-            return null;
+        }
+        return null;
     }
+    
 }

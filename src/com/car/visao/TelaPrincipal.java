@@ -77,23 +77,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 350, -1));
 
-        jLabel2.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel2.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setBackground(null);
+        jLabel2.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("NO MENU SUPERIOR");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 380, 280, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 380, 310, 40));
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Bodoni MT", 3, 48)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setBackground(null);
+        jLabel4.setFont(new java.awt.Font("Bodoni MT", 3, 52)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("BEM VINDO!");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 260, 320, 60));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, 340, 70));
 
-        jLabel6.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel6.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setBackground(null);
+        jLabel6.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("ESCOLHA UMA OPÇÃO");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, 300, 40));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, 340, 40));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/instagram.png"))); // NOI18N
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -126,6 +126,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "COLABORADORES DO PROJETO", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 22), new java.awt.Color(0, 0, 0))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 580, 430, 100));
 
+        jLabel7.setBackground(null);
+        jLabel7.setForeground(null);
         jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, 340, 10));
 
