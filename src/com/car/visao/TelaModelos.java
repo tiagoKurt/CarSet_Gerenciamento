@@ -404,7 +404,7 @@ public class TelaModelos extends javax.swing.JFrame {
                 String[] saida = new String[4];
                 Modelos aux = lista.next();
                 saida[0] = aux.getIdModelos() + "";
-                saida[1] = aux.getMarca().getDescricao()+"";
+                saida[1] = aux.getMarca().getDescricao();
                 saida[2] = aux.getDescricao();
                 saida[3] = aux.getUrl();
 

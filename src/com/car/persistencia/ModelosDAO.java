@@ -33,9 +33,9 @@ public class ModelosDAO implements IModelosDAO {
         try {
             FileInputStream fis = new FileInputStream(modelos.getImagemModelo());
 
-            st = conexao.prepareStatement("insert into modelos(nomemarcas, descricaomodelos, urlmodelos, imagemmodelo) values (?, ?, ?, ?)");
+            st = conexao.prepareStatement("insert into modelos(idMarcas, descricaomodelos, urlmodelos, imagemmodelo) values (?, ?, ?, ?)");
 
-            st.setString(1, modelos.getMarca().getDescricao());
+            st.setInt(1, modelos.getMarca().getId());
             st.setString(2, modelos.getDescricao());
             st.setString(3, modelos.getUrl());
             st.setBinaryStream(4, fis);
