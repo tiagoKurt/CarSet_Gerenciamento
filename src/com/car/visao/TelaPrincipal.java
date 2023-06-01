@@ -9,10 +9,8 @@ import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,19 +75,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 350, -1));
 
-        jLabel2.setBackground(null);
         jLabel2.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("NO MENU SUPERIOR");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 380, 310, 40));
 
-        jLabel4.setBackground(null);
         jLabel4.setFont(new java.awt.Font("Bodoni MT", 3, 52)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("BEM VINDO!");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, 340, 70));
 
-        jLabel6.setBackground(null);
         jLabel6.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("ESCOLHA UMA OPÇÃO");
@@ -114,20 +109,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 620, 40, 30));
 
         jLabel11.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("LINKEDIN");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 630, -1, 20));
 
         jLabel9.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("INSTAGRAM");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 630, -1, 20));
 
-        jLabel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "COLABORADORES DO PROJETO", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 22), new java.awt.Color(0, 0, 0))); // NOI18N
+        jLabel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "COLABORADORES DO PROJETO", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 22), new java.awt.Color(255, 255, 255))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 580, 430, 100));
 
-        jLabel7.setBackground(null);
-        jLabel7.setForeground(null);
         jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, 340, 10));
 
