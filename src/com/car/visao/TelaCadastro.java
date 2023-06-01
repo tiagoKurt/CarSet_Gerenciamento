@@ -4,6 +4,8 @@
  */
 package com.car.visao;
 
+import com.car.Modelos.cadastroPessoas;
+import com.car.persistencia.cadastroPessoasDAO;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -55,7 +57,6 @@ public class TelaCadastro extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1050, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/instagram.png"))); // NOI18N
@@ -111,6 +112,11 @@ public class TelaCadastro extends javax.swing.JFrame {
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/botaoLogin.jpg"))); // NOI18N
         jButton9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 530, 280, 50));
 
         jTextField3_senha.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
@@ -175,6 +181,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         getContentPane().add(jTextField5_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 360, 280, 50));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.png"))); // NOI18N
+        jLabel12.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 5, true));
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 800));
 
         pack();
@@ -225,6 +232,23 @@ public class TelaCadastro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5_emailActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        try {
+            cadastroPessoasDAO pessoa = new cadastroPessoasDAO();
+            cadastroPessoas pessoinha = new cadastroPessoas(jTextField4_nomeUsuario.getText(), jTextField5_email.getText(), jTextField3_senha.getText());
+            pessoa.cadastrarPessoas(pessoinha);
+            limparCampos();
+        } catch (Exception ex) {
+            Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    public void limparCampos(){
+        jTextField3_senha.setText("");
+        jTextField4_nomeUsuario.setText("");
+        jTextField5_email.setText("");
+    }
     /**
      * @param args the command line arguments
      */

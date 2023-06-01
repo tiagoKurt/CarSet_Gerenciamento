@@ -26,10 +26,16 @@ public class cadastroPessoasDAO {
     
     public void cadastrarPessoas(cadastroPessoas pessoas) throws SQLException, Exception{
         try {
-            st = conexao.prepareStatement("insert into pessoasCadastradas(nomeDeUsuario, email,senha) values(?,?,?)");
+            
+            st = conexao.prepareStatement("insert into pessoasCadastradas(nomeDeUsuario, email, senha) values(?,?,?)");
+            st.setString(1, pessoas.getNomeUsuario());
+            st.setString(2, pessoas.getEmail());
+            st.setString(3, pessoas.getSenha());
+            st.executeUpdate();
+            st.close();
+            
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
-         
     }
 }
