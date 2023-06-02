@@ -12,6 +12,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -234,14 +235,19 @@ public class TelaCadastro extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         try {
+            if(jTextField4_nomeUsuario.getText().matches("") || jTextField3_senha.getText().matches("") || jTextField5_email.getText().matches("")){
+                JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos!");
+            }else{
+            
             cadastroPessoasDAO pessoa = new cadastroPessoasDAO();
             cadastroPessoas pessoinha = new cadastroPessoas(jTextField4_nomeUsuario.getText(), jTextField5_email.getText(), jTextField3_senha.getText());
             pessoa.cadastrarPessoas(pessoinha);
             limparCampos();
+            }
         } catch (Exception ex) {
             Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        JOptionPane.showMessageDialog(rootPane, "Cadastro realizado com sucesso!");
     }//GEN-LAST:event_jButton9ActionPerformed
 
     public void limparCampos(){

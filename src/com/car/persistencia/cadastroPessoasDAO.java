@@ -38,4 +38,20 @@ public class cadastroPessoasDAO {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
     }
+    
+    public boolean Login(String usuario, String senha) throws SQLException{
+        String sql = ("SELECT nomeDeUsuario, senha from pessoasCadastradas WHERE nomeDeUsuario = '"+usuario+"'"
+                + "AND senha = '" +senha+"'");
+        PreparedStatement statment = conexao.prepareStatement(sql);
+        ResultSet rs = statment.executeQuery();
+        
+        if(rs.next()){
+            
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
 }

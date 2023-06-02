@@ -4,12 +4,15 @@
  */
 package com.car.visao;
 
+import com.car.Controle.cadastroPessoasControle;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.awt.Desktop;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -22,10 +25,9 @@ public class telaLogin extends javax.swing.JFrame {
      */
     public telaLogin() {
         initComponents();
-        
+
         setLocationRelativeTo(null);
-        
-        
+
     }
 
     /**
@@ -46,8 +48,8 @@ public class telaLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jTextField1_nomeUsuario = new javax.swing.JTextField();
+        jTextField2_senha = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
@@ -59,7 +61,6 @@ public class telaLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LoginOuCadastro");
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1050, 800));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -117,23 +118,23 @@ public class telaLogin extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 550, 190, 30));
 
-        jTextField1.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1_nomeUsuario.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
+        jTextField1_nomeUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jTextField1_nomeUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextField1_nomeUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 280, 50));
+        getContentPane().add(jTextField1_nomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 280, 50));
 
-        jTextField2.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jTextField2_senha.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
+        jTextField2_senha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jTextField2_senha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jTextField2_senhaActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, 280, 50));
+        getContentPane().add(jTextField2_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, 280, 50));
 
         jLabel10.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -220,16 +221,16 @@ public class telaLogin extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(telaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(telaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextField1_nomeUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1_nomeUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextField1_nomeUsuarioActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextField2_senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2_senhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_jTextField2_senhaActionPerformed
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         TelaCadastro cad = new TelaCadastro();
@@ -241,8 +242,8 @@ public class telaLogin extends javax.swing.JFrame {
         TelaCadastro cad = new TelaCadastro();
         cad.setVisible(true);
         this.dispose();
-        
-        
+
+
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -250,15 +251,42 @@ public class telaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        TelaPrincipal princ = new TelaPrincipal();
-        princ.setVisible(true);
-        this.dispose();
+        try {
+
+            cadastroPessoasControle login = new cadastroPessoasControle();
+            if (login.loginUsuario(this) == true) {
+                TelaPrincipal princ = new TelaPrincipal();
+                princ.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha incorretos!");
+            }
+
+        } catch (Exception e) {
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4_voltarActionPerformed
 
         System.exit(0);
     }//GEN-LAST:event_jButton4_voltarActionPerformed
+
+    public JTextField getjTextField1_nomeUsuario() {
+        return jTextField1_nomeUsuario;
+    }
+
+    public void setjTextField1_nomeUsuario(JTextField jTextField1_nomeUsuario) {
+        this.jTextField1_nomeUsuario = jTextField1_nomeUsuario;
+    }
+
+    public JTextField getjTextField2_senha() {
+        return jTextField2_senha;
+    }
+
+    public void setjTextField2_senha(JTextField jTextField2_senha) {
+        this.jTextField2_senha = jTextField2_senha;
+    }
 
     /**
      * @param args the command line arguments
@@ -312,7 +340,7 @@ public class telaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField1_nomeUsuario;
+    private javax.swing.JTextField jTextField2_senha;
     // End of variables declaration//GEN-END:variables
 }
