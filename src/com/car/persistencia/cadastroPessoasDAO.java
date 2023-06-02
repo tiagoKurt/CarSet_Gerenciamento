@@ -46,10 +46,8 @@ public class cadastroPessoasDAO {
         ResultSet rs = statment.executeQuery();
         
         if(rs.next()){
-            
             return true;
         }
-        
         return false;
         
     }

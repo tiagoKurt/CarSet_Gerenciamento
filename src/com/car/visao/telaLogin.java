@@ -252,16 +252,19 @@ public class telaLogin extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
+            if (jTextField2_senha.getText().matches("") || jTextField1_nomeUsuario.getText().matches("")) {
+                JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos corretamente!");
+            } else {
 
-            cadastroPessoasControle login = new cadastroPessoasControle();
-            if (login.loginUsuario(this) == true) {
-                TelaPrincipal princ = new TelaPrincipal();
-                princ.setVisible(true);
-                this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha incorretos!");
+                cadastroPessoasControle login = new cadastroPessoasControle();
+                if (login.loginUsuario(this) == true) {
+                    TelaPrincipal princ = new TelaPrincipal();
+                    princ.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Usuario ou senha incorretos!");
+                }
             }
-
         } catch (Exception e) {
         }
 
