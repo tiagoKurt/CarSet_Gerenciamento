@@ -4,6 +4,7 @@
  */
 package com.car.visao;
 
+import com.car.Ferramentas.ConexaoBD;
 import com.car.Ferramentas.JTableRenderer;
 import com.car.Modelos.Marcas;
 import com.car.Modelos.Modelos;
@@ -14,6 +15,8 @@ import com.car.persistencia.ModelosDAO;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
@@ -24,6 +27,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.*;
 
 /**
  *
@@ -32,8 +36,16 @@ import java.util.logging.Logger;
 public class TelaModelos extends javax.swing.JFrame {
 
     IMarcasDAO marcasBD = null;
+    private Connection conexao = null;
+    PreparedStatement st;
 
     public TelaModelos() {
+        
+        try {
+            conexao = ConexaoBD.getConexao();
+        } catch (Exception ex) {
+            Logger.getLogger(TelaModelos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initComponents();
 
         jTextField1_IDModelos.setEnabled(false);
@@ -395,26 +407,66 @@ public class TelaModelos extends javax.swing.JFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1_tabelaModelos.getModel();
             JTableRenderer JtableRenderer = new JTableRenderer();
-            jTable1_tabelaModelos.getColumnModel().getColumn(5).setCellRenderer(JtableRenderer);
+            
 
             model.setNumRows(0);
-            Iterator<Modelos> lista = listagemDeModelos.iterator();
+            
+            Statement statement = conexao.createStatement();
+            String query = "select idmodelos, marcas.descricao,descricaomodelos, urlmodelos , imagemmodelo from modelos\n" +
+                           "join marcas on marcas.idmarcas = modelos.idmarcas";
+            ResultSet resultSet = statement.executeQuery(query);
+            
+//            String imagem = "SELECT urlmodelos FROM modelos";
+//            ImageIcon iconlogo = new ImageIcon(resultSet.getString(imagem));
+//            System.out.println(iconlogo);
+            
+              
+            DefaultTableModel tableModel = new DefaultTableModel();
+            jTable1_tabelaModelos.setModel(tableModel);
+            
+            // Obter os metadados do resultado da consulta
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
 
-            while (lista.hasNext()) {
-                String[] saida = new String[4];
-                Modelos aux = lista.next();
-                saida[0] = aux.getIdModelos() + "";
-                saida[1] = aux.getMarca().getDescricao();
-                saida[2] = aux.getDescricao();
-                saida[3] = aux.getUrl();
-
-                ImageIcon iconlogo = new ImageIcon((aux.getUrl()));
-                ImageIcon marca = new ImageIcon((aux.getMarca().getUrl()));
-                
-                Object[] dados = {saida[0], saida[1], marca,  saida[2], saida[3],iconlogo};
-                model.addRow(dados);
-
+            // Adicionar as colunas à tabela
+            for (int i = 1; i <= columnCount; i++) {
+                tableModel.addColumn(metaData.getColumnName(i));
             }
+
+            // Adicionar as linhas à tabela
+            while (resultSet.next()) {
+                Object[] row = new Object[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    row[i - 1] = resultSet.getObject(i);
+                }
+                tableModel.addRow(row);
+            }
+            jTable1_tabelaModelos.getColumnModel().getColumn(4).setCellRenderer(JtableRenderer);
+
+            // Fechar a conexão com o banco de dados
+            resultSet.close();
+            statement.close();
+            
+            
+//            Iterator<Modelos> lista = listagemDeModelos.iterator();
+//
+//            while (lista.hasNext()) {
+//                String[] saida = new String[4];
+//                Modelos aux = lista.next();
+//                saida[0] = aux.getIdModelos() + "";
+//                saida[1] = aux.getMarca().getDescricao();
+//                saida[2] = aux.getDescricao();
+//                saida[3] = aux.getUrl();
+//
+//                ImageIcon iconlogo = new ImageIcon((aux.getUrl()));
+//                ImageIcon marca = new ImageIcon((aux.getMarca().getUrl()));
+//                
+//                Object[] dados = {saida[0], saida[1], marca,  saida[2], saida[3],iconlogo};
+//                model.addRow(dados);
+//
+//            }
+
+
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
@@ -458,8 +510,8 @@ public class TelaModelos extends javax.swing.JFrame {
 
     private void jTable1_tabelaModelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1_tabelaModelosMouseClicked
         jTextField1_IDModelos.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 0).toString());
-        jTextField1_DescricaoModelo.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 3).toString());
-        jTextField1_urlImagens.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 4).toString());
+        jTextField1_DescricaoModelo.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 2).toString());
+        jTextField1_urlImagens.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 3).toString());
         String nomeDoArquivo = jTextField1_urlImagens.getText();
         ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
         iconLogo.setImage(iconLogo.getImage().getScaledInstance(
