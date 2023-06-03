@@ -412,7 +412,7 @@ public class TelaModelos extends javax.swing.JFrame {
             model.setNumRows(0);
             
             Statement statement = conexao.createStatement();
-            String query = "select idmodelos, marcas.descricao,descricaomodelos, urlmodelos , imagemmodelo from modelos\n" +
+            String query = "select idmodelos as id, marcas.descricao AS  marcas, descricaomodelos as modelo, urlmodelos , imagemmodelo from modelos\n" +
                            "join marcas on marcas.idmarcas = modelos.idmarcas";
             ResultSet resultSet = statement.executeQuery(query);
             
@@ -442,6 +442,11 @@ public class TelaModelos extends javax.swing.JFrame {
                 tableModel.addRow(row);
             }
             jTable1_tabelaModelos.getColumnModel().getColumn(4).setCellRenderer(JtableRenderer);
+           
+            jTable1_tabelaModelos.getColumnModel().getColumn(3).setWidth(0);
+            jTable1_tabelaModelos.getColumnModel().getColumn(3).setMinWidth(0);
+            jTable1_tabelaModelos.getColumnModel().getColumn(3).setMaxWidth(0);
+            
 
             // Fechar a conexão com o banco de dados
             resultSet.close();
@@ -502,7 +507,7 @@ public class TelaModelos extends javax.swing.JFrame {
             limparTela();
             ImagensModelos.setVisible(true);
             imprimirDadosNaGrid(modelosDAO.listagemDeModelos());
-
+            jComboBox1_ListaMarcas.setSelectedIndex(0);
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }

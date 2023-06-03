@@ -5,18 +5,18 @@
 package com.car.visao;
 
 import com.car.Ferramentas.JTableRenderer;
-import com.car.Modelos.Marcas;
-import com.car.persistencia.IMarcasDAO;
-import com.car.persistencia.MarcasDAO;
+import com.car.Modelos.Servico;
+import com.car.persistencia.IServicosDAO;
+import com.car.persistencia.ServicosDAO;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,14 +24,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Pichau
  */
-public class telaMarcas extends javax.swing.JFrame {
+public class TelaServicos extends javax.swing.JFrame {
 
     /**
-     * Creates new form telaPrincipal
+     * Creates new form TelaServicos
      */
-    public telaMarcas() {
+    public TelaServicos() {
         initComponents();
-
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle bounds = env.getMaximumWindowBounds();
         int largura = bounds.width;
@@ -39,14 +38,17 @@ public class telaMarcas extends javax.swing.JFrame {
         setSize(largura, altura);
         setLocation(0, 0);
 
-        jTextField1_IDMarcas.setEnabled(false);
-
-        IMarcasDAO marcasBD = null;
+        jTextField1_IDservicos.setEnabled(false);
+        
+        
         try {
-            marcasBD = new MarcasDAO();
-            imprimirDadosNaGrid(marcasBD.listaDeMarcas());
-        } catch (Exception e) {
+            IServicosDAO servicinDAO = null;
+            servicinDAO = new ServicosDAO();
+            imprimirDadosNaGrid(servicinDAO.listagemServicos());
+        } catch (Exception ex) {
+            Logger.getLogger(TelaServicos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**
@@ -69,11 +71,11 @@ public class telaMarcas extends javax.swing.JFrame {
         jButton_iNCLUIR = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1_tabelaMarcas = new javax.swing.JTable();
+        jTable1_tabelaServicos = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1_IDMarcas = new javax.swing.JTextField();
-        jTextField1_DescricaoMarca1 = new javax.swing.JTextField();
+        jTextField1_IDservicos = new javax.swing.JTextField();
+        jTextField1_DescricaoServicos = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -125,9 +127,9 @@ public class telaMarcas extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("CADASTRO DE MARCAS");
+        jLabel2.setText("SERVIÇOS");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 470, 30));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 210, 30));
 
         jButton_Remover.setBackground(new java.awt.Color(102, 102, 102));
         jButton_Remover.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
@@ -177,10 +179,10 @@ public class telaMarcas extends javax.swing.JFrame {
         jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204)));
 
-        jTable1_tabelaMarcas.setBackground(new java.awt.Color(153, 153, 153));
-        jTable1_tabelaMarcas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jTable1_tabelaMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
-        jTable1_tabelaMarcas.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1_tabelaServicos.setBackground(new java.awt.Color(153, 153, 153));
+        jTable1_tabelaServicos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jTable1_tabelaServicos.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jTable1_tabelaServicos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -199,19 +201,20 @@ public class telaMarcas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1_tabelaMarcas.setRowHeight(60);
-        jTable1_tabelaMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable1_tabelaServicos.setRowHeight(60);
+        jTable1_tabelaServicos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1_tabelaMarcasMouseClicked(evt);
+                jTable1_tabelaServicosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1_tabelaMarcas);
-        if (jTable1_tabelaMarcas.getColumnModel().getColumnCount() > 0) {
-            jTable1_tabelaMarcas.getColumnModel().getColumn(1).setPreferredWidth(300);
-            jTable1_tabelaMarcas.getColumnModel().getColumn(2).setMinWidth(0);
-            jTable1_tabelaMarcas.getColumnModel().getColumn(2).setPreferredWidth(0);
-            jTable1_tabelaMarcas.getColumnModel().getColumn(2).setMaxWidth(0);
-            jTable1_tabelaMarcas.getColumnModel().getColumn(3).setPreferredWidth(210);
+        jScrollPane1.setViewportView(jTable1_tabelaServicos);
+        if (jTable1_tabelaServicos.getColumnModel().getColumnCount() > 0) {
+            jTable1_tabelaServicos.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTable1_tabelaServicos.getColumnModel().getColumn(1).setPreferredWidth(250);
+            jTable1_tabelaServicos.getColumnModel().getColumn(2).setMinWidth(0);
+            jTable1_tabelaServicos.getColumnModel().getColumn(2).setPreferredWidth(0);
+            jTable1_tabelaServicos.getColumnModel().getColumn(2).setMaxWidth(0);
+            jTable1_tabelaServicos.getColumnModel().getColumn(3).setPreferredWidth(220);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, 710, 250));
@@ -226,20 +229,20 @@ public class telaMarcas extends javax.swing.JFrame {
         jLabel7.setText("ID");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, -1, 40));
 
-        jTextField1_IDMarcas.setBackground(new java.awt.Color(51, 51, 51));
-        jTextField1_IDMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
-        jTextField1_IDMarcas.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1_IDMarcas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_IDMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 130, 40));
+        jTextField1_IDservicos.setBackground(new java.awt.Color(51, 51, 51));
+        jTextField1_IDservicos.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
+        jTextField1_IDservicos.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField1_IDservicos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        getContentPane().add(jTextField1_IDservicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 130, 40));
 
-        jTextField1_DescricaoMarca1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1_DescricaoMarca1.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
-        jTextField1_DescricaoMarca1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1_DescricaoMarca1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_DescricaoMarca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 460, 40));
+        jTextField1_DescricaoServicos.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField1_DescricaoServicos.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
+        jTextField1_DescricaoServicos.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField1_DescricaoServicos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        getContentPane().add(jTextField1_DescricaoServicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 460, 40));
 
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 450, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 220, -1));
 
         jLabel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4), "OPÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 22), new java.awt.Color(0, 0, 0))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 160, 400, 230));
@@ -262,8 +265,8 @@ public class telaMarcas extends javax.swing.JFrame {
 
     private void BuscarMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarMarcasActionPerformed
         try {
-            JFileChooser fc = new JFileChooser("./src/com/car/imagensMarcas");
-            File buscar = new File(".src/com/car/imagensMarcas");
+            JFileChooser fc = new JFileChooser("./src/com/car/imagensServicos");
+            File buscar = new File(".src/com/car/imagensServicos");
 
             fc.setCurrentDirectory(buscar);
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -282,91 +285,30 @@ public class telaMarcas extends javax.swing.JFrame {
 
     private void jButton_RemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RemoverActionPerformed
         try {
-            IMarcasDAO marcasDao = null;
-            marcasDao = new MarcasDAO();
-            marcasDao.excluirMarca(Integer.parseInt(jTextField1_IDMarcas.getText()));
+            IServicosDAO servicosDAO = null;
+            servicosDAO = new ServicosDAO();
+            servicosDAO.excluirServico(Integer.parseInt(jTextField1_IDservicos.getText()));
             limparTela();
-            imprimirDadosNaGrid(marcasDao.listaDeMarcas());
+            imprimirDadosNaGrid(servicosDAO.listagemServicos());
             ImagensMarcas1.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
     }//GEN-LAST:event_jButton_RemoverActionPerformed
-    
-    private void jButton_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AlterarActionPerformed
-        try {
-            IMarcasDAO marcasDAO = null;
-            marcasDAO = new MarcasDAO();
-            alterarMarca();
-            limparTela();
-            imprimirDadosNaGrid(marcasDAO.listaDeMarcas());
-            ImagensMarcas1.setVisible(true);
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(this, err);
-        }
-    }//GEN-LAST:event_jButton_AlterarActionPerformed
 
-    private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
-        try {
-            File fis = new File(jTextField1_urlImagens.getText());
-            Marcas marca = null;
-            marca = new Marcas(0, jTextField1_DescricaoMarca1.getText(), jTextField1_urlImagens.getText(), fis);
-
-            IMarcasDAO marcasDAO = null;
-            marcasDAO = new MarcasDAO();
-            marcasDAO.InserirMarca(marca);
-            limparTela();
-            ImagensMarcas1.setVisible(true);
-            imprimirDadosNaGrid(marcasDAO.listaDeMarcas());
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(this, err);
-        }
-    }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
-
-    private void jTable1_tabelaMarcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1_tabelaMarcasMouseClicked
-        jTextField1_IDMarcas.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 0).toString());
-        jTextField1_DescricaoMarca1.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 1).toString());
-        jTextField1_urlImagens.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 2).toString());
-        String nomeDoArquivo = jTextField1_urlImagens.getText();
-        ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
-        iconLogo.setImage(iconLogo.getImage().getScaledInstance(
-                ImagensMarcas.getWidth(), ImagensMarcas.getHeight(), 1));
-        ImagensMarcas.setIcon(iconLogo);
-        ImagensMarcas1.setVisible(false);
-    }//GEN-LAST:event_jTable1_tabelaMarcasMouseClicked
-
-    public void limparTela() {
-        jTextField1_IDMarcas.setText("");
-        jTextField1_urlImagens.setText("");
-        jTextField1_DescricaoMarca1.setText("");
-    }
-
-    private void alterarMarca() {
-        try {
-            File fis = new File(jTextField1_urlImagens.getText());
-            Marcas marcas = new Marcas(Integer.parseInt(jTextField1_IDMarcas.getText()), jTextField1_DescricaoMarca1.getText(),
-                    jTextField1_urlImagens.getText(), fis);
-
-            MarcasDAO marc = new MarcasDAO();
-            marc.alterarMarca(marcas);
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(this, err);
-        }
-    }
-
-    private void imprimirDadosNaGrid(ArrayList<Marcas> listaDeMarcas) {
+    private void imprimirDadosNaGrid(ArrayList<Servico> ListaDeServicos) {
 
         try {
-            DefaultTableModel model = (DefaultTableModel) jTable1_tabelaMarcas.getModel();
+            DefaultTableModel model = (DefaultTableModel) jTable1_tabelaServicos.getModel();
             JTableRenderer JtableRenderer = new JTableRenderer();
-            jTable1_tabelaMarcas.getColumnModel().getColumn(3).setCellRenderer(JtableRenderer);
+            jTable1_tabelaServicos.getColumnModel().getColumn(3).setCellRenderer(JtableRenderer);
 
             model.setNumRows(0);
-            Iterator<Marcas> lista = listaDeMarcas.iterator();
+            Iterator<Servico> lista = ListaDeServicos.iterator();
 
             while (lista.hasNext()) {
                 String[] saida = new String[3];
-                Marcas aux = lista.next();
+                Servico aux = lista.next();
                 saida[0] = aux.getId() + "";
                 saida[1] = aux.getDescricao();
                 saida[2] = aux.getUrl();
@@ -380,6 +322,67 @@ public class telaMarcas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
     }
+    
+    private void alterarServico() {
+        try {
+            File fis = new File(jTextField1_urlImagens.getText());
+            Servico servicin = new Servico(Integer.parseInt(jTextField1_IDservicos.getText()), jTextField1_DescricaoServicos.getText(),
+                    jTextField1_urlImagens.getText(),fis);
+
+            ServicosDAO serv = new ServicosDAO();
+            serv.AlterarServico(servicin);
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(this, err);
+        }
+    }
+    
+    public void limparTela(){
+        jTextField1_IDservicos.setText("");
+        jTextField1_DescricaoServicos.setText("");
+        
+    }
+    
+    private void jButton_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AlterarActionPerformed
+        try {
+            IServicosDAO servicosDAO = null;
+            servicosDAO = new ServicosDAO();
+            alterarServico();
+            limparTela();
+            imprimirDadosNaGrid(servicosDAO.listagemServicos());
+            ImagensMarcas1.setVisible(true);
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(this, err);
+        }
+    }//GEN-LAST:event_jButton_AlterarActionPerformed
+
+    private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
+        try {
+            File fis = new File(jTextField1_urlImagens.getText());
+            Servico servicin = null;
+            servicin = new Servico(0, jTextField1_DescricaoServicos.getText(),jTextField1_urlImagens.getText(), fis);
+
+            IServicosDAO servicosDAO = null;
+            servicosDAO = new ServicosDAO();
+            servicosDAO.InserirServico(servicin);
+            limparTela();
+            ImagensMarcas1.setVisible(true);
+            imprimirDadosNaGrid(servicosDAO.listagemServicos());
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(this, err);
+        }
+    }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
+
+    private void jTable1_tabelaServicosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1_tabelaServicosMouseClicked
+        jTextField1_IDservicos.setText(jTable1_tabelaServicos.getValueAt(jTable1_tabelaServicos.getSelectedRow(), 0).toString());
+        jTextField1_DescricaoServicos.setText(jTable1_tabelaServicos.getValueAt(jTable1_tabelaServicos.getSelectedRow(), 1).toString());
+        jTextField1_urlImagens.setText(jTable1_tabelaServicos.getValueAt(jTable1_tabelaServicos.getSelectedRow(), 2).toString());
+        String nomeDoArquivo = jTextField1_urlImagens.getText();
+        ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
+        iconLogo.setImage(iconLogo.getImage().getScaledInstance(
+            ImagensMarcas.getWidth(), ImagensMarcas.getHeight(), 1));
+    ImagensMarcas.setIcon(iconLogo);
+    ImagensMarcas1.setVisible(false);
+    }//GEN-LAST:event_jTable1_tabelaServicosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -398,21 +401,20 @@ public class telaMarcas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaMarcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaServicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaMarcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaServicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaMarcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaServicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaMarcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaServicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new telaMarcas().setVisible(true);
+                new TelaServicos().setVisible(true);
             }
         });
     }
@@ -434,9 +436,9 @@ public class telaMarcas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1_tabelaMarcas;
-    private javax.swing.JTextField jTextField1_DescricaoMarca1;
-    private javax.swing.JTextField jTextField1_IDMarcas;
+    private javax.swing.JTable jTable1_tabelaServicos;
+    private javax.swing.JTextField jTextField1_DescricaoServicos;
+    private javax.swing.JTextField jTextField1_IDservicos;
     private javax.swing.JTextField jTextField1_urlImagens;
     // End of variables declaration//GEN-END:variables
 }
