@@ -19,4 +19,46 @@ public class Proprietario {
         this.CNH = CNH;
         this.categoriaCNH = categoriaCNH;
     }
+
+    public String getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCNH() {
+        return CNH;
+    }
+
+    public void setCNH(String CNH) {
+        this.CNH = CNH;
+    }
+
+    public CategoriaCNH getCategoriaCNH() {
+        return categoriaCNH;
+    }
+
+    public void setCategoriaCNH(CategoriaCNH categoriaCNH) {
+        this.categoriaCNH = categoriaCNH;
+    }
+    
+    
 }
