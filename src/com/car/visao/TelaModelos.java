@@ -6,6 +6,7 @@ package com.car.visao;
 
 import com.car.Ferramentas.ConexaoBD;
 import com.car.Ferramentas.JTableRenderer;
+import com.car.Ferramentas.limitaCaracteres;
 import com.car.Modelos.Marcas;
 import com.car.Modelos.Modelos;
 import com.car.persistencia.IMarcasDAO;
@@ -40,13 +41,16 @@ public class TelaModelos extends javax.swing.JFrame {
     PreparedStatement st;
 
     public TelaModelos() {
+        initComponents();
+        
+        jTextField1_DescricaoModelo.setDocument(new limitaCaracteres(55, limitaCaracteres.tipoEntrada.DESCRICAO));
         
         try {
             conexao = ConexaoBD.getConexao();
         } catch (Exception ex) {
             Logger.getLogger(TelaModelos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        initComponents();
+        
 
         jTextField1_IDModelos.setEnabled(false);
 
@@ -286,18 +290,18 @@ public class TelaModelos extends javax.swing.JFrame {
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, -1, 40));
 
         jTextField1_IDModelos.setBackground(new java.awt.Color(153, 153, 153));
-        jTextField1_IDModelos.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
+        jTextField1_IDModelos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_IDModelos.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1_IDModelos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jTextField1_IDModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 130, 40));
 
         jTextField1_DescricaoModelo.setBackground(new java.awt.Color(153, 153, 153));
-        jTextField1_DescricaoModelo.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
+        jTextField1_DescricaoModelo.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_DescricaoModelo.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1_DescricaoModelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jTextField1_DescricaoModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 320, 40));
 
-        jComboBox1_ListaMarcas.setFont(new java.awt.Font("Bodoni MT", 0, 20)); // NOI18N
+        jComboBox1_ListaMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
         jComboBox1_ListaMarcas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         jComboBox1_ListaMarcas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

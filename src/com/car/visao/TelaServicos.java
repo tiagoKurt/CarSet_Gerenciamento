@@ -5,6 +5,7 @@
 package com.car.visao;
 
 import com.car.Ferramentas.JTableRenderer;
+import com.car.Ferramentas.limitaCaracteres;
 import com.car.Modelos.Servico;
 import com.car.persistencia.IServicosDAO;
 import com.car.persistencia.ServicosDAO;
@@ -31,6 +32,10 @@ public class TelaServicos extends javax.swing.JFrame {
      */
     public TelaServicos() {
         initComponents();
+        
+        jTextField1_DescricaoServicos.setDocument(new limitaCaracteres(55, limitaCaracteres.tipoEntrada.DESCRICAO));
+        
+        
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle bounds = env.getMaximumWindowBounds();
         int largura = bounds.width;
@@ -181,7 +186,7 @@ public class TelaServicos extends javax.swing.JFrame {
 
         jTable1_tabelaServicos.setBackground(new java.awt.Color(153, 153, 153));
         jTable1_tabelaServicos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jTable1_tabelaServicos.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jTable1_tabelaServicos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTable1_tabelaServicos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -230,13 +235,13 @@ public class TelaServicos extends javax.swing.JFrame {
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, -1, 40));
 
         jTextField1_IDservicos.setBackground(new java.awt.Color(51, 51, 51));
-        jTextField1_IDservicos.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
+        jTextField1_IDservicos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_IDservicos.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1_IDservicos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jTextField1_IDservicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 130, 40));
 
         jTextField1_DescricaoServicos.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1_DescricaoServicos.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
+        jTextField1_DescricaoServicos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_DescricaoServicos.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1_DescricaoServicos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jTextField1_DescricaoServicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 460, 40));
