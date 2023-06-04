@@ -446,7 +446,6 @@ public class TelaModelos extends javax.swing.JFrame {
             jTable1_tabelaModelos.getColumnModel().getColumn(3).setWidth(0);
             jTable1_tabelaModelos.getColumnModel().getColumn(3).setMinWidth(0);
             jTable1_tabelaModelos.getColumnModel().getColumn(3).setMaxWidth(0);
-            
 
             // Fechar a conexão com o banco de dados
             resultSet.close();

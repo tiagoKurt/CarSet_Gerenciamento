@@ -120,7 +120,7 @@ public class TelaServicos extends javax.swing.JFrame {
         ImagensMarcas1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(ImagensMarcas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 190, 230, 190));
 
-        ImagensMarcas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/insiraImagem.gif"))); // NOI18N
+        ImagensMarcas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/PinkImages.gif"))); // NOI18N
         ImagensMarcas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(ImagensMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 190, 230, 190));
 
