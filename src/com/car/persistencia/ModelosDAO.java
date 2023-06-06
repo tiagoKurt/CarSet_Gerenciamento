@@ -33,7 +33,7 @@ public class ModelosDAO implements IModelosDAO {
         try {
             FileInputStream fis = new FileInputStream(modelos.getImagemModelo());
 
-            st = conexao.prepareStatement("insert into modelos(idMarcas, descricaomodelos, urlmodelos, imagemmodelo) values (?, ?, ?, ?)");
+            st = conexao.prepareStatement("insert into modelos(id_marca, descricao, url, imagem) values (?, ?, ?, ?)");
 
             st.setInt(1, modelos.getMarca().getId());
             st.setString(2, modelos.getDescricao());
@@ -56,7 +56,7 @@ public class ModelosDAO implements IModelosDAO {
     public ArrayList<Modelos> listagemDeModelos() throws Exception {
         ArrayList<Modelos> listagemDeModelos = new ArrayList<Modelos>();
         try {
-            String sql = "select * from modelos order by idmodelos";
+            String sql = "select * from modelos order by id";
             Statement statement = conexao.createStatement();
             
             ResultSet rs = statement.executeQuery(sql);
@@ -66,8 +66,9 @@ public class ModelosDAO implements IModelosDAO {
                 
                 MarcasDAO marca = new MarcasDAO();
                 
-                modelo.setIdModelos(rs.getInt("idmodelos"));
-                modelo.setMarca(marca.listaDeMarcas().get(0));   
+                modelo.setIdModelos(rs.getInt("id"));
+                int idMarca = rs.getInt("id_marca");
+                modelo.setMarca(marca.buscar(idMarca));   
                 modelo.setDescricao(rs.getString("descricaomodelos"));
                 modelo.setUrl(rs.getString("urlmodelos"));
                 modelo.setImagemModelo(modelo.getImagemModelo());
@@ -82,7 +83,7 @@ public class ModelosDAO implements IModelosDAO {
     @Override
     public boolean excluir(int idModelos) throws Exception {
         try {
-            st = conexao.prepareStatement("DELETE FROM modelos WHERE idmodelos = ?");
+            st = conexao.prepareStatement("DELETE FROM modelos WHERE id = ?");
             st.setInt(1, idModelos);
             st.executeUpdate();
             st.close();

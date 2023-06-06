@@ -127,7 +127,6 @@ public class telaMarcas extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("CADASTRO DE MARCAS");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 470, 30));
@@ -220,31 +219,26 @@ public class telaMarcas extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, 710, 250));
 
         jLabel5.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("DESCRIÇÃO");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, -1, 40));
 
         jLabel7.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("ID");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, -1, 40));
 
         jTextField1_IDMarcas.setBackground(new java.awt.Color(51, 51, 51));
         jTextField1_IDMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
-        jTextField1_IDMarcas.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1_IDMarcas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jTextField1_IDMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 130, 40));
 
-        jTextField1_DescricaoMarca1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1_DescricaoMarca1.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
-        jTextField1_DescricaoMarca1.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1_DescricaoMarca1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jTextField1_DescricaoMarca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 460, 40));
 
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 450, -1));
 
-        jLabel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4), "OPÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 22), new java.awt.Color(0, 0, 0))); // NOI18N
+        jLabel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4), "OPÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 22))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 160, 400, 230));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.png"))); // NOI18N

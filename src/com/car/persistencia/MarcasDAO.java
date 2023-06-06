@@ -29,7 +29,7 @@ public class MarcasDAO implements IMarcasDAO {
         try {
             FileInputStream fis = new FileInputStream(marca.getImageFile());
 
-            st = conexao.prepareStatement("insert into marcas( descricao, urlMarcas, imagemMarca) values (?, ?, ?)");
+            st = conexao.prepareStatement("insert into marcas( descricao, url, imagem) values (?, ?, ?)");
             st.setString(1, marca.getDescricao());
             st.setString(2, marca.getUrl());
             st.setBinaryStream(3, fis);
@@ -46,7 +46,7 @@ public class MarcasDAO implements IMarcasDAO {
 
         try {
             FileInputStream fis = new FileInputStream(marca.getImageFile());
-            st = conexao.prepareStatement("UPDATE marcas SET descricao = ?, urlmarcas = ?, imagemmarca = ? WHERE idmarcas = ?");
+            st = conexao.prepareStatement("UPDATE marcas SET descricao = ?, url = ?, imagem = ? WHERE id = ?");
             st.setString(1, marca.getDescricao());
             st.setString(2, marca.getUrl());
             st.setBinaryStream(3, fis);
@@ -61,7 +61,7 @@ public class MarcasDAO implements IMarcasDAO {
     @Override
     public boolean excluirMarca(int idmarcas) throws Exception {
         try {
-            st = conexao.prepareStatement("DELETE FROM marcas WHERE idmarcas = ?");
+            st = conexao.prepareStatement("DELETE FROM marcas WHERE id = ?");
             st.setInt(1, idmarcas);
             st.executeUpdate();
             st.close();
@@ -82,9 +82,9 @@ public class MarcasDAO implements IMarcasDAO {
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Marcas marca = new Marcas();
-                marca.setId(rs.getInt("idMarcas"));
+                marca.setId(rs.getInt("id"));
                 marca.setDescricao(rs.getString("descricao"));
-                marca.setUrl(rs.getString("urlMarcas"));
+                marca.setUrl(rs.getString("url"));
                 marca.setImageFile(marca.getImageFile());
                 listaDeMarcas.add(marca);
             }
@@ -109,15 +109,17 @@ public class MarcasDAO implements IMarcasDAO {
 
     @Override
     public Marcas buscar(int id) throws Exception {
-        String sql = "SELECT descricao FROM marcas WHERE idmarcas = ?";
+        String sql = "SELECT descricao FROM marcas WHERE id = ?";
+        PreparedStatement statment = conexao.prepareStatement(sql);
+        statment.setInt(1, id);
         Statement statement = conexao.createStatement();
         ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()) {
             Marcas objetoMarca = new Marcas();
-            objetoMarca.setId(rs.getInt("idmarcas"));
+            objetoMarca.setId(rs.getInt("id"));
             objetoMarca.setDescricao(rs.getString("descricao"));
-            objetoMarca.setUrl(rs.getString("urlMarcas"));
+            objetoMarca.setUrl(rs.getString("url"));
             objetoMarca.setImageFile(objetoMarca.getImageFile());
             if(objetoMarca.getId() == id){
             return new Marcas(objetoMarca.getId(), objetoMarca.getDescricao(), objetoMarca.getUrl(), objetoMarca.getImageFile());

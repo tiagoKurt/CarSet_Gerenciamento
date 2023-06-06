@@ -26,7 +26,7 @@ public class ServicosDAO implements IServicosDAO{
         try {
             FileInputStream fis = new FileInputStream(servico.getImagemServico());
 
-            st = conexao.prepareStatement("insert into servicos( descricaoServico, urlServico, imagemServico) values (?, ?, ?)");
+            st = conexao.prepareStatement("insert into servicos( descricao, url, imagem) values (?, ?, ?)");
             st.setString(1, servico.getDescricao());
             st.setString(2, servico.getUrl());
             st.setBinaryStream(3, fis);
@@ -43,7 +43,7 @@ public class ServicosDAO implements IServicosDAO{
     public void AlterarServico(Servico servico) throws Exception {
         try {
             FileInputStream fis = new FileInputStream(servico.getImagemServico());
-            st = conexao.prepareStatement("UPDATE servicos SET descricaoServico = ?, urlServico = ?, imagemServico = ? WHERE idServicos = ?");
+                st = conexao.prepareStatement("UPDATE servicos SET descricao = ?, url = ?, imagem = ? WHERE id = ?");
             st.setString(1, servico.getDescricao());
             st.setString(2, servico.getUrl());
             st.setBinaryStream(3, fis);
@@ -58,7 +58,7 @@ public class ServicosDAO implements IServicosDAO{
     @Override
     public boolean excluirServico(int idServico) throws Exception {
         try {
-            st = conexao.prepareStatement("DELETE FROM servicos WHERE idServicos = ?");
+            st = conexao.prepareStatement("DELETE FROM servicos WHERE id = ?");
             st.setInt(1, idServico);
             st.executeUpdate();
             st.close();
@@ -79,9 +79,9 @@ public class ServicosDAO implements IServicosDAO{
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Servico serv = new Servico();
-                serv.setId(rs.getInt("idServicos"));
-                serv.setDescricao(rs.getString("descricaoServico"));
-                serv.setUrl(rs.getString("urlServico"));
+                serv.setId(rs.getInt("id"));
+                serv.setDescricao(rs.getString("descricao"));
+                serv.setUrl(rs.getString("url"));
                 serv.setImagemServico(serv.getImagemServico());
                 listaDeMarcas.add(serv);
             }

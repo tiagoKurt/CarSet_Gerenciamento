@@ -416,8 +416,8 @@ public class TelaModelos extends javax.swing.JFrame {
             model.setNumRows(0);
             
             Statement statement = conexao.createStatement();
-            String query = "select idmodelos as id, marcas.descricao AS  marcas, descricaomodelos as modelo, urlmodelos , imagemmodelo from modelos\n" +
-                           "join marcas on marcas.idmarcas = modelos.idmarcas";
+            String query = "select modelos.id as id, marcas.descricao AS  marcas, modelos.descricao as modelo, modelos.url , modelos.imagem from modelos\n" +
+                           "join marcas on marcas.id = modelos.id";
             ResultSet resultSet = statement.executeQuery(query);
             
 //            String imagem = "SELECT urlmodelos FROM modelos";
