@@ -62,7 +62,6 @@ public class ModelosDAO implements IModelosDAO {
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Modelos modelo = new Modelos();
-                ModelosDAO modeloo = new ModelosDAO();
                 
                 MarcasDAO marca = new MarcasDAO();
                 
