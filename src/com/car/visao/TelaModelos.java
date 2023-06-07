@@ -42,15 +42,14 @@ public class TelaModelos extends javax.swing.JFrame {
 
     public TelaModelos() {
         initComponents();
-        
+
         jTextField1_DescricaoModelo.setDocument(new limitaCaracteres(55, limitaCaracteres.tipoEntrada.DESCRICAO));
-        
+
         try {
             conexao = ConexaoBD.getConexao();
         } catch (Exception ex) {
             Logger.getLogger(TelaModelos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
         jTextField1_IDModelos.setEnabled(false);
 
@@ -62,15 +61,13 @@ public class TelaModelos extends javax.swing.JFrame {
         setSize(largura, altura);
         setLocation(0, 0);
 
-        
         IModelosDAO modelosBD = null;
         try {
             modelosBD = new ModelosDAO();
             imprimirDadosNaGrid(modelosBD.listagemDeModelos());
         } catch (Exception e) {
         }
-        
-        
+
         try {
             puxarDadosComboBox();
         } catch (Exception ex) {
@@ -125,19 +122,16 @@ public class TelaModelos extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 40, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("MARCAS");
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, -1, 40));
 
         jLabel13.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("MODELO");
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 160, -1, 40));
 
         jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 330, -1));
 
-        jButton4_voltar.setBackground(new java.awt.Color(255, 255, 255));
         jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton4_voltar.setForeground(new java.awt.Color(255, 51, 153));
         jButton4_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/voltar.png"))); // NOI18N
@@ -151,7 +145,6 @@ public class TelaModelos extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 630, 140, 40));
 
-        BuscarMarcas.setBackground(new java.awt.Color(255, 255, 255));
         BuscarMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         BuscarMarcas.setForeground(new java.awt.Color(255, 51, 153));
         BuscarMarcas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/buscarImagemIcon.png"))); // NOI18N
@@ -175,7 +168,6 @@ public class TelaModelos extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("CADASTRO DE MODELOS");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, 480, 40));
@@ -183,7 +175,6 @@ public class TelaModelos extends javax.swing.JFrame {
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(836, 200, -1, 190));
 
-        jButton_Remover.setBackground(new java.awt.Color(255, 255, 255));
         jButton_Remover.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_Remover.setForeground(new java.awt.Color(255, 51, 153));
         jButton_Remover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/removeriten.png"))); // NOI18N
@@ -197,7 +188,6 @@ public class TelaModelos extends javax.swing.JFrame {
         });
         getContentPane().add(jButton_Remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 350, 140, 40));
 
-        jButton_Alterar.setBackground(new java.awt.Color(255, 255, 255));
         jButton_Alterar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_Alterar.setForeground(new java.awt.Color(255, 51, 153));
         jButton_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/alterar.png"))); // NOI18N
@@ -211,7 +201,6 @@ public class TelaModelos extends javax.swing.JFrame {
         });
         getContentPane().add(jButton_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 300, 140, 40));
 
-        jButton_iNCLUIR.setBackground(new java.awt.Color(255, 255, 255));
         jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_iNCLUIR.setForeground(new java.awt.Color(255, 51, 153));
         jButton_iNCLUIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/adicionarItens.png"))); // NOI18N
@@ -236,17 +225,17 @@ public class TelaModelos extends javax.swing.JFrame {
         jTable1_tabelaModelos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTable1_tabelaModelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "MARCA", "", "MODELO", "", ""
+                "ID", "MARCA", "MODELO", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true
+                false, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -263,16 +252,16 @@ public class TelaModelos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1_tabelaModelos);
         if (jTable1_tabelaModelos.getColumnModel().getColumnCount() > 0) {
             jTable1_tabelaModelos.getColumnModel().getColumn(1).setPreferredWidth(170);
-            jTable1_tabelaModelos.getColumnModel().getColumn(2).setPreferredWidth(0);
-            jTable1_tabelaModelos.getColumnModel().getColumn(3).setPreferredWidth(170);
-            jTable1_tabelaModelos.getColumnModel().getColumn(4).setPreferredWidth(0);
-            jTable1_tabelaModelos.getColumnModel().getColumn(5).setPreferredWidth(150);
+            jTable1_tabelaModelos.getColumnModel().getColumn(2).setPreferredWidth(170);
+            jTable1_tabelaModelos.getColumnModel().getColumn(3).setMinWidth(0);
+            jTable1_tabelaModelos.getColumnModel().getColumn(3).setPreferredWidth(0);
+            jTable1_tabelaModelos.getColumnModel().getColumn(3).setMaxWidth(0);
+            jTable1_tabelaModelos.getColumnModel().getColumn(4).setPreferredWidth(150);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 420, 800, 250));
 
         jLabel5.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("DESCRIÇÃO");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 300, -1, 40));
 
@@ -280,24 +269,20 @@ public class TelaModelos extends javax.swing.JFrame {
         getContentPane().add(jLabel11_marcasModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, 230, 190));
 
         jLabel7.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("MARCA");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, -1, 40));
 
         jLabel10.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("ID");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, -1, 40));
 
         jTextField1_IDModelos.setBackground(new java.awt.Color(153, 153, 153));
         jTextField1_IDModelos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
-        jTextField1_IDModelos.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1_IDModelos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jTextField1_IDModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 130, 40));
 
         jTextField1_DescricaoModelo.setBackground(new java.awt.Color(153, 153, 153));
         jTextField1_DescricaoModelo.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
-        jTextField1_DescricaoModelo.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1_DescricaoModelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jTextField1_DescricaoModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 320, 40));
 
@@ -313,7 +298,7 @@ public class TelaModelos extends javax.swing.JFrame {
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 94, 480, -1));
 
-        jLabel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4), "OPÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 20), new java.awt.Color(0, 0, 0))); // NOI18N
+        jLabel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4), "OPÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 20))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 1030, 280));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.png"))); // NOI18N
@@ -411,33 +396,23 @@ public class TelaModelos extends javax.swing.JFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1_tabelaModelos.getModel();
             JTableRenderer JtableRenderer = new JTableRenderer();
-            
-
             model.setNumRows(0);
-            
+
             Statement statement = conexao.createStatement();
-            String query = "select modelos.id as id, marcas.descricao AS  marcas, modelos.descricao as modelo, modelos.url , modelos.imagem from modelos\n" +
-                           "join marcas on marcas.id = modelos.id";
+            String query = "select modelos.id as id, marcas.descricao AS  marcas, modelos.descricao as modelo, modelos.url , modelos.imagem from modelos\n"
+                    + "join marcas on marcas.id = modelos.id";
             ResultSet resultSet = statement.executeQuery(query);
-            
-//            String imagem = "SELECT urlmodelos FROM modelos";
-//            ImageIcon iconlogo = new ImageIcon(resultSet.getString(imagem));
-//            System.out.println(iconlogo);
-            
-              
+
             DefaultTableModel tableModel = new DefaultTableModel();
             jTable1_tabelaModelos.setModel(tableModel);
-            
-            // Obter os metadados do resultado da consulta
+
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
 
-            // Adicionar as colunas à tabela
             for (int i = 1; i <= columnCount; i++) {
                 tableModel.addColumn(metaData.getColumnName(i));
             }
 
-            // Adicionar as linhas à tabela
             while (resultSet.next()) {
                 Object[] row = new Object[columnCount];
                 for (int i = 1; i <= columnCount; i++) {
@@ -446,18 +421,19 @@ public class TelaModelos extends javax.swing.JFrame {
                 tableModel.addRow(row);
             }
             jTable1_tabelaModelos.getColumnModel().getColumn(4).setCellRenderer(JtableRenderer);
-           
+
             jTable1_tabelaModelos.getColumnModel().getColumn(3).setWidth(0);
             jTable1_tabelaModelos.getColumnModel().getColumn(3).setMinWidth(0);
             jTable1_tabelaModelos.getColumnModel().getColumn(3).setMaxWidth(0);
+            jTable1_tabelaModelos.getColumnModel().getColumn(0).setWidth(50);
+            jTable1_tabelaModelos.getColumnModel().getColumn(0).setMinWidth(50);
+            jTable1_tabelaModelos.getColumnModel().getColumn(0).setMaxWidth(50);
 
-            // Fechar a conexão com o banco de dados
             resultSet.close();
             statement.close();
-            
-            
+
+//            jTable1_tabelaModelos.getColumnModel().getColumn(3).setCellRenderer(JtableRenderer);
 //            Iterator<Modelos> lista = listagemDeModelos.iterator();
-//
 //            while (lista.hasNext()) {
 //                String[] saida = new String[4];
 //                Modelos aux = lista.next();
@@ -465,16 +441,14 @@ public class TelaModelos extends javax.swing.JFrame {
 //                saida[1] = aux.getMarca().getDescricao();
 //                saida[2] = aux.getDescricao();
 //                saida[3] = aux.getUrl();
+//                saida[4] = aux.getImagemModelo()+"";
 //
 //                ImageIcon iconlogo = new ImageIcon((aux.getUrl()));
 //                ImageIcon marca = new ImageIcon((aux.getMarca().getUrl()));
 //                
-//                Object[] dados = {saida[0], saida[1], marca,  saida[2], saida[3],iconlogo};
+//                Object[] dados = {saida[0], saida[1], saida[2], saida[3],saida[4]};
 //                model.addRow(dados);
-//
 //            }
-
-
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
@@ -520,15 +494,19 @@ public class TelaModelos extends javax.swing.JFrame {
         jTextField1_IDModelos.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 0).toString());
         jTextField1_DescricaoModelo.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 2).toString());
         jTextField1_urlImagens.setText(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 3).toString());
+
         String nomeDoArquivo = jTextField1_urlImagens.getText();
         ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
         iconLogo.setImage(iconLogo.getImage().getScaledInstance(
                 ImagensModelos.getWidth(), ImagensModelos.getHeight(), 1));
         ImagensMarcas.setIcon(iconLogo);
         ImagensModelos.setVisible(false);
-        
+
         jComboBox1_ListaMarcas.setSelectedItem(jTable1_tabelaModelos.getValueAt(jTable1_tabelaModelos.getSelectedRow(), 1).toString());
+
         
+
+
     }//GEN-LAST:event_jTable1_tabelaModelosMouseClicked
 
     private void jComboBox1_ListaMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_ListaMarcasActionPerformed

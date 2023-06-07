@@ -194,7 +194,7 @@ public class telaMarcas extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -324,7 +324,10 @@ public class telaMarcas extends javax.swing.JFrame {
         jTextField1_IDMarcas.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 0).toString());
         jTextField1_DescricaoMarca1.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 1).toString());
         jTextField1_urlImagens.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 2).toString());
+        
         String nomeDoArquivo = jTextField1_urlImagens.getText();
+       
+       
         ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
         iconLogo.setImage(iconLogo.getImage().getScaledInstance(
                 ImagensMarcas.getWidth(), ImagensMarcas.getHeight(), 1));
@@ -362,14 +365,15 @@ public class telaMarcas extends javax.swing.JFrame {
             Iterator<Marcas> lista = listaDeMarcas.iterator();
 
             while (lista.hasNext()) {
-                String[] saida = new String[3];
+                String[] saida = new String[4];
                 Marcas aux = lista.next();
                 saida[0] = aux.getId() + "";
                 saida[1] = aux.getDescricao();
                 saida[2] = aux.getUrl();
+                saida[3] = aux.getImageFile()+"";
 
                 ImageIcon iconlogo = new ImageIcon((aux.getUrl()));
-                Object[] dados = {saida[0], saida[1], saida[2], iconlogo};
+                Object[] dados = {saida[0], saida[1], saida[2], saida[3]};
                 model.addRow(dados);
 
             }
