@@ -109,11 +109,10 @@ public class MarcasDAO implements IMarcasDAO {
 
     @Override
     public Marcas buscar(int id) throws Exception {
-        String sql = "SELECT descricao FROM marcas WHERE id = ?";
-        PreparedStatement statment = conexao.prepareStatement(sql);
-        statment.setInt(1, id);
-        Statement statement = conexao.createStatement();
-        ResultSet rs = statement.executeQuery(sql);
+        String sql = "SELECT * FROM marcas WHERE id = ?";
+        PreparedStatement statement = conexao.prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet rs = statement.executeQuery();
 
         while (rs.next()) {
             Marcas objetoMarca = new Marcas();
@@ -121,9 +120,8 @@ public class MarcasDAO implements IMarcasDAO {
             objetoMarca.setDescricao(rs.getString("descricao"));
             objetoMarca.setUrl(rs.getString("url"));
             objetoMarca.setImageFile(objetoMarca.getImageFile());
-            if(objetoMarca.getId() == id){
             return new Marcas(objetoMarca.getId(), objetoMarca.getDescricao(), objetoMarca.getUrl(), objetoMarca.getImageFile());
-            }
+           
         }
         return null;
     }

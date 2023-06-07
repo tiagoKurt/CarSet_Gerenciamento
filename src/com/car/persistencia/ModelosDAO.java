@@ -68,8 +68,8 @@ public class ModelosDAO implements IModelosDAO {
                 modelo.setIdModelos(rs.getInt("id"));
                 int idMarca = rs.getInt("id_marca");
                 modelo.setMarca(marca.buscar(idMarca));   
-                modelo.setDescricao(rs.getString("descricaomodelos"));
-                modelo.setUrl(rs.getString("urlmodelos"));
+                modelo.setDescricao(rs.getString("descricao"));
+                modelo.setUrl(rs.getString("url"));
                 modelo.setImagemModelo(modelo.getImagemModelo());
                 listagemDeModelos.add(modelo);
             }

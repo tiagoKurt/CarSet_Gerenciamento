@@ -43,6 +43,14 @@ public class TelaModelos extends javax.swing.JFrame {
     public TelaModelos() {
         initComponents();
 
+        IModelosDAO modelosBD = null;
+        try {
+            modelosBD = new ModelosDAO();
+            imprimirDadosNaGrid(modelosBD.listagemDeModelos());
+        } catch (Exception e) {
+        }
+        
+        
         jTextField1_DescricaoModelo.setDocument(new limitaCaracteres(55, limitaCaracteres.tipoEntrada.DESCRICAO));
 
         try {
@@ -61,12 +69,8 @@ public class TelaModelos extends javax.swing.JFrame {
         setSize(largura, altura);
         setLocation(0, 0);
 
-        IModelosDAO modelosBD = null;
-        try {
-            modelosBD = new ModelosDAO();
-            imprimirDadosNaGrid(modelosBD.listagemDeModelos());
-        } catch (Exception e) {
-        }
+        
+        
 
         try {
             puxarDadosComboBox();
@@ -396,59 +400,60 @@ public class TelaModelos extends javax.swing.JFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1_tabelaModelos.getModel();
             JTableRenderer JtableRenderer = new JTableRenderer();
-            model.setNumRows(0);
+            
 
-            Statement statement = conexao.createStatement();
-            String query = "select modelos.id as id, marcas.descricao AS  marcas, modelos.descricao as modelo, modelos.url , modelos.imagem from modelos\n"
-                    + "join marcas on modelos.id_marca = marcas.id";
-            ResultSet resultSet = statement.executeQuery(query);
-
-            DefaultTableModel tableModel = new DefaultTableModel();
-            jTable1_tabelaModelos.setModel(tableModel);
-
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            for (int i = 1; i <= columnCount; i++) {
-                tableModel.addColumn(metaData.getColumnName(i));
-            }
-
-            while (resultSet.next()) {
-                Object[] row = new Object[columnCount];
-                for (int i = 1; i <= columnCount; i++) {
-                    row[i - 1] = resultSet.getObject(i);
-                }
-                tableModel.addRow(row);
-            }
-            jTable1_tabelaModelos.getColumnModel().getColumn(4).setCellRenderer(JtableRenderer);
-
-            jTable1_tabelaModelos.getColumnModel().getColumn(3).setWidth(0);
-            jTable1_tabelaModelos.getColumnModel().getColumn(3).setMinWidth(0);
-            jTable1_tabelaModelos.getColumnModel().getColumn(3).setMaxWidth(0);
-            jTable1_tabelaModelos.getColumnModel().getColumn(0).setWidth(50);
-            jTable1_tabelaModelos.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable1_tabelaModelos.getColumnModel().getColumn(0).setMaxWidth(50);
-
-            resultSet.close();
-            statement.close();
-
-            jTable1_tabelaModelos.getColumnModel().getColumn(3).setCellRenderer(JtableRenderer);
-//            Iterator<Modelos> lista = listagemDeModelos.iterator();
-//            while (lista.hasNext()) {
-//                String[] saida = new String[4];
-//                Modelos aux = lista.next();
-//                saida[0] = aux.getIdModelos() + "";
-//                saida[1] = aux.getMarca().getDescricao();
-//                saida[2] = aux.getDescricao();
-//                saida[3] = aux.getUrl();
-//                saida[4] = aux.getImagemModelo()+"";
+//            Statement statement = conexao.createStatement();
+//            String query = "select modelos.id as id, marcas.descricao AS  marcas, modelos.descricao as modelo, modelos.url , modelos.imagem from modelos\n"
+//                    + "join marcas on modelos.id_marca = marcas.id";
+//            ResultSet resultSet = statement.executeQuery(query);
 //
-//                ImageIcon iconlogo = new ImageIcon((aux.getUrl()));
-//                ImageIcon marca = new ImageIcon((aux.getMarca().getUrl()));
-//                
-//                Object[] dados = {saida[0], saida[1], saida[2], saida[3],saida[4]};
-//                model.addRow(dados);
+//            DefaultTableModel tableModel = new DefaultTableModel();
+//            jTable1_tabelaModelos.setModel(tableModel);
+//
+//            ResultSetMetaData metaData = resultSet.getMetaData();
+//            int columnCount = metaData.getColumnCount();
+//
+//            for (int i = 1; i <= columnCount; i++) {
+//                tableModel.addColumn(metaData.getColumnName(i));
 //            }
+//
+//            while (resultSet.next()) {
+//                Object[] row = new Object[columnCount];
+//                for (int i = 1; i <= columnCount; i++) {
+//                    row[i - 1] = resultSet.getObject(i);
+//                }
+//                tableModel.addRow(row);
+//            }
+//            jTable1_tabelaModelos.getColumnModel().getColumn(4).setCellRenderer(JtableRenderer);
+//
+//            jTable1_tabelaModelos.getColumnModel().getColumn(3).setWidth(0);
+//            jTable1_tabelaModelos.getColumnModel().getColumn(3).setMinWidth(0);
+//            jTable1_tabelaModelos.getColumnModel().getColumn(3).setMaxWidth(0);
+//            jTable1_tabelaModelos.getColumnModel().getColumn(0).setWidth(50);
+//            jTable1_tabelaModelos.getColumnModel().getColumn(0).setMinWidth(50);
+//            jTable1_tabelaModelos.getColumnModel().getColumn(0).setMaxWidth(50);
+//
+//            resultSet.close();
+//            statement.close();
+
+            jTable1_tabelaModelos.getColumnModel().getColumn(4).setCellRenderer(JtableRenderer);
+            model.setNumRows(0);
+            Iterator<Modelos> lista = listagemDeModelos.iterator();
+            while (lista.hasNext()) {
+                String[] saida = new String[5];
+                Modelos aux = lista.next();
+                saida[0] = aux.getIdModelos() + "";
+                saida[1] = aux.getMarca().getDescricao();
+                saida[2] = aux.getDescricao();
+                saida[3] = aux.getUrl();
+                saida[4] = aux.getImagemModelo() + "";
+
+                ImageIcon iconlogo = new ImageIcon((aux.getUrl()));
+                ImageIcon marca = new ImageIcon((aux.getMarca().getUrl()));
+
+                Object[] dados = {saida[0], saida[1], saida[2], saida[3], saida[4]};
+                model.addRow(dados);
+            }
             
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
