@@ -18,6 +18,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
         jTextField1_Nome.setDocument(new limitaCaracteres(55, limitaCaracteres.tipoEntrada.NOME));
         jTextField1_razaoSocial.setDocument(new limitaCaracteres(55, limitaCaracteres.tipoEntrada.DESCRICAO));
         jTextField1_EMAILÇ.setDocument(new limitaCaracteres(60, limitaCaracteres.tipoEntrada.EMAIL));
+        jTextField1_CNH.setDocument(new limitaCaracteres(9, limitaCaracteres.tipoEntrada.NUMEROINTEIRO));
         
         
         carregarComboBox();
@@ -53,24 +54,26 @@ public class TelaProprietarios extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jFormattedTextField1_telefone = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox1_tipoCNH = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
         jComboBox1_TipoDoProprietário = new javax.swing.JComboBox<>();
         jTextField1_Nome = new javax.swing.JTextField();
         jTextField1_razaoSocial = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jLabel10_nome = new javax.swing.JLabel();
         jButton_Remover = new javax.swing.JButton();
         jButton_Alterar = new javax.swing.JButton();
         jButton_iNCLUIR = new javax.swing.JButton();
         jButton4_voltar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         jLabel8_cpf = new javax.swing.JLabel();
         jLabel9_CNPJ = new javax.swing.JLabel();
         jFormattedTextField1_cpf = new javax.swing.JFormattedTextField();
         jFormattedTextField1_CNPJ = new javax.swing.JFormattedTextField();
         jLabel10_razaoSocial = new javax.swing.JLabel();
-        jButton1_cadastrarEndereçoi = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTextField1_EMAILÇ = new javax.swing.JTextField();
+        jTextField1_CNH = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,7 +90,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
         jLabel2.setText("PROPRIETÁRIO");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 330, 50));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 300, 50));
 
         jFormattedTextField1_telefone.setBackground(new java.awt.Color(153, 153, 153));
         jFormattedTextField1_telefone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -102,38 +105,54 @@ public class TelaProprietarios extends javax.swing.JFrame {
                 jFormattedTextField1_telefoneMouseClicked(evt);
             }
         });
-        getContentPane().add(jFormattedTextField1_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 440, 300, 40));
+        getContentPane().add(jFormattedTextField1_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, 300, 40));
 
-        jLabel5.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
+        jLabel5.setBackground(new java.awt.Color(187, 187, 187));
+        jLabel5.setFont(new java.awt.Font("Bodoni MT", 3, 34)); // NOI18N
         jLabel5.setText("EMAIL");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 500, -1, 40));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 460, -1, 40));
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 3, 32)); // NOI18N
-        jLabel7.setText("TIPO DO PROPRIETÁRIO");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, 40));
+        jLabel10.setBackground(new java.awt.Color(187, 187, 187));
+        jLabel10.setFont(new java.awt.Font("Bodoni MT", 3, 34)); // NOI18N
+        jLabel10.setText("CNH");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, -1, 40));
+
+        jComboBox1_tipoCNH.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
+        jComboBox1_tipoCNH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jComboBox1_tipoCNH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(jComboBox1_tipoCNH, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 580, 140, 40));
+
+        jLabel9.setFont(new java.awt.Font("Bodoni MT", 3, 34)); // NOI18N
+        jLabel9.setText("TIPO CNH");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 580, 190, -1));
 
         jComboBox1_TipoDoProprietário.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
         jComboBox1_TipoDoProprietário.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        jComboBox1_TipoDoProprietário.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox1_TipoDoProprietário.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1_TipoDoProprietárioActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox1_TipoDoProprietário, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 250, 140, 50));
+        getContentPane().add(jComboBox1_TipoDoProprietário, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 140, 40));
 
         jTextField1_Nome.setBackground(new java.awt.Color(153, 153, 153));
         jTextField1_Nome.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_Nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 350, 40));
+        getContentPane().add(jTextField1_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, 350, 40));
 
         jTextField1_razaoSocial.setBackground(new java.awt.Color(153, 153, 153));
         jTextField1_razaoSocial.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_razaoSocial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_razaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 350, 40));
+        getContentPane().add(jTextField1_razaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, 350, 40));
 
-        jLabel10_nome.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
+        jLabel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "TIPO DE PROPRIETÁRIO", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 25))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 350, 110));
+
+        jLabel10_nome.setBackground(new java.awt.Color(187, 187, 187));
+        jLabel10_nome.setFont(new java.awt.Font("Bodoni MT", 3, 34)); // NOI18N
         jLabel10_nome.setText("NOME");
-        getContentPane().add(jLabel10_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, -1, 40));
+        getContentPane().add(jLabel10_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, -1, 40));
 
         jButton_Remover.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_Remover.setForeground(new java.awt.Color(255, 51, 153));
@@ -187,16 +206,15 @@ public class TelaProprietarios extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 630, 140, 40));
 
-        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 430, 120));
-
-        jLabel8_cpf.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
+        jLabel8_cpf.setBackground(new java.awt.Color(187, 187, 187));
+        jLabel8_cpf.setFont(new java.awt.Font("Bodoni MT", 3, 34)); // NOI18N
         jLabel8_cpf.setText("CPF");
-        getContentPane().add(jLabel8_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, 80, 40));
+        getContentPane().add(jLabel8_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 340, 80, 40));
 
-        jLabel9_CNPJ.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
+        jLabel9_CNPJ.setBackground(new java.awt.Color(187, 187, 187));
+        jLabel9_CNPJ.setFont(new java.awt.Font("Bodoni MT", 3, 34)); // NOI18N
         jLabel9_CNPJ.setText("CNPJ");
-        getContentPane().add(jLabel9_CNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 380, 100, 40));
+        getContentPane().add(jLabel9_CNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 100, 40));
 
         jFormattedTextField1_cpf.setBackground(new java.awt.Color(153, 153, 153));
         jFormattedTextField1_cpf.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -211,7 +229,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
                 jFormattedTextField1_cpfMouseClicked(evt);
             }
         });
-        getContentPane().add(jFormattedTextField1_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, 300, 40));
+        getContentPane().add(jFormattedTextField1_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, 300, 40));
 
         jFormattedTextField1_CNPJ.setBackground(new java.awt.Color(153, 153, 153));
         jFormattedTextField1_CNPJ.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -226,24 +244,27 @@ public class TelaProprietarios extends javax.swing.JFrame {
                 jFormattedTextField1_CNPJMouseClicked(evt);
             }
         });
-        getContentPane().add(jFormattedTextField1_CNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, 300, 40));
+        getContentPane().add(jFormattedTextField1_CNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, 300, 40));
 
-        jLabel10_razaoSocial.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
+        jLabel10_razaoSocial.setBackground(new java.awt.Color(187, 187, 187));
+        jLabel10_razaoSocial.setFont(new java.awt.Font("Bodoni MT", 3, 34)); // NOI18N
         jLabel10_razaoSocial.setText("RAZÃO SOCIAL");
-        getContentPane().add(jLabel10_razaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 290, 40));
+        getContentPane().add(jLabel10_razaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 290, 40));
 
-        jButton1_cadastrarEndereçoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/botaoLogin.jpg"))); // NOI18N
-        jButton1_cadastrarEndereçoi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jButton1_cadastrarEndereçoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 550, 280, 50));
-
-        jLabel8.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
+        jLabel8.setBackground(new java.awt.Color(187, 187, 187));
+        jLabel8.setFont(new java.awt.Font("Bodoni MT", 3, 34)); // NOI18N
         jLabel8.setText("TELEFONE");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, 40));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 400, -1, 40));
 
         jTextField1_EMAILÇ.setBackground(new java.awt.Color(153, 153, 153));
         jTextField1_EMAILÇ.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_EMAILÇ.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_EMAILÇ, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 500, 350, 40));
+        getContentPane().add(jTextField1_EMAILÇ, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 460, 350, 40));
+
+        jTextField1_CNH.setBackground(new java.awt.Color(153, 153, 153));
+        jTextField1_CNH.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
+        jTextField1_CNH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        getContentPane().add(jTextField1_CNH, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 520, 300, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -354,16 +375,17 @@ public class TelaProprietarios extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1_cadastrarEndereçoi;
     private javax.swing.JButton jButton4_voltar;
     private javax.swing.JButton jButton_Alterar;
     private javax.swing.JButton jButton_Remover;
     private javax.swing.JButton jButton_iNCLUIR;
     private javax.swing.JComboBox<tipoProprietario> jComboBox1_TipoDoProprietário;
+    private javax.swing.JComboBox<CategoriaCNH> jComboBox1_tipoCNH;
     private javax.swing.JFormattedTextField jFormattedTextField1_CNPJ;
     private javax.swing.JFormattedTextField jFormattedTextField1_cpf;
     private javax.swing.JFormattedTextField jFormattedTextField1_telefone;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel10_nome;
     private javax.swing.JLabel jLabel10_razaoSocial;
     private javax.swing.JLabel jLabel2;
@@ -371,10 +393,11 @@ public class TelaProprietarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel8_cpf;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel9_CNPJ;
+    private javax.swing.JTextField jTextField1_CNH;
     private javax.swing.JTextField jTextField1_EMAILÇ;
     private javax.swing.JTextField jTextField1_Nome;
     private javax.swing.JTextField jTextField1_razaoSocial;
@@ -382,6 +405,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
 
     private void carregarComboBox() {
         jComboBox1_TipoDoProprietário.setModel(new DefaultComboBoxModel<>(tipoProprietario.values()));
+        jComboBox1_tipoCNH.setModel(new DefaultComboBoxModel<>(CategoriaCNH.values()));
     }
 
 }

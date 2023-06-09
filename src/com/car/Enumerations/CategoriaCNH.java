@@ -4,7 +4,11 @@ package com.car.Enumerations;
 public enum CategoriaCNH {
     A,
     B,
+    AB,
     C,
+    AC,
     D,
-    E
+    AD,
+    E,
+    AE
 }
