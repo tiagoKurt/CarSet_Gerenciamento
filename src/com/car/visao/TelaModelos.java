@@ -255,6 +255,9 @@ public class TelaModelos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1_tabelaModelos);
         if (jTable1_tabelaModelos.getColumnModel().getColumnCount() > 0) {
+            jTable1_tabelaModelos.getColumnModel().getColumn(0).setMinWidth(75);
+            jTable1_tabelaModelos.getColumnModel().getColumn(0).setPreferredWidth(75);
+            jTable1_tabelaModelos.getColumnModel().getColumn(0).setMaxWidth(75);
             jTable1_tabelaModelos.getColumnModel().getColumn(1).setPreferredWidth(170);
             jTable1_tabelaModelos.getColumnModel().getColumn(2).setPreferredWidth(170);
             jTable1_tabelaModelos.getColumnModel().getColumn(3).setMinWidth(0);
@@ -288,6 +291,11 @@ public class TelaModelos extends javax.swing.JFrame {
         jTextField1_DescricaoModelo.setBackground(new java.awt.Color(153, 153, 153));
         jTextField1_DescricaoModelo.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_DescricaoModelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jTextField1_DescricaoModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1_DescricaoModeloKeyTyped(evt);
+            }
+        });
         getContentPane().add(jTextField1_DescricaoModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 320, 40));
 
         jComboBox1_ListaMarcas.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
@@ -523,6 +531,14 @@ public class TelaModelos extends javax.swing.JFrame {
             Logger.getLogger(TelaModelos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jComboBox1_ListaMarcasActionPerformed
+
+    private void jTextField1_DescricaoModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1_DescricaoModeloKeyTyped
+       char c=evt.getKeyChar();
+
+        if(Character.isLowerCase(c)){
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
+    }//GEN-LAST:event_jTextField1_DescricaoModeloKeyTyped
 
     /**
      * @param args the command line arguments

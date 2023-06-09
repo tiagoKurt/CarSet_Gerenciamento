@@ -1,11 +1,12 @@
 package com.car.Modelos;
 
 import com.car.Enumerations.CategoriaCNH;
+import com.car.Enumerations.tipoProprietario;
 
 
 public class Proprietario {
-    private String CPF;
-    private String CNPJ;
+    private tipoProprietario tipoDoProprietario;
+    private String CPF_CNPJ;
     private String nome;
     private String telefone;
     private String email;
@@ -14,9 +15,10 @@ public class Proprietario {
     
     public Proprietario(){}
     
-    public Proprietario(String CPF, String CNPJ, String nome, String telefone, String email, String CNH, CategoriaCNH categoriaCNH){
-        this.CPF = CPF;
-        this.CNPJ = CNPJ;
+    public Proprietario(tipoProprietario tipoDoProprietario, String CPF_CNPJ, String nome, String telefone, String email, String CNH, 
+           CategoriaCNH categoriaCNH){
+        this.tipoDoProprietario = tipoDoProprietario;
+        this.CPF_CNPJ = CPF_CNPJ;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
@@ -24,14 +26,30 @@ public class Proprietario {
         this.categoriaCNH = categoriaCNH;
     }
 
-    public String getCPF() {
-        return CPF;
+    public tipoProprietario getTipoDoProprietario() {
+        return tipoDoProprietario;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public void setTipoDoProprietario(tipoProprietario tipoDoProprietario) {
+        this.tipoDoProprietario = tipoDoProprietario;
     }
 
+    public String getCPF_CNPJ() {
+        return CPF_CNPJ;
+    }
+
+    public void setCPF_CNPJ(String CPF_CNPJ) {
+        this.CPF_CNPJ = CPF_CNPJ;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     public String getNome() {
         return nome;
     }

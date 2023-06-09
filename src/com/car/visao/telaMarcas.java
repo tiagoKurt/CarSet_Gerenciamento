@@ -233,6 +233,11 @@ public class telaMarcas extends javax.swing.JFrame {
 
         jTextField1_DescricaoMarca1.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_DescricaoMarca1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jTextField1_DescricaoMarca1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1_DescricaoMarca1KeyTyped(evt);
+            }
+        });
         getContentPane().add(jTextField1_DescricaoMarca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 460, 40));
 
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -334,6 +339,14 @@ public class telaMarcas extends javax.swing.JFrame {
         ImagensMarcas.setIcon(iconLogo);
         ImagensMarcas1.setVisible(false);
     }//GEN-LAST:event_jTable1_tabelaMarcasMouseClicked
+
+    private void jTextField1_DescricaoMarca1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1_DescricaoMarca1KeyTyped
+        char c=evt.getKeyChar();
+
+        if(Character.isLowerCase(c)){
+            evt.setKeyChar(Character.toUpperCase(c));
+        }
+    }//GEN-LAST:event_jTextField1_DescricaoMarca1KeyTyped
 
     public void limparTela() {
         jTextField1_IDMarcas.setText("");
