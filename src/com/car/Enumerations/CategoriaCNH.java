@@ -6,9 +6,6 @@ public enum CategoriaCNH {
     B,
     AB,
     C,
-    AC,
     D,
-    AD,
     E,
-    AE
 }

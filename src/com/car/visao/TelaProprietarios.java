@@ -2,28 +2,31 @@ package com.car.visao;
 
 import com.car.Enumerations.*;
 import com.car.Ferramentas.limitaCaracteres;
+import com.car.Modelos.Proprietario;
+import com.car.persistencia.ProprietariosDAO;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 ;
 
 public class TelaProprietarios extends javax.swing.JFrame {
 
     String tipoPropri;
-
+    String CatCNH;
     public TelaProprietarios() {
         initComponents();
-        
+
         jTextField1_Nome.setDocument(new limitaCaracteres(55, limitaCaracteres.tipoEntrada.NOME));
         jTextField1_razaoSocial.setDocument(new limitaCaracteres(55, limitaCaracteres.tipoEntrada.DESCRICAO));
-        jTextField1_EMAILÇ.setDocument(new limitaCaracteres(60, limitaCaracteres.tipoEntrada.EMAIL));
+        jTextField1_EMAIL.setDocument(new limitaCaracteres(60, limitaCaracteres.tipoEntrada.EMAIL));
         jTextField1_CNH.setDocument(new limitaCaracteres(9, limitaCaracteres.tipoEntrada.NUMEROINTEIRO));
-        
-        
+
         carregarComboBox();
 
         tipoPropri = tipoProprietario.PF + "";
+        CatCNH = CategoriaCNH.A+"";
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle bounds = env.getMaximumWindowBounds();
@@ -32,7 +35,6 @@ public class TelaProprietarios extends javax.swing.JFrame {
         setSize(largura, altura);
         setLocation(0, 0);
 
-        
         jFormattedTextField1_CNPJ.setVisible(false);
         jLabel10_razaoSocial.setVisible(false);
         jLabel10_razaoSocial.setVisible(false);
@@ -72,7 +74,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
         jFormattedTextField1_CNPJ = new javax.swing.JFormattedTextField();
         jLabel10_razaoSocial = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1_EMAILÇ = new javax.swing.JTextField();
+        jTextField1_EMAIL = new javax.swing.JTextField();
         jTextField1_CNH = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
@@ -256,10 +258,10 @@ public class TelaProprietarios extends javax.swing.JFrame {
         jLabel8.setText("TELEFONE");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 400, -1, 40));
 
-        jTextField1_EMAILÇ.setBackground(new java.awt.Color(153, 153, 153));
-        jTextField1_EMAILÇ.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
-        jTextField1_EMAILÇ.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_EMAILÇ, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 460, 350, 40));
+        jTextField1_EMAIL.setBackground(new java.awt.Color(153, 153, 153));
+        jTextField1_EMAIL.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
+        jTextField1_EMAIL.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        getContentPane().add(jTextField1_EMAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 460, 350, 40));
 
         jTextField1_CNH.setBackground(new java.awt.Color(153, 153, 153));
         jTextField1_CNH.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
@@ -283,7 +285,6 @@ public class TelaProprietarios extends javax.swing.JFrame {
             jTextField1_Nome.setVisible(true);
             jFormattedTextField1_cpf.setVisible(true);
             jLabel8_cpf.setVisible(true);
-            
 
             jFormattedTextField1_CNPJ.setVisible(false);
             jLabel10_razaoSocial.setVisible(false);
@@ -291,7 +292,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
             jTextField1_razaoSocial.setVisible(false);
             jTextField1_razaoSocial.setText("");
             jFormattedTextField1_CNPJ.setText("");
-            
+
         } else if (jComboBox1_TipoDoProprietário.getSelectedIndex() == 1) {
 
             jLabel10_nome.setVisible(false);
@@ -300,7 +301,6 @@ public class TelaProprietarios extends javax.swing.JFrame {
             jFormattedTextField1_cpf.setVisible(false);
             jFormattedTextField1_cpf.setText("");
             jTextField1_Nome.setText("");
-            
 
             jLabel9_CNPJ.setVisible(true);
             jFormattedTextField1_CNPJ.setVisible(true);
@@ -320,9 +320,63 @@ public class TelaProprietarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_AlterarActionPerformed
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
+        try {
+            if(jComboBox1_TipoDoProprietário.getSelectedIndex() == 0){
+                tipoPropri = tipoProprietario.PF+"";
+            }else if(jComboBox1_TipoDoProprietário.getSelectedIndex() ==1){
+                tipoPropri = tipoProprietario.PJ+"";
+            }
+            
+            if(jComboBox1_tipoCNH.getSelectedIndex() == 0){
+                CatCNH = CategoriaCNH.A+"";
+            }else if(jComboBox1_tipoCNH.getSelectedIndex() == 1){
+                CatCNH = CategoriaCNH.B+"";
+            }else if(jComboBox1_tipoCNH.getSelectedIndex() == 2){
+                CatCNH = CategoriaCNH.AB+"";
+            }else if(jComboBox1_tipoCNH.getSelectedIndex() == 3){
+                CatCNH = CategoriaCNH.C+"";
+            }else if(jComboBox1_tipoCNH.getSelectedIndex() == 4){
+                CatCNH = CategoriaCNH.D+"";
+            }else if (jComboBox1_tipoCNH.getSelectedIndex() == 5){
+                CatCNH = CategoriaCNH.E+"";
+            }
+            
+            if (jComboBox1_TipoDoProprietário.getSelectedIndex() == 0) {
+                ProprietariosDAO proprietariosDAO = new ProprietariosDAO();
+                Proprietario propri = new Proprietario(0, tipoProprietario.valueOf(tipoPropri), 
+                        jFormattedTextField1_cpf.getText(), jTextField1_Nome.getText(), jFormattedTextField1_telefone.getText(), 
+                        jTextField1_EMAIL.getText(), Integer.parseInt(jTextField1_CNH.getText()), CategoriaCNH.valueOf(CatCNH));
+                proprietariosDAO.incluirProprietario(propri);
+                JOptionPane.showMessageDialog(rootPane, "Proprietário do tipo '"+tipoPropri+"' cadastrado com sucesso !");
+                
+                limparCampos();
+            }else if(jComboBox1_TipoDoProprietário.getSelectedIndex() == 1){
+                ProprietariosDAO proprietariosDAO = new ProprietariosDAO();
+                Proprietario propri = new Proprietario(0, tipoProprietario.valueOf(tipoPropri), 
+                        jFormattedTextField1_CNPJ.getText(), jTextField1_razaoSocial.getText(), jFormattedTextField1_telefone.getText(), 
+                        jTextField1_EMAIL.getText(), Integer.parseInt(jTextField1_CNH.getText()), CategoriaCNH.valueOf(CatCNH));
+                proprietariosDAO.incluirProprietario(propri);
+                JOptionPane.showMessageDialog(rootPane, "Proprietário do tipo '"+tipoPropri+"' cadastrado com sucesso !");
+                limparCampos();
+            }
 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
     }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
 
+    private void limparCampos(){
+        jTextField1_CNH.setText("");
+        jTextField1_EMAIL.setText("");
+        jTextField1_Nome.setText("");
+        jTextField1_razaoSocial.setText("");
+        jFormattedTextField1_CNPJ.setText("");
+        jFormattedTextField1_cpf.setText("");
+        jFormattedTextField1_telefone.setText("");
+        jComboBox1_TipoDoProprietário.setSelectedIndex(0);
+        jComboBox1_tipoCNH.setSelectedIndex(0);
+    }
+    
     private void jButton4_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4_voltarActionPerformed
         // TODO add your handling code here:
         TelaPrincipal principal = new TelaPrincipal();
@@ -398,7 +452,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel9_CNPJ;
     private javax.swing.JTextField jTextField1_CNH;
-    private javax.swing.JTextField jTextField1_EMAILÇ;
+    private javax.swing.JTextField jTextField1_EMAIL;
     private javax.swing.JTextField jTextField1_Nome;
     private javax.swing.JTextField jTextField1_razaoSocial;
     // End of variables declaration//GEN-END:variables

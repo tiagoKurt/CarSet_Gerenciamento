@@ -5,18 +5,20 @@ import com.car.Enumerations.tipoProprietario;
 
 
 public class Proprietario {
+    private int idProprietarios;
     private tipoProprietario tipoDoProprietario;
     private String CPF_CNPJ;
     private String nome;
     private String telefone;
     private String email;
-    private String CNH;
+    private int CNH;
     private CategoriaCNH categoriaCNH;
     
     public Proprietario(){}
     
-    public Proprietario(tipoProprietario tipoDoProprietario, String CPF_CNPJ, String nome, String telefone, String email, String CNH, 
+    public Proprietario(int idProprietarios, tipoProprietario tipoDoProprietario, String CPF_CNPJ, String nome, String telefone, String email, int CNH, 
            CategoriaCNH categoriaCNH){
+        this.idProprietarios = idProprietarios;
         this.tipoDoProprietario = tipoDoProprietario;
         this.CPF_CNPJ = CPF_CNPJ;
         this.nome = nome;
@@ -26,6 +28,15 @@ public class Proprietario {
         this.categoriaCNH = categoriaCNH;
     }
 
+    public int getIdProprietarios() {
+        return idProprietarios;
+    }
+
+    public void setIdProprietarios(int idProprietarios) {
+        this.idProprietarios = idProprietarios;
+    }
+
+    
     public tipoProprietario getTipoDoProprietario() {
         return tipoDoProprietario;
     }
@@ -66,11 +77,11 @@ public class Proprietario {
         this.telefone = telefone;
     }
 
-    public String getCNH() {
+    public int getCNH() {
         return CNH;
     }
 
-    public void setCNH(String CNH) {
+    public void setCNH(int CNH) {
         this.CNH = CNH;
     }
 
