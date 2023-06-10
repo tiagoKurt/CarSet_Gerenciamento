@@ -85,8 +85,24 @@ public class ModelosDAO implements IModelosDAO {
     }
 
     @Override
-    public Marcas buscar(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Modelos buscar(int id) throws Exception {
+        String sql = "SELECT * FROM modelos WHERE id = ?";
+        PreparedStatement statement = conexao.prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet rs = statement.executeQuery();
+
+        while (rs.next()) {
+            Modelos objetoModelos = new Modelos();
+            objetoModelos.setIdModelos(rs.getInt("id"));
+            int idmarca = rs.getInt("id_marca");
+            MarcasDAO marca = new MarcasDAO();
+            objetoModelos.setMarca(marca.buscar(idmarca));
+            objetoModelos.setDescricao(rs.getString("descricao"));
+            objetoModelos.setUrl(rs.getString("url"));
+            objetoModelos.setImagemModelo(objetoModelos.getImagemModelo());
+            return new Modelos(objetoModelos.getIdModelos(), objetoModelos.getMarca(), objetoModelos.getDescricao(), objetoModelos.getUrl(), objetoModelos.getImagemModelo());
+        }
+        return null;
     }
 
 }

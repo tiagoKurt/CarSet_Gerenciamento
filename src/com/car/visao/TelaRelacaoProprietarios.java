@@ -38,13 +38,13 @@ public class TelaRelacaoProprietarios extends javax.swing.JFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1_proprietarios.getModel();
             JTableRenderer JtableRenderer = new JTableRenderer();
-            jTable1_proprietarios.getColumnModel().getColumn(7).setCellRenderer(JtableRenderer);
+            jTable1_proprietarios.getColumnModel().getColumn(8).setCellRenderer(JtableRenderer);
 
             model.setNumRows(0);
             Iterator<Proprietario> lista = listaDeMarcas.iterator();
 
             while (lista.hasNext()) {
-                String[] saida = new String[8];
+                String[] saida = new String[9];
                 Proprietario aux = lista.next();
                 saida[0] = aux.getIdProprietarios() + "";
                 saida[1] = aux.getTipoDoProprietario()+"";
@@ -54,6 +54,7 @@ public class TelaRelacaoProprietarios extends javax.swing.JFrame {
                 saida[5] = aux.getEmail();
                 saida[6] = aux.getCNH()+"";
                 saida[7] = aux.getCategoriaCNH()+"";
+               
                 
 
                 
@@ -98,20 +99,20 @@ public class TelaRelacaoProprietarios extends javax.swing.JFrame {
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 5, true), "PROPRIETÁRIOS", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 0, 36), new java.awt.Color(0, 0, 0))); // NOI18N
 
         jTable1_proprietarios.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
-        jTable1_proprietarios.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jTable1_proprietarios.setFont(new java.awt.Font("Bodoni MT", 3, 19)); // NOI18N
         jTable1_proprietarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "TIPO", "DOCUMENTO", "NOME", "TELEFONE", "EMAIL", "CNH", "CAT CNH"
+                "ID", "TIPO", "DOCUMENTO", "NOME", "TELEFONE", "EMAIL", "CNH", "CAT CNH", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -130,12 +131,21 @@ public class TelaRelacaoProprietarios extends javax.swing.JFrame {
             jTable1_proprietarios.getColumnModel().getColumn(2).setMinWidth(125);
             jTable1_proprietarios.getColumnModel().getColumn(2).setPreferredWidth(125);
             jTable1_proprietarios.getColumnModel().getColumn(2).setMaxWidth(125);
+            jTable1_proprietarios.getColumnModel().getColumn(4).setMinWidth(150);
+            jTable1_proprietarios.getColumnModel().getColumn(4).setPreferredWidth(150);
+            jTable1_proprietarios.getColumnModel().getColumn(4).setMaxWidth(150);
+            jTable1_proprietarios.getColumnModel().getColumn(6).setMinWidth(125);
+            jTable1_proprietarios.getColumnModel().getColumn(6).setPreferredWidth(125);
+            jTable1_proprietarios.getColumnModel().getColumn(6).setMaxWidth(125);
             jTable1_proprietarios.getColumnModel().getColumn(7).setMinWidth(75);
             jTable1_proprietarios.getColumnModel().getColumn(7).setPreferredWidth(75);
             jTable1_proprietarios.getColumnModel().getColumn(7).setMaxWidth(75);
+            jTable1_proprietarios.getColumnModel().getColumn(8).setMinWidth(0);
+            jTable1_proprietarios.getColumnModel().getColumn(8).setPreferredWidth(0);
+            jTable1_proprietarios.getColumnModel().getColumn(8).setMaxWidth(0);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 1230, 320));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 1230, 320));
 
         jButton4_voltar.setBackground(new java.awt.Color(102, 102, 102));
         jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N

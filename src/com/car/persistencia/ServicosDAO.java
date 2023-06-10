@@ -90,5 +90,24 @@ public class ServicosDAO implements IServicosDAO{
         }
         return listaDeMarcas;
     }
+
+    @Override
+    public Servico buscarServicos(int id) throws Exception {
+        String sql = "SELECT * FROM servicos WHERE id = ?";
+        PreparedStatement statement = conexao.prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet rs = statement.executeQuery();
+
+        while (rs.next()) {
+            Servico objetoServico = new Servico();
+            objetoServico.setId(rs.getInt("id"));
+            objetoServico.setDescricao(rs.getString("descricao"));
+            objetoServico.setUrl(rs.getString("url"));
+            objetoServico.setImagemServico(objetoServico.getImagemServico());
+            return new Servico(objetoServico.getId(), objetoServico.getDescricao(), objetoServico.getUrl(), objetoServico.getImagemServico());
+           
+        }
+        return null;
+    }
     
 }

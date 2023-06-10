@@ -8,4 +8,5 @@ public interface IServicosDAO {
     void AlterarServico(Servico servico) throws Exception;
     boolean excluirServico(int idServico) throws Exception;
     ArrayList<Servico> listagemServicos() throws Exception;
+    Servico buscarServicos(int id) throws Exception;
 }
