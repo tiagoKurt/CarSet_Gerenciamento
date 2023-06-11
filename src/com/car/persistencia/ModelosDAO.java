@@ -105,4 +105,17 @@ public class ModelosDAO implements IModelosDAO {
         return null;
     }
 
+    public ResultSet listarModelos() throws Exception {
+        String sql = "SELECT descricao from modelos ORDER BY descricao";
+
+        try {
+            st = conexao.prepareStatement(sql);
+            return st.executeQuery();
+
+        } catch (SQLException erro) {
+            throw new Exception("SQL Erro: " + erro.getMessage());
+        }
+    }
+    
+    
 }
