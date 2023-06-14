@@ -16,17 +16,27 @@ public class Gastos {
     private String descricao;
     private float gastoTotal;
     private Date dataGasto;
+    private int id_veiculo;
     
     public Gastos(){
     }
     
-    public Gastos(int id, int idGasto, ClassificacaoGastos identificadorGasto, String descricao, float gastoTotal,Date dataGasto) {
+    public Gastos(int id, int idGasto, ClassificacaoGastos identificadorGasto, String descricao, float gastoTotal,Date dataGasto,int id_veiculo) {
         this.id = id;
         this.idGasto = idGasto;
         this.identificadorGasto = identificadorGasto;
         this.descricao = descricao;
         this.gastoTotal = gastoTotal;
         this.dataGasto = dataGasto;
+        this.id_veiculo = id_veiculo;
+    }
+
+    public int getId_veiculo() {
+        return id_veiculo;
+    }
+
+    public void setId_veiculo(int id_veiculo) {
+        this.id_veiculo = id_veiculo;
     }
 
     public Date getDataGasto() {

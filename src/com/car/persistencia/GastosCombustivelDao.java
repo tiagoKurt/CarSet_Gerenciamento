@@ -7,6 +7,7 @@ import com.car.Ferramentas.ConexaoBD;
 import com.car.Modelos.Gastos;
 
 import com.car.Modelos.GastosCombustivel;
+import com.car.Modelos.Veiculos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +28,7 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
     @Override
     public void InserirGastos(GastosCombustivel gastos) throws Exception {
         try{
-            st = conexao.prepareStatement("insert into gastos_combustivel(tipogasto,descgasto,qtdlcomb,kmpercorrido,valorlitrocomb,kmplcarro,dataabast)values(?,?,?,?,?,?,?)");
+            st = conexao.prepareStatement("insert into gastos_combustivel(tipogasto,descgasto,qtdlcomb,kmpercorrido,valorlitrocomb,kmplcarro,dataabast,id_veiculo)values(?,?,?,?,?,?,?,?)");
             st.setString(1, gastos.getIdentificadorGasto().toString());
             st.setString(2, gastos.getDescricao().toString());
             st.setFloat(3, gastos.getQuantidadeLitrosCombustivel());
@@ -35,6 +36,7 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
             st.setFloat(5, gastos.getValorLitroCombustivel());
             st.setFloat(6, gastos.getQntdKmPorLitroCarro());
             st.setDate(7, gastos.getDataAbastecimento());
+            st.setInt(8, gastos.getVeiculos().getId());
             st.executeUpdate();
             st.close();
             
@@ -94,7 +96,8 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
     @Override
     public Gastos inserirGastosGerais() throws Exception {
         float gastoTotal  = buscarUltimoRegistroInserido().getQuantidadeLitrosCombustivel() * buscarUltimoRegistroInserido().getValorLitroCombustivel();
-        return new Gastos(0, buscarUltimoRegistroInserido().getId(),buscarUltimoRegistroInserido().getIdentificadorGasto(), buscarUltimoRegistroInserido().getDescricao().toString(), gastoTotal, buscarUltimoRegistroInserido().getDataAbastecimento());
+        
+        return new Gastos(0, buscarUltimoRegistroInserido().getId(),buscarUltimoRegistroInserido().getIdentificadorGasto(), buscarUltimoRegistroInserido().getDescricao().toString(), gastoTotal, buscarUltimoRegistroInserido().getDataAbastecimento(),buscarUltimoRegistroInserido().getVeiculos().getId());
     }
 
     @Override
@@ -107,6 +110,7 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
 "			  ,valorlitrocomb\n" +
 "			  ,kmplcarro\n" +
 "			  ,dataabast \n" +
+"			  ,id_veiculo \n" +
 "FROM gastos_combustivel\n" +
 "group by id,tipogasto,descgasto,qtdlcomb,kmpercorrido,valorlitrocomb,kmplcarro,dataabast\n "+
 "order by id desc";
@@ -116,6 +120,7 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
          
          while(rs.next()){
              GastosCombustivel gastosCombustivel = new GastosCombustivel();
+                IVeiculosDAO objetoVeiculosDao = new VeiculosDAO();
                  gastosCombustivel.setId(rs.getInt("id"));
                  gastosCombustivel.setIdentificadorGasto(ClassificacaoGastos.valueOf(rs.getString("tipogasto")));
                  gastosCombustivel.setDescricao(TipoCombustivel.valueOf(rs.getString("descgasto")));
@@ -124,7 +129,8 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
                  gastosCombustivel.setValorLitroCombustivel(rs.getFloat("valorlitrocomb"));
                  gastosCombustivel.setQntdKmPorLitroCarro(rs.getFloat("kmplcarro"));
                  gastosCombustivel.setDataAbastecimento(rs.getDate("dataabast"));
-        return new GastosCombustivel(gastosCombustivel.getId(),gastosCombustivel.getIdentificadorGasto(), gastosCombustivel.getDescricao(), gastosCombustivel.getQuantidadeLitrosCombustivel(), gastosCombustivel.getKmPercorridoVeiculo(), gastosCombustivel.getValorLitroCombustivel(), gastosCombustivel.getQntdKmPorLitroCarro(), gastosCombustivel.getDataAbastecimento());
+                 gastosCombustivel.setVeiculos(objetoVeiculosDao.buscar(rs.getInt("id_veiculo")));
+        return new GastosCombustivel(gastosCombustivel.getId(),gastosCombustivel.getIdentificadorGasto(), gastosCombustivel.getDescricao(), gastosCombustivel.getQuantidadeLitrosCombustivel(), gastosCombustivel.getKmPercorridoVeiculo(), gastosCombustivel.getValorLitroCombustivel(), gastosCombustivel.getQntdKmPorLitroCarro(), gastosCombustivel.getDataAbastecimento(),gastosCombustivel.getVeiculos());
          }
          return null;
     }

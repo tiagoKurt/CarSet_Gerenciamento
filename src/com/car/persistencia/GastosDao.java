@@ -31,12 +31,13 @@ public class GastosDao implements IGastosDao{
     @Override
     public void InserirGastos(Gastos gastos) throws Exception {
         try{
-            st = conexao.prepareStatement("insert into gastosgeral (id_gasto,tipogasto,descgasto,valortotal,datagasto)values(?,?,?,?,?)");
+            st = conexao.prepareStatement("insert into gastosgeral (id_gasto,tipogasto,descgasto,valortotal,datagasto,id_veiculo)values(?,?,?,?,?,?)");
             st.setInt(1, gastos.getIdGasto());
             st.setString(2, gastos.getIdentificadorGasto().toString());
             st.setString(3, gastos.getDescricao());
             st.setFloat(4, gastos.getGastoTotal());
             st.setDate(5, gastos.getDataGasto());
+            st.setInt(6, gastos.getId_veiculo());
             st.executeUpdate();
             st.close();
         }catch(SQLException e){
@@ -70,6 +71,7 @@ public class GastosDao implements IGastosDao{
                  gastos.setDescricao(rs.getString("descgasto"));
                  gastos.setGastoTotal(rs.getFloat("valortotal"));
                  gastos.setDataGasto(rs.getDate("datagasto"));
+                 gastos.setId_veiculo(rs.getInt("id_veiculo"));
                  listaDeGastos.add(gastos);
              }}catch(SQLException e){
                      throw new Exception(e);
