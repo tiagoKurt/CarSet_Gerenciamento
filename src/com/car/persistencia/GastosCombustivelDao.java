@@ -3,6 +3,7 @@ package com.car.persistencia;
 
 import com.car.Enumerations.ClassificacaoGastos;
 import com.car.Enumerations.TipoCombustivel;
+import com.car.Enumerations.TiposCombustiveisGastos;
 import com.car.Ferramentas.ConexaoBD;
 import com.car.Modelos.Gastos;
 
@@ -72,7 +73,7 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
                  GastosCombustivel gastos = new GastosCombustivel();
                  gastos.setId(rs.getInt("id"));
                  gastos.setIdentificadorGasto(ClassificacaoGastos.valueOf(rs.getString("tipogasto")));
-                 gastos.setDescricao(TipoCombustivel.valueOf(rs.getString("descgasto")));
+                 gastos.setDescricao(TiposCombustiveisGastos.valueOf(rs.getString("descgasto")));
                  gastos.setQuantidadeLitrosCombustivel(rs.getFloat("qtdlcomb"));
                  gastos.setKmPercorridoVeiculo(rs.getFloat("kmpercorrido"));
                  gastos.setValorLitroCombustivel(rs.getFloat("valorlitrocomb"));
@@ -123,7 +124,7 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
                 IVeiculosDAO objetoVeiculosDao = new VeiculosDAO();
                  gastosCombustivel.setId(rs.getInt("id"));
                  gastosCombustivel.setIdentificadorGasto(ClassificacaoGastos.valueOf(rs.getString("tipogasto")));
-                 gastosCombustivel.setDescricao(TipoCombustivel.valueOf(rs.getString("descgasto")));
+                 gastosCombustivel.setDescricao(TiposCombustiveisGastos.valueOf(rs.getString("descgasto")));
                  gastosCombustivel.setQuantidadeLitrosCombustivel(rs.getFloat("qtdlcomb"));
                  gastosCombustivel.setKmPercorridoVeiculo(rs.getFloat("kmpercorrido"));
                  gastosCombustivel.setValorLitroCombustivel(rs.getFloat("valorlitrocomb"));

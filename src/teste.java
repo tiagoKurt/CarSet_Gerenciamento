@@ -7,6 +7,7 @@ import com.car.persistencia.MarcasDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.car.Enumerations.TipoCombustivel;
+import com.car.Enumerations.TiposCombustiveisGastos;
 import com.car.Modelos.Veiculos;
 import com.car.persistencia.GastosCombustivelDao;
 import com.car.persistencia.IVeiculosDAO;
@@ -32,7 +33,7 @@ public class teste {
             System.out.println(objetoVDao.buscar(2).getId());
             
             
-            GastosCombustivel objeto = new GastosCombustivel(0, ClassificacaoGastos.COMBUSTIVEL,TipoCombustivel.FLEX, 50, 282, (float) 2, 20,date,objetoVDao.buscar(1));
+            GastosCombustivel objeto = new GastosCombustivel(0, ClassificacaoGastos.COMBUSTIVEL,TiposCombustiveisGastos.Gasolina, 50, 282, (float) 2, 20,date,objetoVDao.buscar(1));
             IGastosCombustivelDao objetoDao = new GastosCombustivelDao();
             objetoDao.InserirGastos(objeto);
                     

@@ -6,6 +6,7 @@ package com.car.Modelos;
 
 import com.car.Enumerations.ClassificacaoGastos;
 import com.car.Enumerations.TipoCombustivel;
+import com.car.Enumerations.TiposCombustiveisGastos;
 import java.sql.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.sql.Date;
 public class GastosCombustivel {
     private int id;
     private ClassificacaoGastos identificadorGasto;
-    private TipoCombustivel descricao;
+    private TiposCombustiveisGastos descricao;
     private float quantidadeLitrosCombustivel;
     private float kmPercorridoVeiculo;
     private float valorLitroCombustivel;
@@ -23,7 +24,7 @@ public class GastosCombustivel {
     private Date dataAbastecimento;
     private Veiculos veiculos;
 
-    public GastosCombustivel(int id, ClassificacaoGastos identificadorGasto, TipoCombustivel descricao, float quantidadeLitrosCombustivel, float kmPercorridoVeiculo, float valorLitroCombustivel, float qntdKmPorLitroCarro, Date dataAbastecimento,Veiculos veiculos) {
+    public GastosCombustivel(int id, ClassificacaoGastos identificadorGasto, TiposCombustiveisGastos descricao, float quantidadeLitrosCombustivel, float kmPercorridoVeiculo, float valorLitroCombustivel, float qntdKmPorLitroCarro, Date dataAbastecimento,Veiculos veiculos) {
         this.id = id;
         this.identificadorGasto = identificadorGasto;
         this.descricao = descricao;
@@ -72,11 +73,11 @@ public class GastosCombustivel {
         this.identificadorGasto = identificadorGasto;
     }
 
-    public TipoCombustivel getDescricao() {
+    public TiposCombustiveisGastos getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(TipoCombustivel descricao) {
+    public void setDescricao(TiposCombustiveisGastos descricao) {
         this.descricao = descricao;
     }
 
