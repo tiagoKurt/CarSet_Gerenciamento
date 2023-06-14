@@ -178,7 +178,7 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
                 jButton4_voltar1ActionPerformed(evt);
             }
         });
-        jFrame1_alterar.getContentPane().add(jButton4_voltar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 690, 160, 40));
+        jFrame1_alterar.getContentPane().add(jButton4_voltar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 690, 180, 50));
 
         jComboBox2_TipoDoVeiculo.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox2_TipoDoVeiculo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -247,9 +247,9 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
         jFrame1_alterar.getContentPane().add(jTextField1_quilometragem, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 580, 260, 40));
 
         jButton1_ALTERAR.setBackground(new java.awt.Color(102, 102, 102));
-        jButton1_ALTERAR.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
+        jButton1_ALTERAR.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
         jButton1_ALTERAR.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1_ALTERAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/alterar.png"))); // NOI18N
+        jButton1_ALTERAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/CHANGE.png"))); // NOI18N
         jButton1_ALTERAR.setText("   ALTERAR");
         jButton1_ALTERAR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         jButton1_ALTERAR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -258,7 +258,7 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
                 jButton1_ALTERARActionPerformed(evt);
             }
         });
-        jFrame1_alterar.getContentPane().add(jButton1_ALTERAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 350, 200, 40));
+        jFrame1_alterar.getContentPane().add(jButton1_ALTERAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 340, 220, 50));
 
         jLabel17.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "DIGITE", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(255, 255, 255))); // NOI18N
         jFrame1_alterar.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 720, 140));
@@ -324,7 +324,7 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 1270, 250));
 
         jButton4_voltar.setBackground(new java.awt.Color(102, 102, 102));
-        jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
+        jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jButton4_voltar.setForeground(new java.awt.Color(255, 0, 153));
         jButton4_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/voltar.png"))); // NOI18N
         jButton4_voltar.setText("    VOLTAR");
@@ -335,12 +335,12 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
                 jButton4_voltarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 690, 160, 40));
+        getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 690, 180, 50));
 
         jButton_Alterar.setBackground(new java.awt.Color(102, 102, 102));
-        jButton_Alterar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jButton_Alterar.setForeground(new java.awt.Color(255, 0, 153));
-        jButton_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/alterar.png"))); // NOI18N
+        jButton_Alterar.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
+        jButton_Alterar.setForeground(new java.awt.Color(0, 0, 0));
+        jButton_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/CHANGE.png"))); // NOI18N
         jButton_Alterar.setText("ALTERAR");
         jButton_Alterar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jButton_Alterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -349,11 +349,11 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
                 jButton_AlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 500, 160, 40));
+        getContentPane().add(jButton_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 490, 180, 50));
 
         jButton_Remover.setBackground(new java.awt.Color(102, 102, 102));
-        jButton_Remover.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jButton_Remover.setForeground(new java.awt.Color(255, 0, 153));
+        jButton_Remover.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
+        jButton_Remover.setForeground(new java.awt.Color(0, 0, 0));
         jButton_Remover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/removeriten.png"))); // NOI18N
         jButton_Remover.setText("REMOVER");
         jButton_Remover.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -363,7 +363,7 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
                 jButton_RemoverActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_Remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 550, 160, 40));
+        getContentPane().add(jButton_Remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 550, 180, 50));
 
         jTextField1_PlacaSelecionada.setFont(new java.awt.Font("Bodoni MT", 3, 32)); // NOI18N
         jTextField1_PlacaSelecionada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));

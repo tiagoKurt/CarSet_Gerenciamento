@@ -1,5 +1,6 @@
 package com.car.persistencia;
 
+import com.car.Enumerations.CategoriaVeiculos;
 import com.car.Enumerations.TipoCombustivel;
 import com.car.Enumerations.TipoDoVeiculo;
 import com.car.Ferramentas.ConexaoBD;
@@ -95,8 +96,9 @@ public class VeiculosDAO implements IVeiculosDAO {
             objetoVeiculos.setPlaca(rs.getString("placa"));
             objetoVeiculos.setTipoDoVeiculo(TipoDoVeiculo.valueOf(rs.getString("tipo_veiculo")));
             objetoVeiculos.setTipoCombustivel(TipoCombustivel.valueOf(rs.getString("tipo_combustivel")));
+            objetoVeiculos.setCategoriaVeiculos(CategoriaVeiculos.valueOf(rs.getString("categoria_veiculo")));
             objetoVeiculos.setQuilometragemAtual(rs.getInt("quilometragem"));
-            return new Veiculos(objetoVeiculos.getId(), objetoVeiculos.getPlaca(),objetoVeiculos.getTipoDoVeiculo(),objetoVeiculos.getModelo(), objetoVeiculos.getTipoCombustivel(), objetoVeiculos.getQuilometragemAtual());
+            return new Veiculos(objetoVeiculos.getId(), objetoVeiculos.getPlaca(),objetoVeiculos.getTipoDoVeiculo(), objetoVeiculos.getCategoriaVeiculos(),objetoVeiculos.getModelo(), objetoVeiculos.getTipoCombustivel(), objetoVeiculos.getQuilometragemAtual());
         }
         return null;
     }

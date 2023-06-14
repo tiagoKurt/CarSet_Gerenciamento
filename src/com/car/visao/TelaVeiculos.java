@@ -294,10 +294,10 @@ public class TelaVeiculos extends javax.swing.JFrame {
         getContentPane().add(jTextField1_quilometragem, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 580, 260, 40));
 
         jButton_iNCLUIR.setBackground(new java.awt.Color(102, 102, 102));
-        jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jButton_iNCLUIR.setForeground(new java.awt.Color(255, 51, 153));
-        jButton_iNCLUIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/adicionarItens.png"))); // NOI18N
-        jButton_iNCLUIR.setText("CADASTRAR");
+        jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
+        jButton_iNCLUIR.setForeground(new java.awt.Color(0, 0, 0));
+        jButton_iNCLUIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/skrskrksr.png"))); // NOI18N
+        jButton_iNCLUIR.setText("    CADASTRAR");
         jButton_iNCLUIR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jButton_iNCLUIR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_iNCLUIR.addActionListener(new java.awt.event.ActionListener() {
@@ -305,20 +305,20 @@ public class TelaVeiculos extends javax.swing.JFrame {
                 jButton_iNCLUIRActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_iNCLUIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 340, 170, 40));
+        getContentPane().add(jButton_iNCLUIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 330, 290, 60));
 
         jButton_iNCLUIR1.setBackground(new java.awt.Color(102, 102, 102));
         jButton_iNCLUIR1.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_iNCLUIR1.setForeground(new java.awt.Color(255, 51, 153));
-        jButton_iNCLUIR1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/adicionarItens.png"))); // NOI18N
-        jButton_iNCLUIR1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3), "VEICULOS CADASTRADOS", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Bodoni MT", 3, 18))); // NOI18N
+        jButton_iNCLUIR1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/candidato (1).png"))); // NOI18N
+        jButton_iNCLUIR1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3), "VEICULOS CADASTRADOS", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Bodoni MT", 3, 19), new java.awt.Color(0, 0, 0))); // NOI18N
         jButton_iNCLUIR1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_iNCLUIR1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_iNCLUIR1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_iNCLUIR1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 400, 290, 60));
+        getContentPane().add(jButton_iNCLUIR1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 400, 290, 70));
 
         jLabel13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "OPÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(255, 255, 255))); // NOI18N
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 330, 210));
