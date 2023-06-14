@@ -14,11 +14,12 @@ public class ConexaoBD {
         try {
             if (conexao == null) {
                 String driver = "org.postgresql.Driver";
-                String url = "jdbc:postgresql://localhost:5432/GerenciamentoCarros";
+                String url = "jdbc:postgresql://localhost:5432/GerenciamentoVeicular";
                 String user = "postgres";
-                String password = "lezzadogamer";
+                String password = "postgres";
                 Class.forName(driver);
                 conexao = DriverManager.getConnection(url, user, password);
+                System.out.println(conexao);
             }
         } catch (ClassNotFoundException erro) {
             //Erro de não encontrar o drive do banco no projeto

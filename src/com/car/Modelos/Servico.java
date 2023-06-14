@@ -4,7 +4,7 @@ import java.io.File;
 
 
 public class Servico {
-    private int id= 0;
+    private int id = 0;
     private String descricao;
     private String url;
     private File imagemServico;
