@@ -105,13 +105,14 @@ public class ModelosDAO implements IModelosDAO {
         return null;
     }
 
-    public ResultSet listarModelos() throws Exception {
-        String sql = "SELECT descricao from modelos ORDER BY descricao";
-
+    public ResultSet listarModelos(String descricaoMarca) throws Exception {
+        String sql = "select modelos.descricao from modelos inner join marcas on modelos.id_marca = marcas.id where marcas.descricao = ?";
+        
         try {
             st = conexao.prepareStatement(sql);
+            st.setString(1, descricaoMarca);
             return st.executeQuery();
-
+              
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
