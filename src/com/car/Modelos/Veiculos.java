@@ -22,4 +22,54 @@ public class Veiculos {
         this.tipoCombustivel = tipoCombustivel;
         this.quilometragemAtual = quilometragemAtual;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public TipoDoVeiculo getTipoDoVeiculo() {
+        return tipoDoVeiculo;
+    }
+
+    public void setTipoDoVeiculo(TipoDoVeiculo tipoDoVeiculo) {
+        this.tipoDoVeiculo = tipoDoVeiculo;
+    }
+
+    public Modelos getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(Modelos modelo) {
+        this.modelo = modelo;
+    }
+
+    public TipoCombustivel getTipoCombustivel() {
+        return tipoCombustivel;
+    }
+
+    public void setTipoCombustivel(TipoCombustivel tipoCombustivel) {
+        this.tipoCombustivel = tipoCombustivel;
+    }
+
+    public int getQuilometragemAtual() {
+        return quilometragemAtual;
+    }
+
+    public void setQuilometragemAtual(int quilometragemAtual) {
+        this.quilometragemAtual = quilometragemAtual;
+    }
+    
+    
 }

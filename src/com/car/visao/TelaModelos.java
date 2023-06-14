@@ -37,7 +37,7 @@ import java.sql.*;
 public class TelaModelos extends javax.swing.JFrame {
 
     IMarcasDAO marcasBD = null;
-    private Connection conexao = null;
+    private Connection conexao;
     PreparedStatement st;
 
     public TelaModelos() {
@@ -56,7 +56,7 @@ public class TelaModelos extends javax.swing.JFrame {
         try {
             conexao = ConexaoBD.getConexao();
         } catch (Exception ex) {
-            Logger.getLogger(TelaModelos.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
         jTextField1_IDModelos.setEnabled(false);
@@ -405,10 +405,10 @@ public class TelaModelos extends javax.swing.JFrame {
     private void imprimirDadosNaGrid(ArrayList<Modelos> listagemDeModelos) {
 
         try {
-            DefaultTableModel model = (DefaultTableModel) jTable1_tabelaModelos.getModel();
+            DefaultTableModel model = (DefaultTableModel) jTable1_tabelaModelos.getModel();;
             JTableRenderer JtableRenderer = new JTableRenderer();
-            
-
+//            
+//            conexao = ConexaoBD.getConexao();
 //            Statement statement = conexao.createStatement();
 //            String query = "select modelos.id as id, marcas.descricao AS  marcas, modelos.descricao as modelo, modelos.url , modelos.imagem from modelos\n"
 //                    + "join marcas on modelos.id_marca = marcas.id";

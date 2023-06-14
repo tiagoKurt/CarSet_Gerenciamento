@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 
 public interface IVeiculosDAO {
-    void inserirModelos(Veiculos veiculos) throws Exception;
-    void alterar(Veiculos veiculos) throws Exception;
-    boolean excluir(int idVeiculos)throws Exception;
+    void inserirVeiculos(Veiculos veiculo) throws Exception;
+    void alterar(Veiculos veiculo) throws Exception;
+    boolean excluir(int idVeiculo)throws Exception;
     ArrayList<Veiculos> listagemDeModelos()throws Exception;
     Veiculos buscar(int id) throws Exception;
 }
