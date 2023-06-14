@@ -157,8 +157,10 @@ public class TelaVeiculos extends javax.swing.JFrame {
         jTextField1_placa = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTextField1_quilometragem = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
         jButton_iNCLUIR = new javax.swing.JButton();
+        jButton_iNCLUIR1 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jDialog1_OpcaoProprietarioLayout = new javax.swing.GroupLayout(jDialog1_OpcaoProprietario.getContentPane());
@@ -183,23 +185,23 @@ public class TelaVeiculos extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
         jLabel2.setText("CADASTRO DE VEÍCULOS");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 480, 30));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 480, 30));
 
         jLabel10_imagemModelos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 5));
-        getContentPane().add(jLabel10_imagemModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 340, 280, 160));
+        getContentPane().add(jLabel10_imagemModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 270, 310, 200));
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel10.setFont(new java.awt.Font("Bodoni MT", 3, 23)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Bodoni MT", 3, 25)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("IMAGEM DO MODELO");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 310, 270, 30));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 230, 300, 30));
 
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 480, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 480, -1));
 
         jLabel14.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jLabel14.setText("MARCA");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, -1, 30));
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, -1, 30));
 
         jComboBox2_Marca.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox2_Marca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -209,8 +211,9 @@ public class TelaVeiculos extends javax.swing.JFrame {
                 jComboBox2_MarcaActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox2_Marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, 310, 40));
+        getContentPane().add(jComboBox2_Marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 310, 40));
 
+        jButton4_voltar.setBackground(new java.awt.Color(102, 102, 102));
         jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton4_voltar.setForeground(new java.awt.Color(255, 0, 153));
         jButton4_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/voltar.png"))); // NOI18N
@@ -222,17 +225,17 @@ public class TelaVeiculos extends javax.swing.JFrame {
                 jButton4_voltarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 630, 160, 40));
+        getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 690, 160, 40));
 
         jComboBox2_TipoDoVeiculo.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox2_TipoDoVeiculo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jComboBox2_TipoDoVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jComboBox2_TipoDoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 230, 40));
+        getContentPane().add(jComboBox2_TipoDoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 310, 40));
 
         jComboBox1_categoriaVeiculo.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox1_categoriaVeiculo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jComboBox1_categoriaVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jComboBox1_categoriaVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, 230, 40));
+        getContentPane().add(jComboBox1_categoriaVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 310, 40));
 
         jComboBox2_Modelo.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox2_Modelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -242,11 +245,11 @@ public class TelaVeiculos extends javax.swing.JFrame {
                 jComboBox2_ModeloActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox2_Modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 460, 310, 40));
+        getContentPane().add(jComboBox2_Modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, 310, 40));
 
         jLabel11.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jLabel11.setText("COMBUSTIVEL");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 190, -1, 40));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, -1, 30));
 
         jComboBox2_TipoCombustivel.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox2_TipoCombustivel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -256,43 +259,41 @@ public class TelaVeiculos extends javax.swing.JFrame {
                 jComboBox2_TipoCombustivelActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox2_TipoCombustivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 190, 190, 40));
+        getContentPane().add(jComboBox2_TipoCombustivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, 310, 40));
 
         jLabel8.setFont(new java.awt.Font("Bodoni MT", 3, 30)); // NOI18N
         jLabel8.setText("PLACA");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 610, -1, 40));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, -1, 30));
 
         jLabel9.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jLabel9.setText("MODELO");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 430, -1, 30));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, -1, 30));
 
         jLabel5.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jLabel5.setText("CATEGORIA");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, -1, 40));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, 30));
 
         jLabel7.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jLabel7.setText("TIPO");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 70, 40));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 70, 30));
 
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
         jLabel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true), "SELECIONE", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(255, 255, 255))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 880, 400));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 720, 420));
 
         jTextField1_placa.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
         jTextField1_placa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 610, 260, 40));
+        getContentPane().add(jTextField1_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 580, 260, 40));
 
         jLabel12.setFont(new java.awt.Font("Bodoni MT", 3, 30)); // NOI18N
         jLabel12.setText("KM/s ATUAL");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 660, -1, 40));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 550, -1, 30));
 
         jTextField1_quilometragem.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
         jTextField1_quilometragem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_quilometragem, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 660, 260, 40));
+        getContentPane().add(jTextField1_quilometragem, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 580, 260, 40));
 
-        jLabel13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "DIGITE", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(255, 255, 255))); // NOI18N
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, 520, 190));
-
+        jButton_iNCLUIR.setBackground(new java.awt.Color(102, 102, 102));
         jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jButton_iNCLUIR.setForeground(new java.awt.Color(255, 51, 153));
         jButton_iNCLUIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/adicionarItens.png"))); // NOI18N
@@ -304,7 +305,26 @@ public class TelaVeiculos extends javax.swing.JFrame {
                 jButton_iNCLUIRActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_iNCLUIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 560, 160, 40));
+        getContentPane().add(jButton_iNCLUIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 340, 170, 40));
+
+        jButton_iNCLUIR1.setBackground(new java.awt.Color(102, 102, 102));
+        jButton_iNCLUIR1.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
+        jButton_iNCLUIR1.setForeground(new java.awt.Color(255, 51, 153));
+        jButton_iNCLUIR1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/adicionarItens.png"))); // NOI18N
+        jButton_iNCLUIR1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3), "VEICULOS CADASTRADOS", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Bodoni MT", 3, 18))); // NOI18N
+        jButton_iNCLUIR1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_iNCLUIR1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_iNCLUIR1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton_iNCLUIR1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 400, 290, 60));
+
+        jLabel13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "OPÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(255, 255, 255))); // NOI18N
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 330, 210));
+
+        jLabel15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "DIGITE", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(255, 255, 255))); // NOI18N
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 720, 140));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -333,7 +353,9 @@ public class TelaVeiculos extends javax.swing.JFrame {
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
-            
+            if(jTextField1_placa.getText().matches("") || jTextField1_quilometragem.getText().matches("")){
+                JOptionPane.showMessageDialog(rootPane, "Alguns campos não foram preechidos!");
+            }else{
             if(jComboBox2_TipoDoVeiculo.getSelectedIndex() == 0){
                 tipoVeiculo = TipoDoVeiculo.PASSEIO+"";
             }else if(jComboBox2_TipoDoVeiculo.getSelectedIndex() == 1){
@@ -360,12 +382,25 @@ public class TelaVeiculos extends javax.swing.JFrame {
                 tipoCombustivel = TipoCombustivel.ELETRICO+"";
             }
             
+            if(jComboBox1_categoriaVeiculo.getSelectedIndex() == 0){
+                categoriaVeiculo = CategoriaVeiculos.HATCH+"";
+            }else if(jComboBox1_categoriaVeiculo.getSelectedIndex() == 1){
+                categoriaVeiculo = CategoriaVeiculos.SEDAN+"";
+            }else if(jComboBox1_categoriaVeiculo.getSelectedIndex() == 2){
+                categoriaVeiculo = CategoriaVeiculos.SUV+"";
+            }else if(jComboBox1_categoriaVeiculo.getSelectedIndex() == 4){
+                categoriaVeiculo = CategoriaVeiculos.PICAPE+"";
+            }else if(jComboBox1_categoriaVeiculo.getSelectedIndex() == 5){
+                categoriaVeiculo = CategoriaVeiculos.UTILITARIO+"";
+            }
+            
             
            
             IModelosDAO modelooo = null;
             modelooo = new ModelosDAO();
             
             Veiculos veic = new Veiculos(0, jTextField1_placa.getText(), TipoDoVeiculo.valueOf(tipoVeiculo),
+                    CategoriaVeiculos.valueOf(categoriaVeiculo),
                     modelooo.listagemDeModelos().get(0), 
                     TipoCombustivel.valueOf(tipoCombustivel), 
                     Integer.parseInt(jTextField1_quilometragem.getText()));
@@ -380,14 +415,22 @@ public class TelaVeiculos extends javax.swing.JFrame {
             veiculosDAO = new VeiculosDAO();
             veiculosDAO.inserirVeiculos(veic);
             limparTela();
+            }
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }
+        
     }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
 
     private void jComboBox2_MarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2_MarcaActionPerformed
 
     }//GEN-LAST:event_jComboBox2_MarcaActionPerformed
+
+    private void jButton_iNCLUIR1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIR1ActionPerformed
+        TelaRelacaoVeiculos veic = new TelaRelacaoVeiculos();
+        veic.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton_iNCLUIR1ActionPerformed
 
     public void limparTela(){
         jTextField1_placa.setText("");
@@ -436,6 +479,7 @@ public class TelaVeiculos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4_voltar;
     private javax.swing.JButton jButton_iNCLUIR;
+    private javax.swing.JButton jButton_iNCLUIR1;
     private javax.swing.JComboBox<CategoriaVeiculos> jComboBox1_categoriaVeiculo;
     private javax.swing.JComboBox<String> jComboBox2_Marca;
     private javax.swing.JComboBox<String> jComboBox2_Modelo;
@@ -449,6 +493,7 @@ public class TelaVeiculos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

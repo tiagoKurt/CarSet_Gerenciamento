@@ -1,5 +1,6 @@
 package com.car.Modelos;
 
+import com.car.Enumerations.CategoriaVeiculos;
 import com.car.Enumerations.TipoCombustivel;
 import com.car.Enumerations.TipoDoVeiculo;
 
@@ -8,16 +9,18 @@ public class Veiculos {
     private int id;
     private String placa;
     private TipoDoVeiculo tipoDoVeiculo;
+    private CategoriaVeiculos categoriaVeiculos;
     private Modelos modelo;
     private TipoCombustivel tipoCombustivel;
     private int quilometragemAtual;
     
     public Veiculos(){}
     
-    public Veiculos(int id, String placa, TipoDoVeiculo tipoDoVeiculo, Modelos modelo, TipoCombustivel tipoCombustivel, int quilometragemAtual){
+    public Veiculos(int id, String placa, TipoDoVeiculo tipoDoVeiculo, CategoriaVeiculos categoriaVeiculos, Modelos modelo, TipoCombustivel tipoCombustivel, int quilometragemAtual){
         this.id = id;
         this.placa = placa;
         this.tipoDoVeiculo = tipoDoVeiculo;
+        this.categoriaVeiculos = categoriaVeiculos;
         this.modelo = modelo;
         this.tipoCombustivel = tipoCombustivel;
         this.quilometragemAtual = quilometragemAtual;
@@ -70,6 +73,13 @@ public class Veiculos {
     public void setQuilometragemAtual(int quilometragemAtual) {
         this.quilometragemAtual = quilometragemAtual;
     }
-    
+
+    public CategoriaVeiculos getCategoriaVeiculos() {
+        return categoriaVeiculos;
+    }
+
+    public void setCategoriaVeiculos(CategoriaVeiculos categoriaVeiculos) {
+        this.categoriaVeiculos = categoriaVeiculos;
+    }
     
 }
