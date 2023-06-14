@@ -9,11 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
-public class VeiculosDAO implements IVeiculosDAO{
+public class VeiculosDAO implements IVeiculosDAO {
+
     private Connection conexao = null;
     PreparedStatement st;
-    
+
     public VeiculosDAO() throws Exception {
         conexao = ConexaoBD.getConexao();
     }
@@ -22,28 +24,53 @@ public class VeiculosDAO implements IVeiculosDAO{
     public void inserirVeiculos(Veiculos veiculo) throws Exception {
         try {
 
-            st = conexao.prepareStatement("insert into veiculos(id_modelo, placa, tipo_veiculo, tipo_combustivel,quilometragem) values (?, ?, ?, ?, ?)");
+            st = conexao.prepareStatement("insert into veiculos(id_modelo, placa, tipo_veiculo, categoria_veiculo, tipo_combustivel,quilometragem) values (?, ?, ?, ?, ?, ?)");
             st.setInt(1, veiculo.getModelo().getIdModelos());
             st.setString(2, veiculo.getPlaca());
             st.setString(3, veiculo.getTipoDoVeiculo().toString());
-            st.setString(4, veiculo.getTipoCombustivel().toString());
-            st.setInt(5, veiculo.getQuilometragemAtual());
+            st.setString(4, veiculo.getCategoriaVeiculos().toString());
+            st.setString(5, veiculo.getTipoCombustivel().toString());
+            st.setInt(6, veiculo.getQuilometragemAtual());
             st.executeUpdate();
             st.close();
-            
+
         } catch (SQLException erro) {
             throw new Exception("SQL Erro: " + erro.getMessage());
         }
     }
 
     @Override
-    public void alterar(Veiculos veiculos) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void alterar(Veiculos veiculo) throws Exception {
+        try {
+            st = conexao.prepareStatement("UPDATE marcas SET descricao = ?, url = ?, imagem = ? WHERE id = ?");
+
+            st = conexao.prepareStatement("UPDATE veiculos set id_modelo = ?, placa = ?, tipo_veiculo = ?, categoria_veiculo = ?,"
+                    + "tipo_combustivel = ?, quilometragem = ? WHERE id = ?");
+            st.setInt(1, veiculo.getModelo().getIdModelos());
+            st.setString(2, veiculo.getPlaca());
+            st.setString(3, veiculo.getTipoDoVeiculo().toString());
+            st.setString(4, veiculo.getCategoriaVeiculos().toString());
+            st.setString(5, veiculo.getTipoCombustivel().toString());
+            st.setInt(6, veiculo.getQuilometragemAtual());
+            st.setInt(7, veiculo.getId());
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ALTERAR" + e);
+        }
     }
 
     @Override
-    public boolean excluir(int idVeiculos) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean excluir(String placa) throws Exception {
+        try {
+            st = conexao.prepareStatement("DELETE FROM veiculos WHERE placa = ?");
+            st.setString(1, placa);
+            st.executeUpdate();
+            st.close();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
     }
 
     @Override
