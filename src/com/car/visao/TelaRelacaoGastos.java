@@ -20,12 +20,18 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class TelaRelacaoGastos extends javax.swing.JFrame {
 
     private Connection conexao = null;
     PreparedStatement st;
     String classGastos;
+
     public TelaRelacaoGastos() {
         initComponents();
         imprimirDadosNaGrid();
@@ -43,8 +49,11 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         int altura = bounds.height;
         setSize(largura, altura);
         setLocation(0, 0);
-        classGastos = ClassificacaoGastos.COMBUSTIVEL+"";
+        classGastos = ClassificacaoGastos.COMBUSTIVEL + "";
         carregarComboBox();
+
+        jLabel7_graficos.setVisible(false);
+        jComboBox1_tipoDoGastoGraficos.setVisible(false);
     }
 
     /**
@@ -64,13 +73,17 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jComboBox1_tipoDoGastoGraficos = new javax.swing.JComboBox<>();
+        jLabel7_graficos = new javax.swing.JLabel();
+        jComboBox1_itemRelacao = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204)));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
         jTable1_gastos.setBackground(new java.awt.Color(153, 153, 153));
         jTable1_gastos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -102,7 +115,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1_gastos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, 710, 250));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 1190, 250));
 
         jButton4_voltar.setBackground(new java.awt.Color(102, 102, 102));
         jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
@@ -116,15 +129,15 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 jButton4_voltarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 630, 140, 40));
+        getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 700, 140, 40));
 
         jComboBox1_tipoDoGasto.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jComboBox1_tipoDoGasto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         jComboBox1_tipoDoGasto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jComboBox1_tipoDoGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 280, 50));
+        getContentPane().add(jComboBox1_tipoDoGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 280, 50));
 
-        jLabel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "TIPO DO GASTO", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 26))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 380, 120));
+        jLabel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "TIPO DO GASTO", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 26), new java.awt.Color(255, 255, 255))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 130, 380, 120));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/pinkLogoMenorzinha.gif"))); // NOI18N
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
@@ -138,6 +151,33 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         jLabel4.setText("GASTOS");
         jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 160, 30));
+
+        jComboBox1_tipoDoGastoGraficos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
+        jComboBox1_tipoDoGastoGraficos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        jComboBox1_tipoDoGastoGraficos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox1_tipoDoGastoGraficos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1_tipoDoGastoGraficosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBox1_tipoDoGastoGraficos, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 280, 50));
+
+        jLabel7_graficos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "TIPO DO GASTO", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 26), new java.awt.Color(255, 255, 255))); // NOI18N
+        getContentPane().add(jLabel7_graficos, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 130, 380, 120));
+
+        jComboBox1_itemRelacao.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jComboBox1_itemRelacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TABELAS", "GRÁFICOS" }));
+        jComboBox1_itemRelacao.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        jComboBox1_itemRelacao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox1_itemRelacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1_itemRelacaoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBox1_itemRelacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 220, 50));
+
+        jLabel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "VER GASTOS EM", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 26), new java.awt.Color(255, 255, 255))); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 310, 120));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -156,6 +196,63 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton4_voltarActionPerformed
 
+    private void jComboBox1_itemRelacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_itemRelacaoActionPerformed
+        if (jComboBox1_itemRelacao.getSelectedIndex() == 0) {
+            jScrollPane1.setVisible(true);
+            jComboBox1_tipoDoGasto.setSelectedIndex(0);
+            jLabel2.setVisible(true);
+            jComboBox1_tipoDoGasto.setVisible(true);
+
+            jLabel7_graficos.setVisible(false);
+            jComboBox1_tipoDoGastoGraficos.setVisible(false);
+        } else if (jComboBox1_itemRelacao.getSelectedIndex() == 1) {
+            jLabel7_graficos.setVisible(true);
+            jComboBox1_tipoDoGastoGraficos.setVisible(true);
+
+            jScrollPane1.setVisible(false);
+            jComboBox1_tipoDoGasto.setSelectedIndex(0);
+            jLabel2.setVisible(false);
+            jComboBox1_tipoDoGasto.setVisible(false);
+
+        }
+    }//GEN-LAST:event_jComboBox1_itemRelacaoActionPerformed
+
+    private void jComboBox1_tipoDoGastoGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
+
+    }//GEN-LAST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
+
+    private void graficosSkr() {
+        try {
+            conexao = ConexaoBD.getConexao();
+            Statement statement = conexao.createStatement();
+            String query = "select tipogasto as \"Tipo do Gasto\", valortotal as Valor, datagasto as \"Data do gasto\" \n"
+                    + "from gastosgeral";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            while (resultSet.next()) {
+                String categoria = resultSet.getString("tipogasto");
+                int quantidade = resultSet.getInt("valortotal");
+                dataset.addValue(quantidade, "Quantidade", categoria);
+            }
+            JFreeChart chart = ChartFactory.createBarChart(
+                    "Gráfico de Barras", // Título do gráfico
+                    "Categoria", // Rótulo do eixo x
+                    "Quantidade", // Rótulo do eixo y
+                    dataset, // Conjunto de dados
+                    PlotOrientation.VERTICAL, // Orientação do gráfico
+                    true, // Incluir legenda
+                    true, // Incluir dicas
+                    false // Incluir URLs
+            );
+            ChartFrame frame = new ChartFrame("Gráfico de Barras", chart);
+            frame.pack();
+            frame.setVisible(true);
+
+        } catch (Exception e) {
+        }
+    }
+
     private void imprimirDadosNaGrid() {
 
         try {
@@ -164,7 +261,9 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             JTableRenderer JtableRenderer = new JTableRenderer();
             conexao = ConexaoBD.getConexao();
             Statement statement = conexao.createStatement();
-            String query = "select * from gastos_combustivel";
+            String query = "select gastos_combustivel.id as identificador, veiculos.placa as Veiculo, tipogasto as \"Tipo do gasto\", descgasto as \"Tipo de Combustivel\" ,\n"
+                    + "                    qtdlcomb as \"Litros colocados\", valorlitrocomb as \"Preço do Litro\", kmplcarro as \"KM/s por litro\",\n"
+                    + "                    dataabast as \"Data Abastecimento\" from gastos_combustivel inner join veiculos on gastos_combustivel.id_veiculo = veiculos.id";
             ResultSet resultSet = statement.executeQuery(query);
 
             DefaultTableModel tableModel = new DefaultTableModel();
@@ -184,6 +283,25 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 }
                 tableModel.addRow(row);
             }
+            jTable1_gastos.getColumnModel().getColumn(0).setWidth(0);
+            jTable1_gastos.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1_gastos.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable1_gastos.getColumnModel().getColumn(1).setWidth(140);
+            jTable1_gastos.getColumnModel().getColumn(1).setMinWidth(140);
+            jTable1_gastos.getColumnModel().getColumn(1).setMaxWidth(140);
+            jTable1_gastos.getColumnModel().getColumn(7).setWidth(175);
+            jTable1_gastos.getColumnModel().getColumn(7).setMinWidth(175);
+            jTable1_gastos.getColumnModel().getColumn(7).setMaxWidth(175);
+            jTable1_gastos.getColumnModel().getColumn(4).setWidth(105);
+            jTable1_gastos.getColumnModel().getColumn(4).setMinWidth(105);
+            jTable1_gastos.getColumnModel().getColumn(4).setMaxWidth(105);
+            jTable1_gastos.getColumnModel().getColumn(5).setWidth(100);
+            jTable1_gastos.getColumnModel().getColumn(5).setMinWidth(100);
+            jTable1_gastos.getColumnModel().getColumn(5).setMaxWidth(100);
+            jTable1_gastos.getColumnModel().getColumn(6).setWidth(100);
+            jTable1_gastos.getColumnModel().getColumn(6).setMinWidth(100);
+            jTable1_gastos.getColumnModel().getColumn(6).setMaxWidth(100);
+
             resultSet.close();
             statement.close();
 
@@ -196,7 +314,9 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                                 JTableRenderer JtableRenderer = new JTableRenderer();
                                 conexao = ConexaoBD.getConexao();
                                 Statement statement = conexao.createStatement();
-                                String query = "select * from gastos_combustivel";
+                                String query = "select gastos_combustivel.id as identificador, veiculos.placa as Veiculo, tipogasto as \"Tipo do gasto\", descgasto as \"Tipo de Combustivel\" ,\n"
+                                        + "                    qtdlcomb as \"Litros colocados\", valorlitrocomb as \"Preço do Litro\", kmplcarro as \"KM/s por litro\",\n"
+                                        + "                    dataabast as \"Data Abastecimento\" from gastos_combustivel inner join veiculos on gastos_combustivel.id_veiculo = veiculos.id";
                                 ResultSet resultSet = statement.executeQuery(query);
 
                                 DefaultTableModel tableModel = new DefaultTableModel();
@@ -216,6 +336,24 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                                     }
                                     tableModel.addRow(row);
                                 }
+                                jTable1_gastos.getColumnModel().getColumn(0).setWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMinWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMaxWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(1).setWidth(140);
+                                jTable1_gastos.getColumnModel().getColumn(1).setMinWidth(140);
+                                jTable1_gastos.getColumnModel().getColumn(1).setMaxWidth(140);
+                                jTable1_gastos.getColumnModel().getColumn(7).setWidth(175);
+                                jTable1_gastos.getColumnModel().getColumn(7).setMinWidth(175);
+                                jTable1_gastos.getColumnModel().getColumn(7).setMaxWidth(175);
+                                jTable1_gastos.getColumnModel().getColumn(4).setWidth(105);
+                                jTable1_gastos.getColumnModel().getColumn(4).setMinWidth(105);
+                                jTable1_gastos.getColumnModel().getColumn(4).setMaxWidth(105);
+                                jTable1_gastos.getColumnModel().getColumn(5).setWidth(100);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMinWidth(100);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMaxWidth(100);
+                                jTable1_gastos.getColumnModel().getColumn(6).setWidth(100);
+                                jTable1_gastos.getColumnModel().getColumn(6).setMinWidth(100);
+                                jTable1_gastos.getColumnModel().getColumn(6).setMaxWidth(100);
                                 resultSet.close();
                                 statement.close();
                             }
@@ -224,7 +362,12 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                                 JTableRenderer JtableRenderer = new JTableRenderer();
                                 conexao = ConexaoBD.getConexao();
                                 Statement statement = conexao.createStatement();
-                                String query = "select * from modelos";
+                                String query = "select gastos_mecanico.id as Identificador, gastos_mecanico.tipogasto as \"Tipo do Gasto\",\n"
+                                        + "veiculos.placa as Veiculo, gastos_mecanico.descgasto as Descrição, descitemman as \"Item/Serviço\",\n"
+                                        + "qtditemman as \"Qnt Item\", valoritemman as \"Valor do Item\", valormaoobra as \"Valor mão de obra\",\n"
+                                        + "datamanutencao as \"Data do gasto\" from gastos_mecanico inner join veiculos on \n"
+                                        + "gastos_mecanico.id_veiculo = veiculos.id";
+
                                 ResultSet resultSet = statement.executeQuery(query);
 
                                 DefaultTableModel tableModel = new DefaultTableModel();
@@ -244,9 +387,70 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                                     }
                                     tableModel.addRow(row);
                                 }
-                                jTable1_gastos.getColumnModel().getColumn(4).setCellRenderer(JtableRenderer);
+                                jTable1_gastos.getColumnModel().getColumn(0).setWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMinWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMaxWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(5).setWidth(90);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMinWidth(90);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMaxWidth(90);
+                                jTable1_gastos.getColumnModel().getColumn(8).setWidth(175);
+                                jTable1_gastos.getColumnModel().getColumn(8).setMinWidth(175);
+                                jTable1_gastos.getColumnModel().getColumn(8).setMaxWidth(175);
+                                jTable1_gastos.getColumnModel().getColumn(7).setWidth(100);
+                                jTable1_gastos.getColumnModel().getColumn(7).setMinWidth(100);
+                                jTable1_gastos.getColumnModel().getColumn(7).setMaxWidth(100);
+                                jTable1_gastos.getColumnModel().getColumn(2).setWidth(140);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMinWidth(140);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMaxWidth(140);
                                 resultSet.close();
                                 statement.close();
+
+                            }
+                            if (jComboBox1_tipoDoGasto.getSelectedIndex() == 5) {
+
+                                DefaultTableModel model = (DefaultTableModel) jTable1_gastos.getModel();
+                                JTableRenderer JtableRenderer = new JTableRenderer();
+                                conexao = ConexaoBD.getConexao();
+                                Statement statement = conexao.createStatement();
+                                String query = "select gastosgeral.id as Identificador, gastosgeral.tipogasto as \"Tipo do Gasto\", \n"
+                                        + "veiculos.placa as Veiculo,\n"
+                                        + "gastosgeral.descgasto as \"Descrição do gasto\", gastosgeral.valortotal as \"Valor do gasto\",\n"
+                                        + "gastosgeral.datagasto as \"Data do gasto\" from gastosgeral inner join veiculos on \n"
+                                        + "gastosgeral.id_veiculo = veiculos.id";
+                                ResultSet resultSet = statement.executeQuery(query);
+
+                                DefaultTableModel tableModel = new DefaultTableModel();
+                                jTable1_gastos.setModel(tableModel);
+
+                                ResultSetMetaData metaData = resultSet.getMetaData();
+                                int columnCount = metaData.getColumnCount();
+
+                                for (int i = 1; i <= columnCount; i++) {
+                                    tableModel.addColumn(metaData.getColumnName(i));
+                                }
+
+                                while (resultSet.next()) {
+                                    Object[] row = new Object[columnCount];
+                                    for (int i = 1; i <= columnCount; i++) {
+                                        row[i - 1] = resultSet.getObject(i);
+                                    }
+                                    tableModel.addRow(row);
+                                }
+                                jTable1_gastos.getColumnModel().getColumn(0).setWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMinWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMaxWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(2).setWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMinWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMaxWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(4).setWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(4).setMinWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(4).setMaxWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(5).setWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMinWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMaxWidth(150);
+                                resultSet.close();
+                                statement.close();
+
                             }
                         } catch (Exception ex) {
                             Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
@@ -297,18 +501,23 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4_voltar;
+    private javax.swing.JComboBox<String> jComboBox1_itemRelacao;
     private javax.swing.JComboBox<ClassificacaoGastos> jComboBox1_tipoDoGasto;
+    private javax.swing.JComboBox<ClassificacaoGastos> jComboBox1_tipoDoGastoGraficos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7_graficos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1_gastos;
     // End of variables declaration//GEN-END:variables
 
-     private void carregarComboBox() {
+    private void carregarComboBox() {
         jComboBox1_tipoDoGasto.setModel(new DefaultComboBoxModel<>(ClassificacaoGastos.values()));
-        
+        jComboBox1_tipoDoGastoGraficos.setModel(new DefaultComboBoxModel<>(ClassificacaoGastos.values()));
+
     }
 }

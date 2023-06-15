@@ -15,7 +15,9 @@ public class GastosMecanico {
     private Date dataManutencao;
     private Veiculos veiculo;
 
-    public GastosMecanico(int id, ClassificacaoGastos identificadorGasto, String decricaoGasto,String descricaoItemManutencao, int quantidadeDeItensManutencao, float valorItemManutencao, float valorMaoDeObra, Date dataManutencao, Veiculos veiculo) {
+    public GastosMecanico(int id, ClassificacaoGastos identificadorGasto, String decricaoGasto,String descricaoItemManutencao,
+            int quantidadeDeItensManutencao, float valorItemManutencao, float valorMaoDeObra, Date dataManutencao, 
+            Veiculos veiculo) {
         this.id = id;
         this.identificadorGasto = identificadorGasto;
         this.decricaoGasto = decricaoGasto;

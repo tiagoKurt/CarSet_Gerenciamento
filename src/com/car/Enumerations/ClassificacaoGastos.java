@@ -5,5 +5,6 @@ public enum ClassificacaoGastos {
     MECANICO,
     SEGURO,
     IMPOSTO,
-    OUTROS
+    OUTROS,
+    GERAL
 }

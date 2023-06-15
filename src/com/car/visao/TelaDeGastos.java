@@ -95,6 +95,11 @@ public class TelaDeGastos extends javax.swing.JFrame {
         jButton4.setText("     MECÂNICO");
         jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 250, 300, 90));
 
         jButton2.setBackground(new java.awt.Color(102, 102, 102));
@@ -136,6 +141,12 @@ public class TelaDeGastos extends javax.swing.JFrame {
         comb.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        TelaGastosMecanico mec = new TelaGastosMecanico();
+        mec.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
