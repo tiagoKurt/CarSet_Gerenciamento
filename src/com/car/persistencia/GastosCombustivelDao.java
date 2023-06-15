@@ -74,7 +74,10 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
                  gastos.setIdentificadorGasto(ClassificacaoGastos.valueOf(rs.getString("tipogasto")));
                  gastos.setDescricao(TiposCombustiveisGastos.valueOf(rs.getString("descgasto")));
                  gastos.setQuantidadeLitrosCombustivel(rs.getFloat("qtdlcomb"));
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                  gastos.setValorLitroCombustivel(rs.getFloat("valorlitrocomb"));
                  gastos.setQntdKmPorLitroCarro(rs.getFloat("kmplcarro"));
                  gastos.setDataAbastecimento(rs.getDate("dataabast"));
@@ -96,7 +99,6 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
     @Override
     public Gastos inserirGastosGerais() throws Exception {
         float gastoTotal  = buscarUltimoRegistroInserido().getQuantidadeLitrosCombustivel() * buscarUltimoRegistroInserido().getValorLitroCombustivel();
-        
         return new Gastos(0, buscarUltimoRegistroInserido().getId(),buscarUltimoRegistroInserido().getIdentificadorGasto(), buscarUltimoRegistroInserido().getDescricao().toString(), gastoTotal, buscarUltimoRegistroInserido().getDataAbastecimento(),buscarUltimoRegistroInserido().getVeiculos().getId());
     }
 

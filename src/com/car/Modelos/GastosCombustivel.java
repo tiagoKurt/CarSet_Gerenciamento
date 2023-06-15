@@ -5,9 +5,8 @@
 package com.car.Modelos;
 
 import com.car.Enumerations.ClassificacaoGastos;
-import com.car.Enumerations.TipoCombustivel;
-import com.car.Enumerations.TiposCombustiveisGastos;
 import java.sql.Date;
+import com.car.Enumerations.TiposCombustiveisGastos;
 
 /**
  *
@@ -87,6 +86,11 @@ public class GastosCombustivel {
         this.quantidadeLitrosCombustivel = quantidadeLitrosCombustivel;
     }
 
+<<<<<<< Updated upstream
+=======
+ 
+
+>>>>>>> Stashed changes
     public float getValorLitroCombustivel() {
         return valorLitroCombustivel;
     }
