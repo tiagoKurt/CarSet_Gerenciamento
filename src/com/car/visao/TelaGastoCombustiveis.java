@@ -1,30 +1,54 @@
 package com.car.visao;
 
+import com.car.Enumerations.ClassificacaoGastos;
 import com.car.Enumerations.TiposCombustiveisGastos;
 import com.car.Ferramentas.limitaCaracteres;
+import com.car.Modelos.GastosCombustivel;
+import com.car.Modelos.Veiculos;
+import com.car.persistencia.GastosCombustivelDao;
+import com.car.persistencia.IGastosCombustivelDao;
+import com.car.persistencia.IVeiculosDAO;
+import com.car.persistencia.VeiculosDAO;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import javax.swing.DefaultComboBoxModel;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class TelaGastoCombustiveis extends javax.swing.JFrame {
 
     String tipoCombustivel;
+
     public TelaGastoCombustiveis() {
-        initComponents();
-        
-        jTextField1_LitrosColocados.setDocument(new limitaCaracteres(8, limitaCaracteres.tipoEntrada.NUMEROINTEIRO));
-        
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Rectangle bounds = env.getMaximumWindowBounds();
-        setLocationRelativeTo(null);
-        int largura = bounds.width;
-        int altura = bounds.height;
-        setSize(largura, altura);
-        setLocation(0, 0);
-        
-        carregarComboBox();
-        tipoCombustivel = TiposCombustiveisGastos.Gasolina+"";
+        try {
+            initComponents();
+
+            jTextField1_LitrosColocados.setDocument(new limitaCaracteres(12, limitaCaracteres.tipoEntrada.PRECO));
+            jTextField1_precoLitro.setDocument(new limitaCaracteres(10, limitaCaracteres.tipoEntrada.PRECO));
+            jTextField1_kmsPercorridosLItro.setDocument(new limitaCaracteres(7, limitaCaracteres.tipoEntrada.PRECO));
+            
+            
+            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            Rectangle bounds = env.getMaximumWindowBounds();
+            setLocationRelativeTo(null);
+            int largura = bounds.width;
+            int altura = bounds.height;
+            setSize(largura, altura);
+            setLocation(0, 0);
+
+            carregarComboBox();
+            puxarDadosComboBox();
+            tipoCombustivel = TiposCombustiveisGastos.Gasolina + "";
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(TelaGastoCombustiveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -47,8 +71,12 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextField1_precoLitro = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1_precoLitro1 = new javax.swing.JTextField();
+        jTextField1_kmsPercorridosLItro = new javax.swing.JTextField();
         jFormattedTextField1_dataAbastecimento = new javax.swing.JFormattedTextField();
+        jComboBox1_veiculos = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jButton_iNCLUIR = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -85,11 +113,16 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
         jComboBox1_tipoDeCombustivel.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
         jComboBox1_tipoDeCombustivel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         jComboBox1_tipoDeCombustivel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox1_tipoDeCombustivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1_tipoDeCombustivelActionPerformed(evt);
+            }
+        });
         getContentPane().add(jComboBox1_tipoDeCombustivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 270, 220, 50));
 
-        jTextField1_LitrosColocados.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jTextField1_LitrosColocados.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
         jTextField1_LitrosColocados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_LitrosColocados, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, 110, 50));
+        getContentPane().add(jTextField1_LitrosColocados, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, 230, 50));
 
         jLabel7.setFont(new java.awt.Font("Bodoni MT", 3, 21)); // NOI18N
         jLabel7.setText("COMBUSTÍVEL ABASTECIDO");
@@ -100,28 +133,60 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Bodoni MT", 3, 21)); // NOI18N
-        jLabel9.setText("PREÇO DO LITRO");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 460, -1, -1));
+        jLabel9.setText("PLACA DO VEÍCULO");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, -1, -1));
 
-        jTextField1_precoLitro.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
+        jTextField1_precoLitro.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
         jTextField1_precoLitro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_precoLitro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, 110, 50));
+        getContentPane().add(jTextField1_precoLitro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, 230, 50));
 
         jLabel10.setFont(new java.awt.Font("Bodoni MT", 3, 21)); // NOI18N
         jLabel10.setText("KM/s PERCORRIDOS POR LITRO");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 350, -1, -1));
 
-        jTextField1_precoLitro1.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
-        jTextField1_precoLitro1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jTextField1_precoLitro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 110, 50));
+        jTextField1_kmsPercorridosLItro.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
+        jTextField1_kmsPercorridosLItro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        getContentPane().add(jTextField1_kmsPercorridosLItro, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 230, 50));
 
         jFormattedTextField1_dataAbastecimento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         try {
-            jFormattedTextField1_dataAbastecimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+            jFormattedTextField1_dataAbastecimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        getContentPane().add(jFormattedTextField1_dataAbastecimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 490, 130, 40));
+        jFormattedTextField1_dataAbastecimento.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
+        jFormattedTextField1_dataAbastecimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1_dataAbastecimentoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jFormattedTextField1_dataAbastecimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 490, 150, 50));
+
+        jComboBox1_veiculos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
+        jComboBox1_veiculos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jComboBox1_veiculos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(jComboBox1_veiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 610, 220, 50));
+
+        jLabel11.setFont(new java.awt.Font("Bodoni MT", 3, 21)); // NOI18N
+        jLabel11.setText("DATA DO ABASTECIMENTO");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Bodoni MT", 3, 21)); // NOI18N
+        jLabel12.setText("PREÇO DO LITRO");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 460, -1, -1));
+
+        jButton_iNCLUIR.setBackground(new java.awt.Color(102, 102, 102));
+        jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
+        jButton_iNCLUIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/skrskrksr.png"))); // NOI18N
+        jButton_iNCLUIR.setText("    CADASTRAR");
+        jButton_iNCLUIR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jButton_iNCLUIR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_iNCLUIR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_iNCLUIRActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton_iNCLUIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 330, 290, 60));
 
         jLabel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "PREENCHA AS INFORMAÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(255, 255, 255))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 720, 500));
@@ -139,6 +204,82 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton4_voltarActionPerformed
 
+    private void jFormattedTextField1_dataAbastecimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1_dataAbastecimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1_dataAbastecimentoActionPerformed
+
+    private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
+        try {
+            
+                
+                if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 0){
+                    tipoCombustivel = TiposCombustiveisGastos.Gasolina+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 1){
+                    tipoCombustivel = TiposCombustiveisGastos.Gasolina_Aditivada+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 2){
+                    tipoCombustivel = TiposCombustiveisGastos.Gasolina_Premium+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 3){
+                    tipoCombustivel = TiposCombustiveisGastos.Etanol+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 4){
+                    tipoCombustivel = TiposCombustiveisGastos.Etanol_aditivado+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 5){
+                    tipoCombustivel = TiposCombustiveisGastos.GNV+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 6){
+                    tipoCombustivel = TiposCombustiveisGastos.Diesel+"";
+                }
+                
+                
+                
+                VeiculosDAO veiculos = new VeiculosDAO();
+                
+                DateFormat  formatter = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = null;
+                data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataAbastecimento.getText()).getTime());
+                        
+                IGastosCombustivelDao comb = new GastosCombustivelDao();
+                GastosCombustivel gastos = new GastosCombustivel(0, ClassificacaoGastos.COMBUSTIVEL,
+                        TiposCombustiveisGastos.valueOf(tipoCombustivel), Float.parseFloat(jTextField1_LitrosColocados.getText()), 
+                        Float.parseFloat(jTextField1_precoLitro.getText()), Float.parseFloat(jTextField1_kmsPercorridosLItro.getText()), (java.sql.Date) data,
+                        veiculos.buscarVeiculos(jComboBox1_veiculos.getSelectedItem().toString()));
+                
+                
+                comb.InserirGastos(gastos);
+               
+            
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(this, err);
+        }
+
+    }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
+
+    private void jComboBox1_tipoDeCombustivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_tipoDeCombustivelActionPerformed
+        if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 0){
+                    tipoCombustivel = TiposCombustiveisGastos.Gasolina+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 1){
+                    tipoCombustivel = TiposCombustiveisGastos.Gasolina_Aditivada+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 2){
+                    tipoCombustivel = TiposCombustiveisGastos.Gasolina_Premium+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 3){
+                    tipoCombustivel = TiposCombustiveisGastos.Etanol+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 4){
+                    tipoCombustivel = TiposCombustiveisGastos.Etanol_aditivado+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 5){
+                    tipoCombustivel = TiposCombustiveisGastos.GNV+"";
+                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 6){
+                    tipoCombustivel = TiposCombustiveisGastos.Diesel+"";
+                }
+                
+        
+        System.out.println(tipoCombustivel);
+    }//GEN-LAST:event_jComboBox1_tipoDeCombustivelActionPerformed
+
+    public void limparTela(){
+        jTextField1_LitrosColocados.setText("");
+        jTextField1_precoLitro.setText("");
+        jTextField1_kmsPercorridosLItro.setText("");
+        jFormattedTextField1_dataAbastecimento.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -176,10 +317,14 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4_voltar;
+    private javax.swing.JButton jButton_iNCLUIR;
     private javax.swing.JComboBox<TiposCombustiveisGastos> jComboBox1_tipoDeCombustivel;
+    private javax.swing.JComboBox<String> jComboBox1_veiculos;
     private javax.swing.JFormattedTextField jFormattedTextField1_dataAbastecimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -188,12 +333,26 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextField1_LitrosColocados;
+    private javax.swing.JTextField jTextField1_kmsPercorridosLItro;
     private javax.swing.JTextField jTextField1_precoLitro;
-    private javax.swing.JTextField jTextField1_precoLitro1;
     // End of variables declaration//GEN-END:variables
 
     private void carregarComboBox() {
         jComboBox1_tipoDeCombustivel.setModel(new DefaultComboBoxModel<>(TiposCombustiveisGastos.values()));
-        
+
+    }
+
+    public void puxarDadosComboBox() throws Exception {
+
+        try {
+            VeiculosDAO veic = new VeiculosDAO();
+            ResultSet rs = veic.listarVeiculos();
+
+            while (rs.next()) {
+                jComboBox1_veiculos.addItem(rs.getString(1));
+            }
+        } catch (Exception ex) {
+
+        }
     }
 }

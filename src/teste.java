@@ -29,14 +29,16 @@ public class teste {
         try {
             int idVeiculo = 0;
             Date date = new Date(System.currentTimeMillis());
-            IVeiculosDAO objetoVDao = new VeiculosDAO();
-            System.out.println(objetoVDao.buscar(2).getId());
+            VeiculosDAO objetoVDao = new VeiculosDAO();
+            System.out.println(objetoVDao.buscarVeiculos("SKRR777").getId());
             
             
-            GastosCombustivel objeto = new GastosCombustivel(0, ClassificacaoGastos.COMBUSTIVEL,TiposCombustiveisGastos.Gasolina, 50, 282, (float) 2, 20,date,objetoVDao.buscar(1));
+            GastosCombustivel objeto = new GastosCombustivel(0, ClassificacaoGastos.COMBUSTIVEL,TiposCombustiveisGastos.Gasolina, 50, (float) 2, 20,date,objetoVDao.buscarVeiculos("SKRR777"));
             IGastosCombustivelDao objetoDao = new GastosCombustivelDao();
             objetoDao.InserirGastos(objeto);
                     
+            
+           
                     } catch (Exception ex) {
             Logger.getLogger(teste.class.getName()).log(Level.SEVERE, null, ex);
         }

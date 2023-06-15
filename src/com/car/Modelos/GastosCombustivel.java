@@ -18,18 +18,16 @@ public class GastosCombustivel {
     private ClassificacaoGastos identificadorGasto;
     private TiposCombustiveisGastos descricao;
     private float quantidadeLitrosCombustivel;
-    private float kmPercorridoVeiculo;
     private float valorLitroCombustivel;
     private float qntdKmPorLitroCarro;
     private Date dataAbastecimento;
     private Veiculos veiculos;
 
-    public GastosCombustivel(int id, ClassificacaoGastos identificadorGasto, TiposCombustiveisGastos descricao, float quantidadeLitrosCombustivel, float kmPercorridoVeiculo, float valorLitroCombustivel, float qntdKmPorLitroCarro, Date dataAbastecimento,Veiculos veiculos) {
+    public GastosCombustivel(int id, ClassificacaoGastos identificadorGasto, TiposCombustiveisGastos descricao, float quantidadeLitrosCombustivel, float valorLitroCombustivel, float qntdKmPorLitroCarro, Date dataAbastecimento,Veiculos veiculos) {
         this.id = id;
         this.identificadorGasto = identificadorGasto;
         this.descricao = descricao;
         this.quantidadeLitrosCombustivel = quantidadeLitrosCombustivel;
-        this.kmPercorridoVeiculo = kmPercorridoVeiculo;
         this.valorLitroCombustivel = valorLitroCombustivel;
         this.qntdKmPorLitroCarro = qntdKmPorLitroCarro;
         this.dataAbastecimento = dataAbastecimento;
@@ -87,14 +85,6 @@ public class GastosCombustivel {
 
     public void setQuantidadeLitrosCombustivel(float quantidadeLitrosCombustivel) {
         this.quantidadeLitrosCombustivel = quantidadeLitrosCombustivel;
-    }
-
-    public float getKmPercorridoVeiculo() {
-        return kmPercorridoVeiculo;
-    }
-
-    public void setKmPercorridoVeiculo(float kmPercorridoVeiculo) {
-        this.kmPercorridoVeiculo = kmPercorridoVeiculo;
     }
 
     public float getValorLitroCombustivel() {

@@ -86,7 +86,28 @@ public class VeiculosDAO implements IVeiculosDAO {
         statement.setInt(1, id);
         ResultSet rs = statement.executeQuery();
 
-        
+        while (rs.next()) {
+            Veiculos objetoVeiculos = new Veiculos();
+            IModelosDAO objetoModelosDao = new ModelosDAO();
+            objetoVeiculos.setId(rs.getInt("id"));
+            objetoVeiculos.setModelo(objetoModelosDao.buscar(rs.getInt("id_modelo")));
+            objetoVeiculos.setPlaca(rs.getString("placa"));
+            objetoVeiculos.setTipoDoVeiculo(TipoDoVeiculo.valueOf(rs.getString("tipo_veiculo")));
+            objetoVeiculos.setTipoCombustivel(TipoCombustivel.valueOf(rs.getString("tipo_combustivel")));
+            objetoVeiculos.setCategoriaVeiculos(CategoriaVeiculos.valueOf(rs.getString("categoria_veiculo")));
+            objetoVeiculos.setQuilometragemAtual(rs.getInt("quilometragem"));
+            return new Veiculos(objetoVeiculos.getId(), objetoVeiculos.getPlaca(), objetoVeiculos.getTipoDoVeiculo(), objetoVeiculos.getCategoriaVeiculos(), objetoVeiculos.getModelo(), objetoVeiculos.getTipoCombustivel(), objetoVeiculos.getQuilometragemAtual());
+        }
+        return null;
+    }
+    
+    public Veiculos buscarVeiculos(String placa) throws Exception {
+        String sql = "SELECT * FROM veiculos WHERE placa = ?";
+        System.out.println(placa);
+        PreparedStatement statement = conexao.prepareStatement(sql);
+        statement.setString(1, placa);
+        System.out.println(sql);
+        ResultSet rs = statement.executeQuery();
 
         while (rs.next()) {
             Veiculos objetoVeiculos = new Veiculos();
@@ -98,9 +119,22 @@ public class VeiculosDAO implements IVeiculosDAO {
             objetoVeiculos.setTipoCombustivel(TipoCombustivel.valueOf(rs.getString("tipo_combustivel")));
             objetoVeiculos.setCategoriaVeiculos(CategoriaVeiculos.valueOf(rs.getString("categoria_veiculo")));
             objetoVeiculos.setQuilometragemAtual(rs.getInt("quilometragem"));
-            return new Veiculos(objetoVeiculos.getId(), objetoVeiculos.getPlaca(),objetoVeiculos.getTipoDoVeiculo(), objetoVeiculos.getCategoriaVeiculos(),objetoVeiculos.getModelo(), objetoVeiculos.getTipoCombustivel(), objetoVeiculos.getQuilometragemAtual());
+            return new Veiculos(objetoVeiculos.getId(), objetoVeiculos.getPlaca(), objetoVeiculos.getTipoDoVeiculo(), objetoVeiculos.getCategoriaVeiculos(), objetoVeiculos.getModelo(), objetoVeiculos.getTipoCombustivel(), objetoVeiculos.getQuilometragemAtual());
         }
         return null;
     }
-    }
+    
+    public ResultSet listarVeiculos() throws Exception {
+        String sql = "SELECT placa from veiculos ORDER BY id";
 
+        try {
+            st = conexao.prepareStatement(sql);
+            return st.executeQuery();
+
+        } catch (SQLException erro) {
+            throw new Exception("SQL Erro: " + erro.getMessage());
+        }
+
+    }
+    
+}
