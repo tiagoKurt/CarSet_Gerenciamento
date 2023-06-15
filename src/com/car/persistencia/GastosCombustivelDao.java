@@ -70,15 +70,15 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
              ResultSet rs = st.executeQuery();
              while(rs.next()){
                  GastosCombustivel gastos = new GastosCombustivel();
+                 IVeiculosDAO objetoDaoVeiculos = new VeiculosDAO();
                  gastos.setId(rs.getInt("id"));
                  gastos.setIdentificadorGasto(ClassificacaoGastos.valueOf(rs.getString("tipogasto")));
                  gastos.setDescricao(TiposCombustiveisGastos.valueOf(rs.getString("descgasto")));
                  gastos.setQuantidadeLitrosCombustivel(rs.getFloat("qtdlcomb"));
-
                  gastos.setValorLitroCombustivel(rs.getFloat("valorlitrocomb"));
                  gastos.setQntdKmPorLitroCarro(rs.getFloat("kmplcarro"));
                  gastos.setDataAbastecimento(rs.getDate("dataabast"));
-                 
+                 gastos.setVeiculos(objetoDaoVeiculos.buscarPeloId(rs.getInt("id_veiculo")));
                  listaDeGastosCombustivel.add(gastos);
              }}catch(SQLException e){
                      throw new Exception(e);
@@ -127,7 +127,7 @@ public class GastosCombustivelDao implements IGastosCombustivelDao{
                  gastosCombustivel.setValorLitroCombustivel(rs.getFloat("valorlitrocomb"));
                  gastosCombustivel.setQntdKmPorLitroCarro(rs.getFloat("kmplcarro"));
                  gastosCombustivel.setDataAbastecimento(rs.getDate("dataabast"));
-                 gastosCombustivel.setVeiculos(objetoVeiculosDao.buscar(rs.getInt("id_veiculo")));
+                 gastosCombustivel.setVeiculos(objetoVeiculosDao.buscarPeloId(rs.getInt("id_veiculo")));
         return new GastosCombustivel(gastosCombustivel.getId(),gastosCombustivel.getIdentificadorGasto(), gastosCombustivel.getDescricao(), gastosCombustivel.getQuantidadeLitrosCombustivel(), gastosCombustivel.getValorLitroCombustivel(), gastosCombustivel.getQntdKmPorLitroCarro(), gastosCombustivel.getDataAbastecimento(),gastosCombustivel.getVeiculos());
          }
          return null;

@@ -80,7 +80,7 @@ public class VeiculosDAO implements IVeiculosDAO {
     }
 
     @Override
-    public Veiculos buscar(int id) throws Exception {
+    public Veiculos buscarPeloId(int id) throws Exception {
         String sql = "SELECT * FROM veiculos WHERE id = ?";
         PreparedStatement statement = conexao.prepareStatement(sql);
         statement.setInt(1, id);
@@ -101,6 +101,7 @@ public class VeiculosDAO implements IVeiculosDAO {
         return null;
     }
     
+    @Override
     public Veiculos buscarVeiculos(String placa) throws Exception {
         String sql = "SELECT * FROM veiculos WHERE placa = ?";
         System.out.println(placa);

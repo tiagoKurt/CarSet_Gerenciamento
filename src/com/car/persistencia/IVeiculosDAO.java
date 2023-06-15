@@ -9,5 +9,6 @@ public interface IVeiculosDAO {
     void alterar(Veiculos veiculo) throws Exception;
     boolean excluir(String placa)throws Exception;
     ArrayList<Veiculos> listagemDeModelos()throws Exception;
-    Veiculos buscar(int id) throws Exception;
+    Veiculos buscarPeloId(int id) throws Exception;
+    Veiculos buscarVeiculos(String placa)throws Exception;
 }

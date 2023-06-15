@@ -4,5 +4,6 @@ public enum ClassificacaoGastos {
     COMBUSTIVEL,
     MECANICO,
     SEGURO,
-    IPVA
+    IMPOSTO,
+    OUTROS
 }
