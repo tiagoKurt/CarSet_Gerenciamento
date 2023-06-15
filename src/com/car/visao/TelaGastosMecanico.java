@@ -104,7 +104,7 @@ public class TelaGastosMecanico extends javax.swing.JFrame {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 230, 50));
 
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 250, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 230, -1));
 
         jButton4_voltar.setBackground(new java.awt.Color(102, 102, 102));
         jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
@@ -163,6 +163,11 @@ public class TelaGastosMecanico extends javax.swing.JFrame {
         jComboBox1_veiculos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jComboBox1_veiculos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         jComboBox1_veiculos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox1_veiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1_veiculosActionPerformed(evt);
+            }
+        });
         getContentPane().add(jComboBox1_veiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 640, 220, 50));
 
         jLabel9.setFont(new java.awt.Font("Bodoni MT", 3, 25)); // NOI18N
@@ -183,7 +188,7 @@ public class TelaGastosMecanico extends javax.swing.JFrame {
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, 380, 110));
 
         jLabel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4), "PREENCHA AS INFORMAÇÕES", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(0, 0, 0))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 800, 590));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 780, 600));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -260,6 +265,10 @@ public class TelaGastosMecanico extends javax.swing.JFrame {
     private void jFormattedTextField1_dataVisitaMecanicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1_dataVisitaMecanicoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextField1_dataVisitaMecanicoActionPerformed
+
+    private void jComboBox1_veiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_veiculosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1_veiculosActionPerformed
 
     /**
      * @param args the command line arguments

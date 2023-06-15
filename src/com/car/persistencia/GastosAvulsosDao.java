@@ -95,7 +95,7 @@ private Connection conexao = null;
 
     @Override
     public GastosAvulsos buscarUltimoRegistroInserido() throws Exception {
-        String sql = "select * from gastos_impostos order by id desc";
+        String sql = "select * from gastos_avulsos order by id desc";
              PreparedStatement st = conexao.prepareStatement(sql);
              ResultSet rs = st.executeQuery();
              while(rs.next()){

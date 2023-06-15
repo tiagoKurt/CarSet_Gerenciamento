@@ -261,7 +261,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             JTableRenderer JtableRenderer = new JTableRenderer();
             conexao = ConexaoBD.getConexao();
             Statement statement = conexao.createStatement();
-            String query = "select gastos_combustivel.id as identificador, veiculos.placa as Veiculo, tipogasto as \"Tipo do gasto\", descgasto as \"Tipo de Combustivel\" ,\n"
+            String query = "select gastos_combustivel.id as identificador, tipogasto as \"Tipo do gasto\", veiculos.placa as Veiculo, descgasto as \"Tipo de Combustivel\" ,\n"
                     + "                    qtdlcomb as \"Litros colocados\", valorlitrocomb as \"Preço do Litro\", kmplcarro as \"KM/s por litro\",\n"
                     + "                    dataabast as \"Data Abastecimento\" from gastos_combustivel inner join veiculos on gastos_combustivel.id_veiculo = veiculos.id";
             ResultSet resultSet = statement.executeQuery(query);
@@ -286,9 +286,9 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jTable1_gastos.getColumnModel().getColumn(0).setWidth(0);
             jTable1_gastos.getColumnModel().getColumn(0).setMinWidth(0);
             jTable1_gastos.getColumnModel().getColumn(0).setMaxWidth(0);
-            jTable1_gastos.getColumnModel().getColumn(1).setWidth(140);
-            jTable1_gastos.getColumnModel().getColumn(1).setMinWidth(140);
-            jTable1_gastos.getColumnModel().getColumn(1).setMaxWidth(140);
+            jTable1_gastos.getColumnModel().getColumn(2).setWidth(140);
+            jTable1_gastos.getColumnModel().getColumn(2).setMinWidth(140);
+            jTable1_gastos.getColumnModel().getColumn(2).setMaxWidth(140);
             jTable1_gastos.getColumnModel().getColumn(7).setWidth(175);
             jTable1_gastos.getColumnModel().getColumn(7).setMinWidth(175);
             jTable1_gastos.getColumnModel().getColumn(7).setMaxWidth(175);
@@ -314,7 +314,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                                 JTableRenderer JtableRenderer = new JTableRenderer();
                                 conexao = ConexaoBD.getConexao();
                                 Statement statement = conexao.createStatement();
-                                String query = "select gastos_combustivel.id as identificador, veiculos.placa as Veiculo, tipogasto as \"Tipo do gasto\", descgasto as \"Tipo de Combustivel\" ,\n"
+                                String query = "select gastos_combustivel.id as identificador, tipogasto as \"Tipo do gasto\", veiculos.placa as Veiculo, descgasto as \"Tipo de Combustivel\" ,\n"
                                         + "                    qtdlcomb as \"Litros colocados\", valorlitrocomb as \"Preço do Litro\", kmplcarro as \"KM/s por litro\",\n"
                                         + "                    dataabast as \"Data Abastecimento\" from gastos_combustivel inner join veiculos on gastos_combustivel.id_veiculo = veiculos.id";
                                 ResultSet resultSet = statement.executeQuery(query);
@@ -339,9 +339,9 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                                 jTable1_gastos.getColumnModel().getColumn(0).setWidth(0);
                                 jTable1_gastos.getColumnModel().getColumn(0).setMinWidth(0);
                                 jTable1_gastos.getColumnModel().getColumn(0).setMaxWidth(0);
-                                jTable1_gastos.getColumnModel().getColumn(1).setWidth(140);
-                                jTable1_gastos.getColumnModel().getColumn(1).setMinWidth(140);
-                                jTable1_gastos.getColumnModel().getColumn(1).setMaxWidth(140);
+                                jTable1_gastos.getColumnModel().getColumn(2).setWidth(140);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMinWidth(140);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMaxWidth(140);
                                 jTable1_gastos.getColumnModel().getColumn(7).setWidth(175);
                                 jTable1_gastos.getColumnModel().getColumn(7).setMinWidth(175);
                                 jTable1_gastos.getColumnModel().getColumn(7).setMaxWidth(175);
@@ -405,8 +405,150 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                                 resultSet.close();
                                 statement.close();
 
-                            }
-                            if (jComboBox1_tipoDoGasto.getSelectedIndex() == 5) {
+                            } else if (jComboBox1_tipoDoGasto.getSelectedIndex() == 2) {
+
+                                DefaultTableModel model = (DefaultTableModel) jTable1_gastos.getModel();
+                                JTableRenderer JtableRenderer = new JTableRenderer();
+                                conexao = ConexaoBD.getConexao();
+                                Statement statement = conexao.createStatement();
+                                String query = "select gastos_seguro.id as Identificador, gastos_seguro.tipogasto as \"Tipo do Gasto\",\n"
+                                        + "veiculos.placa as Veículo,\n"
+                                        + "descgasto as Descrição, valorfranquia as \"Valor da Franquia\", datapagamento as \"Data do Pagamento\"\n"
+                                        + "from gastos_seguro inner join veiculos on gastos_seguro.id_veiculo = veiculos.id";
+                                ResultSet resultSet = statement.executeQuery(query);
+
+                                DefaultTableModel tableModel = new DefaultTableModel();
+                                jTable1_gastos.setModel(tableModel);
+
+                                ResultSetMetaData metaData = resultSet.getMetaData();
+                                int columnCount = metaData.getColumnCount();
+
+                                for (int i = 1; i <= columnCount; i++) {
+                                    tableModel.addColumn(metaData.getColumnName(i));
+                                }
+
+                                while (resultSet.next()) {
+                                    Object[] row = new Object[columnCount];
+                                    for (int i = 1; i <= columnCount; i++) {
+                                        row[i - 1] = resultSet.getObject(i);
+                                    }
+                                    tableModel.addRow(row);
+                                }
+                                jTable1_gastos.getColumnModel().getColumn(0).setWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMinWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMaxWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(1).setWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(1).setMinWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(1).setMaxWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMinWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMaxWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(4).setWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(4).setMinWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(4).setMaxWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(5).setWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMinWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMaxWidth(165);
+                                resultSet.close();
+                                statement.close();
+
+                            } else if (jComboBox1_tipoDoGasto.getSelectedIndex() == 4) {
+
+                                DefaultTableModel model = (DefaultTableModel) jTable1_gastos.getModel();
+                                JTableRenderer JtableRenderer = new JTableRenderer();
+                                conexao = ConexaoBD.getConexao();
+                                Statement statement = conexao.createStatement();
+                                String query = "select gastos_avulsos.id as Identificador, veiculos.placa as Veículo, \n"
+                                        + "gastos_avulsos.tipogasto as \"Tipo Do Gasto\",\n"
+                                        + "gastos_avulsos.descgasto as \"Descrição do gasto\", valorgasto as \"Valor do Gasto\",\n"
+                                        + "datarealizacao as \"Data do Pagamento\" from gastos_avulsos inner join veiculos on \n"
+                                        + "gastos_avulsos.id_veiculo = veiculos.id";
+                                ResultSet resultSet = statement.executeQuery(query);
+
+                                DefaultTableModel tableModel = new DefaultTableModel();
+                                jTable1_gastos.setModel(tableModel);
+
+                                ResultSetMetaData metaData = resultSet.getMetaData();
+                                int columnCount = metaData.getColumnCount();
+
+                                for (int i = 1; i <= columnCount; i++) {
+                                    tableModel.addColumn(metaData.getColumnName(i));
+                                }
+
+                                while (resultSet.next()) {
+                                    Object[] row = new Object[columnCount];
+                                    for (int i = 1; i <= columnCount; i++) {
+                                        row[i - 1] = resultSet.getObject(i);
+                                    }
+                                    tableModel.addRow(row);
+                                }
+                                jTable1_gastos.getColumnModel().getColumn(0).setWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMinWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMaxWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(1).setWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(1).setMinWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(1).setMaxWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMinWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMaxWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(4).setWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(4).setMinWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(4).setMaxWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(5).setWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMinWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMaxWidth(165);
+                                resultSet.close();
+                                statement.close();
+
+                            } else if (jComboBox1_tipoDoGasto.getSelectedIndex() == 3) {
+
+                                DefaultTableModel model = (DefaultTableModel) jTable1_gastos.getModel();
+                                JTableRenderer JtableRenderer = new JTableRenderer();
+                                conexao = ConexaoBD.getConexao();
+                                Statement statement = conexao.createStatement();
+                                String query = "select gastos_impostos.id as \"Numero pedido\", tipogasto as \"Tipo do gasto\",\n"
+                                        + "veiculos.placa as \"Veículo\",\n"
+                                        + "descgasto as \"Descrição do gasto\", tipocarro as \"Tipo Veículo\", valorpago as \"Valor Pago\",\n"
+                                        + "datapagamento as \"Data do pagamento\"\n"
+                                        + "from gastos_impostos inner join veiculos on gastos_impostos.id_veiculo = veiculos.id";
+                                ResultSet resultSet = statement.executeQuery(query);
+
+                                DefaultTableModel tableModel = new DefaultTableModel();
+                                jTable1_gastos.setModel(tableModel);
+
+                                ResultSetMetaData metaData = resultSet.getMetaData();
+                                int columnCount = metaData.getColumnCount();
+
+                                for (int i = 1; i <= columnCount; i++) {
+                                    tableModel.addColumn(metaData.getColumnName(i));
+                                }
+
+                                while (resultSet.next()) {
+                                    Object[] row = new Object[columnCount];
+                                    for (int i = 1; i <= columnCount; i++) {
+                                        row[i - 1] = resultSet.getObject(i);
+                                    }
+                                    tableModel.addRow(row);
+                                }
+                                jTable1_gastos.getColumnModel().getColumn(0).setWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMinWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(0).setMaxWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(1).setWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(1).setMinWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(1).setMaxWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMinWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(2).setMaxWidth(150);
+                                jTable1_gastos.getColumnModel().getColumn(5).setWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMinWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(5).setMaxWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(6).setWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(6).setMinWidth(165);
+                                jTable1_gastos.getColumnModel().getColumn(6).setMaxWidth(165);
+                                resultSet.close();
+                                statement.close();
+
+                            } else if (jComboBox1_tipoDoGasto.getSelectedIndex() == 5) {
 
                                 DefaultTableModel model = (DefaultTableModel) jTable1_gastos.getModel();
                                 JTableRenderer JtableRenderer = new JTableRenderer();
@@ -439,6 +581,9 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                                 jTable1_gastos.getColumnModel().getColumn(0).setWidth(0);
                                 jTable1_gastos.getColumnModel().getColumn(0).setMinWidth(0);
                                 jTable1_gastos.getColumnModel().getColumn(0).setMaxWidth(0);
+                                jTable1_gastos.getColumnModel().getColumn(1).setWidth(225);
+                                jTable1_gastos.getColumnModel().getColumn(1).setMinWidth(225);
+                                jTable1_gastos.getColumnModel().getColumn(1).setMaxWidth(225);
                                 jTable1_gastos.getColumnModel().getColumn(2).setWidth(150);
                                 jTable1_gastos.getColumnModel().getColumn(2).setMinWidth(150);
                                 jTable1_gastos.getColumnModel().getColumn(2).setMaxWidth(150);
@@ -448,6 +593,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                                 jTable1_gastos.getColumnModel().getColumn(5).setWidth(150);
                                 jTable1_gastos.getColumnModel().getColumn(5).setMinWidth(150);
                                 jTable1_gastos.getColumnModel().getColumn(5).setMaxWidth(150);
+
                                 resultSet.close();
                                 statement.close();
 

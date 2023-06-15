@@ -171,6 +171,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem9.setFont(new java.awt.Font("Bodoni MT", 3, 20)); // NOI18N
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/queimando (1).png"))); // NOI18N
         jMenuItem9.setText("CONSULTAR GASTOS");
+        jMenuItem9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem9ActionPerformed(evt);
