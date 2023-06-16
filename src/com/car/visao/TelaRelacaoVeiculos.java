@@ -128,33 +128,34 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
         jLabel4_PLACASELECIONADA = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
+        jFrame1_alterar.setUndecorated(true);
         jFrame1_alterar.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/pinkLogoMenorzinha.gif"))); // NOI18N
         jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
-        jFrame1_alterar.getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jFrame1_alterar.getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Bodoni MT", 3, 36)); // NOI18N
         jLabel5.setText("ALTERAR VEÍCULO");
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        jFrame1_alterar.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 370, 30));
+        jFrame1_alterar.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 370, 30));
 
         jLabel10_imagemModelos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 5));
-        jFrame1_alterar.getContentPane().add(jLabel10_imagemModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 270, 310, 200));
+        jFrame1_alterar.getContentPane().add(jLabel10_imagemModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 360, 310, 200));
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
         jLabel10.setFont(new java.awt.Font("Bodoni MT", 3, 25)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("IMAGEM DO MODELO");
-        jFrame1_alterar.getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 230, 300, 30));
+        jFrame1_alterar.getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 320, 300, 30));
 
         jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jFrame1_alterar.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 400, -1));
+        jFrame1_alterar.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 400, -1));
 
         jLabel14.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jLabel14.setText("MARCA");
-        jFrame1_alterar.getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, -1, 30));
+        jFrame1_alterar.getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, -1, 30));
 
         jComboBox2_Marca.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox2_Marca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -164,7 +165,7 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
                 jComboBox2_MarcaActionPerformed(evt);
             }
         });
-        jFrame1_alterar.getContentPane().add(jComboBox2_Marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 310, 40));
+        jFrame1_alterar.getContentPane().add(jComboBox2_Marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, 310, 40));
 
         jButton4_voltar1.setBackground(new java.awt.Color(102, 102, 102));
         jButton4_voltar1.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
@@ -183,12 +184,12 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
         jComboBox2_TipoDoVeiculo.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox2_TipoDoVeiculo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jComboBox2_TipoDoVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jFrame1_alterar.getContentPane().add(jComboBox2_TipoDoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 310, 40));
+        jFrame1_alterar.getContentPane().add(jComboBox2_TipoDoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 310, 40));
 
         jComboBox1_categoriaVeiculo.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox1_categoriaVeiculo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jComboBox1_categoriaVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jFrame1_alterar.getContentPane().add(jComboBox1_categoriaVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 310, 40));
+        jFrame1_alterar.getContentPane().add(jComboBox1_categoriaVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 310, 40));
 
         jComboBox2_Modelo.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox2_Modelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -198,11 +199,11 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
                 jComboBox2_ModeloActionPerformed(evt);
             }
         });
-        jFrame1_alterar.getContentPane().add(jComboBox2_Modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, 310, 40));
+        jFrame1_alterar.getContentPane().add(jComboBox2_Modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 310, 40));
 
         jLabel11.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jLabel11.setText("COMBUSTIVEL");
-        jFrame1_alterar.getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, -1, 30));
+        jFrame1_alterar.getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 220, -1, 30));
 
         jComboBox2_TipoCombustivel.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
         jComboBox2_TipoCombustivel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -212,43 +213,42 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
                 jComboBox2_TipoCombustivelActionPerformed(evt);
             }
         });
-        jFrame1_alterar.getContentPane().add(jComboBox2_TipoCombustivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, 310, 40));
+        jFrame1_alterar.getContentPane().add(jComboBox2_TipoCombustivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, 310, 40));
 
         jLabel8.setFont(new java.awt.Font("Bodoni MT", 3, 30)); // NOI18N
         jLabel8.setText("PLACA");
-        jFrame1_alterar.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, -1, 30));
+        jFrame1_alterar.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 640, -1, 30));
 
         jLabel9.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jLabel9.setText("MODELO");
-        jFrame1_alterar.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, -1, 30));
+        jFrame1_alterar.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, -1, 30));
 
         jLabel12.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jLabel12.setText("CATEGORIA");
-        jFrame1_alterar.getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, 30));
+        jFrame1_alterar.getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, -1, 30));
 
         jLabel13.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jLabel13.setText("TIPO");
-        jFrame1_alterar.getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 70, 30));
+        jFrame1_alterar.getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 70, 30));
 
         jLabel15.setForeground(new java.awt.Color(153, 153, 153));
         jLabel15.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true), "SELECIONE", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(255, 255, 255))); // NOI18N
-        jFrame1_alterar.getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 720, 420));
+        jFrame1_alterar.getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 720, 420));
 
         jTextField1_placa.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
         jTextField1_placa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jFrame1_alterar.getContentPane().add(jTextField1_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 580, 260, 40));
+        jFrame1_alterar.getContentPane().add(jTextField1_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 670, 260, 40));
 
         jLabel16.setFont(new java.awt.Font("Bodoni MT", 3, 30)); // NOI18N
         jLabel16.setText("KM/s ATUAL");
-        jFrame1_alterar.getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 550, -1, 30));
+        jFrame1_alterar.getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 640, -1, 30));
 
         jTextField1_quilometragem.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
         jTextField1_quilometragem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jFrame1_alterar.getContentPane().add(jTextField1_quilometragem, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 580, 260, 40));
+        jFrame1_alterar.getContentPane().add(jTextField1_quilometragem, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 670, 260, 40));
 
         jButton1_ALTERAR.setBackground(new java.awt.Color(102, 102, 102));
         jButton1_ALTERAR.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
-        jButton1_ALTERAR.setForeground(new java.awt.Color(0, 0, 0));
         jButton1_ALTERAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/CHANGE.png"))); // NOI18N
         jButton1_ALTERAR.setText("   ALTERAR");
         jButton1_ALTERAR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
@@ -261,7 +261,7 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
         jFrame1_alterar.getContentPane().add(jButton1_ALTERAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 340, 220, 50));
 
         jLabel17.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "DIGITE", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(255, 255, 255))); // NOI18N
-        jFrame1_alterar.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 720, 140));
+        jFrame1_alterar.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 600, 720, 140));
 
         jLabel19.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "OPÇÕES", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 28), new java.awt.Color(255, 255, 255))); // NOI18N
         jFrame1_alterar.getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 330, 140));
@@ -339,7 +339,6 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
 
         jButton_Alterar.setBackground(new java.awt.Color(102, 102, 102));
         jButton_Alterar.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
-        jButton_Alterar.setForeground(new java.awt.Color(0, 0, 0));
         jButton_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/CHANGE.png"))); // NOI18N
         jButton_Alterar.setText("ALTERAR");
         jButton_Alterar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -353,7 +352,6 @@ public class TelaRelacaoVeiculos extends javax.swing.JFrame {
 
         jButton_Remover.setBackground(new java.awt.Color(102, 102, 102));
         jButton_Remover.setFont(new java.awt.Font("Bodoni MT", 3, 22)); // NOI18N
-        jButton_Remover.setForeground(new java.awt.Color(0, 0, 0));
         jButton_Remover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/removeriten.png"))); // NOI18N
         jButton_Remover.setText("REMOVER");
         jButton_Remover.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
