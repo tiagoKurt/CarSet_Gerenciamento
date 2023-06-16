@@ -6,6 +6,11 @@ import com.car.Enumerations.TipoCombustivel;
 import com.car.Enumerations.TipoDoVeiculo;
 import com.car.Ferramentas.ConexaoBD;
 import com.car.Ferramentas.JTableRenderer;
+import com.car.Modelos.Gastos;
+import com.car.persistencia.GastosDao;
+import com.car.persistencia.IGastosDao;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.event.ItemEvent;
@@ -17,16 +22,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 public class TelaRelacaoGastos extends javax.swing.JFrame {
 
     private Connection conexao = null;
     PreparedStatement st;
     String classGastos;
+    float gastosGraficoCombustivel = 0;
+    float gastosSeguro = 0;
+    float gastosMecanico = 0;
+    float gastosImposto = 0;
+    float outrosGastos = 0;
+    float gastosGerais = 0;
 
     public TelaRelacaoGastos() {
         initComponents();
@@ -48,8 +67,18 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         classGastos = ClassificacaoGastos.COMBUSTIVEL + "";
         carregarComboBox();
 
+        criarGraficos();
+        criarGraficoGERAL();
+        jPanel1_Combustivel.setVisible(false);
+        jPanel1_mecanico.setVisible(false);
+        jPanel1_Seguro.setVisible(false);
+        jPanel1_Imposto.setVisible(false);
+        jPanel1_outrosGastos.setVisible(false);
+        jPanel1_gastosGeral.setVisible(false);
+
         jLabel7_graficos.setVisible(false);
         jComboBox1_tipoDoGastoGraficos.setVisible(false);
+
     }
 
     /**
@@ -73,6 +102,12 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         jLabel7_graficos = new javax.swing.JLabel();
         jComboBox1_itemRelacao = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        jPanel1_mecanico = new javax.swing.JPanel();
+        jPanel1_Combustivel = new javax.swing.JPanel();
+        jPanel1_Seguro = new javax.swing.JPanel();
+        jPanel1_Imposto = new javax.swing.JPanel();
+        jPanel1_outrosGastos = new javax.swing.JPanel();
+        jPanel1_gastosGeral = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -130,10 +165,10 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         jComboBox1_tipoDoGasto.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jComboBox1_tipoDoGasto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         jComboBox1_tipoDoGasto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jComboBox1_tipoDoGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 280, 50));
+        getContentPane().add(jComboBox1_tipoDoGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 130, 280, 50));
 
         jLabel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "TIPO DO GASTO", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 26), new java.awt.Color(255, 255, 255))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 130, 380, 120));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 90, 380, 120));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/pinkLogoMenorzinha.gif"))); // NOI18N
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
@@ -156,10 +191,10 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 jComboBox1_tipoDoGastoGraficosActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox1_tipoDoGastoGraficos, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 280, 50));
+        getContentPane().add(jComboBox1_tipoDoGastoGraficos, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 130, 280, 50));
 
         jLabel7_graficos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "TIPO DO GASTO", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 26), new java.awt.Color(255, 255, 255))); // NOI18N
-        getContentPane().add(jLabel7_graficos, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 130, 380, 120));
+        getContentPane().add(jLabel7_graficos, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 90, 380, 120));
 
         jComboBox1_itemRelacao.setFont(new java.awt.Font("Bodoni MT", 3, 24)); // NOI18N
         jComboBox1_itemRelacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TABELAS", "GRÁFICOS" }));
@@ -170,10 +205,34 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 jComboBox1_itemRelacaoActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox1_itemRelacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 220, 50));
+        getContentPane().add(jComboBox1_itemRelacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 220, 50));
 
         jLabel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "VER GASTOS EM", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 26), new java.awt.Color(255, 255, 255))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 310, 120));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 310, 120));
+
+        jPanel1_mecanico.setBackground(new java.awt.Color(255, 51, 153));
+        jPanel1_mecanico.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPanel1_mecanico, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 680, 430));
+
+        jPanel1_Combustivel.setBackground(new java.awt.Color(255, 51, 153));
+        jPanel1_Combustivel.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPanel1_Combustivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 680, 430));
+
+        jPanel1_Seguro.setBackground(new java.awt.Color(255, 51, 153));
+        jPanel1_Seguro.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPanel1_Seguro, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 680, 430));
+
+        jPanel1_Imposto.setBackground(new java.awt.Color(255, 51, 153));
+        jPanel1_Imposto.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPanel1_Imposto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 680, 430));
+
+        jPanel1_outrosGastos.setBackground(new java.awt.Color(255, 51, 153));
+        jPanel1_outrosGastos.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPanel1_outrosGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 680, 430));
+
+        jPanel1_gastosGeral.setBackground(new java.awt.Color(255, 51, 153));
+        jPanel1_gastosGeral.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPanel1_gastosGeral, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 680, 430));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -198,23 +257,231 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jComboBox1_tipoDoGasto.setSelectedIndex(0);
             jLabel2.setVisible(true);
             jComboBox1_tipoDoGasto.setVisible(true);
+            jComboBox1_tipoDoGastoGraficos.setSelectedIndex(0);
+
+            jPanel1_Combustivel.setVisible(false);
+            jPanel1_mecanico.setVisible(false);
+            jPanel1_Seguro.setVisible(false);
+            jPanel1_Imposto.setVisible(false);
+            jPanel1_outrosGastos.setVisible(false);
+            jPanel1_gastosGeral.setVisible(false);
 
             jLabel7_graficos.setVisible(false);
             jComboBox1_tipoDoGastoGraficos.setVisible(false);
         } else if (jComboBox1_itemRelacao.getSelectedIndex() == 1) {
-            jLabel7_graficos.setVisible(true);
-            jComboBox1_tipoDoGastoGraficos.setVisible(true);
+            try {
+                jLabel7_graficos.setVisible(true);
+                jComboBox1_tipoDoGastoGraficos.setVisible(true);
 
-            jScrollPane1.setVisible(false);
-            jComboBox1_tipoDoGasto.setSelectedIndex(0);
-            jLabel2.setVisible(false);
-            jComboBox1_tipoDoGasto.setVisible(false);
+                jScrollPane1.setVisible(false);
+                jComboBox1_tipoDoGasto.setSelectedIndex(0);
+                jLabel2.setVisible(false);
+                jComboBox1_tipoDoGasto.setVisible(false);
 
+                jPanel1_Combustivel.setVisible(true);
+
+            } catch (Exception ex) {
+                Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jComboBox1_itemRelacaoActionPerformed
 
-    private void jComboBox1_tipoDoGastoGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
+    public void criarGraficos() {
+        try {
+            DefaultCategoryDataset barra = new DefaultCategoryDataset();
+            IGastosDao objetoDao = new GastosDao();
 
+            ArrayList<Gastos> listaDeGastos = objetoDao.listaDeGastos();
+
+            for (int i = 0; i < listaDeGastos.size(); i++) {
+                if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL) {
+
+                    gastosGraficoCombustivel += listaDeGastos.get(i).getGastoTotal();
+                    barra.setValue(gastosGraficoCombustivel, "COMBUSTIVEL", "");
+                    System.out.println(listaDeGastos.get(i).getGastoTotal());
+                }
+            }
+            JFreeChart grafico1 = ChartFactory.createBarChart3D("GASTOS COM COMBUSTIVEL", "DATA", "TOTAL GASTO", barra, PlotOrientation.VERTICAL, true, true, false);
+            CategoryPlot plot1 = grafico1.getCategoryPlot();
+            BarRenderer renderer1 = (BarRenderer) plot1.getRenderer();
+            Color barColor1 = new Color(0, 0, 153);
+            renderer1.setSeriesPaint(0, barColor1);
+            ChartPanel painel = new ChartPanel(grafico1);
+
+            jPanel1_Combustivel.add(painel);
+
+            DefaultCategoryDataset barra2 = new DefaultCategoryDataset();
+
+            ArrayList<Gastos> listaDeGastos2 = objetoDao.listaDeGastos();
+
+            for (int i = 0; i < listaDeGastos2.size(); i++) {
+                if (listaDeGastos2.get(i).getIdentificadorGasto() == ClassificacaoGastos.SEGURO) {
+
+                    gastosSeguro += listaDeGastos2.get(i).getGastoTotal();
+                    barra2.setValue(gastosSeguro, "SEGURO", "");
+                }
+            }
+            JFreeChart grafico2 = ChartFactory.createBarChart3D("GASTOS COM SEGURO", "DATA", "TOTAL GASTO", barra2, PlotOrientation.VERTICAL, true, true, false);
+            CategoryPlot plot2 = grafico2.getCategoryPlot();
+            BarRenderer renderer2 = (BarRenderer) plot2.getRenderer();
+            Color barColor2 = new Color(153, 153, 153);
+            renderer2.setSeriesPaint(0, barColor2);
+
+            ChartPanel painel2 = new ChartPanel(grafico2);
+            jPanel1_Seguro.add(painel2);
+
+            DefaultCategoryDataset barra3 = new DefaultCategoryDataset();
+            ArrayList<Gastos> listaDeGastos3 = objetoDao.listaDeGastos();
+            for (int i = 0; i < listaDeGastos3.size(); i++) {
+                if (listaDeGastos3.get(i).getIdentificadorGasto() == ClassificacaoGastos.IMPOSTO) {
+
+                    gastosImposto += listaDeGastos3.get(i).getGastoTotal();
+                    barra3.setValue(gastosImposto, "IMPOSTO", "");
+                }
+            }
+            JFreeChart grafico3 = ChartFactory.createBarChart3D("GASTOS COM IMPOSTO", "DATA", "TOTAL GASTO", barra3, PlotOrientation.VERTICAL, true, true, false);
+            CategoryPlot plot3 = grafico3.getCategoryPlot();
+            BarRenderer renderer3 = (BarRenderer) plot3.getRenderer();
+            Color barColor3 = new Color(0, 0, 0);
+            renderer3.setSeriesPaint(0, barColor3);
+
+            ChartPanel painel3 = new ChartPanel(grafico3);
+            jPanel1_Imposto.add(painel3);
+            //
+            DefaultCategoryDataset barra4 = new DefaultCategoryDataset();
+            ArrayList<Gastos> listaDeGastos4 = objetoDao.listaDeGastos();
+
+            for (int i = 0; i < listaDeGastos4.size(); i++) {
+                if (listaDeGastos4.get(i).getIdentificadorGasto() == ClassificacaoGastos.OUTROS) {
+
+                    outrosGastos += listaDeGastos4.get(i).getGastoTotal();
+                    barra4.setValue(outrosGastos, "OUTROS GASTOS", "");
+                }
+            }
+            JFreeChart grafico4 = ChartFactory.createBarChart3D("OUTROS GASTOS", "DATA", "TOTAL GASTO", barra4, PlotOrientation.VERTICAL, true, true, false);
+            CategoryPlot plot4 = grafico4.getCategoryPlot();
+            BarRenderer renderer4 = (BarRenderer) plot4.getRenderer();
+            Color barColor4 = new Color(255, 255, 0);
+            renderer4.setSeriesPaint(0, barColor4);
+
+            ChartPanel painel4 = new ChartPanel(grafico4);
+            jPanel1_outrosGastos.add(painel4);
+            //
+
+            DefaultCategoryDataset barraa = new DefaultCategoryDataset();
+            ArrayList<Gastos> listaDeGastoss = objetoDao.listaDeGastos();
+
+            for (int i = 0; i < listaDeGastoss.size(); i++) {
+                if (listaDeGastoss.get(i).getIdentificadorGasto() == ClassificacaoGastos.MECANICO) {
+
+                    gastosMecanico += listaDeGastoss.get(i).getGastoTotal();
+                    barraa.setValue(gastosMecanico, "MECÂNICO", "");
+                }
+            }
+            JFreeChart graficos = ChartFactory.createBarChart3D("GASTOS COM MECÂNICO", "DATA", "TOTAL GASTO", barraa, PlotOrientation.VERTICAL, true, true, false);
+            CategoryPlot plot = graficos.getCategoryPlot();
+            BarRenderer renderer = (BarRenderer) plot.getRenderer();
+            Color barColor = new Color(0, 128, 0);
+            renderer.setSeriesPaint(0, barColor);
+
+            ChartPanel painell = new ChartPanel(graficos);
+            jPanel1_mecanico.add(painell);
+
+            //
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void criarGraficoGERAL() {
+        try {
+            gastosGraficoCombustivel = 0;
+            gastosMecanico = 0;
+            gastosImposto = 0;
+            outrosGastos = 0;
+            gastosSeguro = 0;
+            
+            DefaultCategoryDataset barra5 = new DefaultCategoryDataset();
+            IGastosDao objetoDao = new GastosDao();
+            ArrayList<Gastos> listaDeGastos5 = objetoDao.listaDeGastos();
+
+            for (int i = 0; i < listaDeGastos5.size(); i++) {
+                if (listaDeGastos5.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL) {
+
+                    gastosGraficoCombustivel += listaDeGastos5.get(i).getGastoTotal();
+                    barra5.setValue(gastosGraficoCombustivel, "COMBUSTIVEL", "");
+                }
+                if (listaDeGastos5.get(i).getIdentificadorGasto() == ClassificacaoGastos.MECANICO) {
+                    gastosMecanico += listaDeGastos5.get(i).getGastoTotal();
+                    barra5.setValue(gastosMecanico, "MECANICO", "");
+                }
+                if (listaDeGastos5.get(i).getIdentificadorGasto() == ClassificacaoGastos.IMPOSTO) {
+                    gastosImposto += listaDeGastos5.get(i).getGastoTotal();
+                    barra5.setValue(gastosImposto, "IMPOSTO", "");
+                }
+                if (listaDeGastos5.get(i).getIdentificadorGasto() == ClassificacaoGastos.OUTROS) {
+
+                    outrosGastos += listaDeGastos5.get(i).getGastoTotal();
+                    barra5.setValue(outrosGastos, "OUTROS", "");
+                }
+                if (listaDeGastos5.get(i).getIdentificadorGasto() == ClassificacaoGastos.SEGURO) {
+                    gastosSeguro += listaDeGastos5.get(i).getGastoTotal();
+                    barra5.setValue(gastosSeguro, "SEGURO", "");
+                }
+
+            }
+
+            JFreeChart grafico = ChartFactory.createBarChart3D("SOMA DE TODOS OS GASTOS POR TIPO", "TIPOS DE GASTOS", "TOTAL GASTOS", barra5, PlotOrientation.VERTICAL, true, true, false);
+            ChartPanel painel5 = new ChartPanel(grafico);
+            jPanel1_gastosGeral.add(painel5);
+        } catch (Exception ex) {
+            Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    private void jComboBox1_tipoDoGastoGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
+        if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 0) {
+            jPanel1_mecanico.setVisible(false);
+            jPanel1_Seguro.setVisible(false);
+            jPanel1_Imposto.setVisible(false);
+
+            jPanel1_Combustivel.setVisible(true);
+        } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 1) {
+            jPanel1_Combustivel.setVisible(false);
+            jPanel1_Seguro.setVisible(false);
+            jPanel1_Imposto.setVisible(false);
+
+            jPanel1_mecanico.setVisible(true);
+        } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 2) {
+            jPanel1_Combustivel.setVisible(false);
+            jPanel1_mecanico.setVisible(false);
+            jPanel1_Imposto.setVisible(false);
+
+            jPanel1_Seguro.setVisible(true);
+        } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 3) {
+            jPanel1_mecanico.setVisible(false);
+            jPanel1_Seguro.setVisible(false);
+            jPanel1_Combustivel.setVisible(false);
+
+            jPanel1_Imposto.setVisible(true);
+        } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 4) {
+            jPanel1_mecanico.setVisible(false);
+            jPanel1_Seguro.setVisible(false);
+            jPanel1_Combustivel.setVisible(false);
+            jPanel1_gastosGeral.setVisible(false);
+            jPanel1_Imposto.setVisible(false);
+
+            jPanel1_outrosGastos.setVisible(true);
+        } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 5) {
+            jPanel1_outrosGastos.setVisible(false);
+            jPanel1_mecanico.setVisible(false);
+            jPanel1_Seguro.setVisible(false);
+            jPanel1_Combustivel.setVisible(false);
+            jPanel1_Imposto.setVisible(false);
+
+            jPanel1_gastosGeral.setVisible(true);
+        }
     }//GEN-LAST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
 
     private void imprimirDadosNaGrid() {
@@ -621,6 +888,12 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7_graficos;
+    private javax.swing.JPanel jPanel1_Combustivel;
+    private javax.swing.JPanel jPanel1_Imposto;
+    private javax.swing.JPanel jPanel1_Seguro;
+    private javax.swing.JPanel jPanel1_gastosGeral;
+    private javax.swing.JPanel jPanel1_mecanico;
+    private javax.swing.JPanel jPanel1_outrosGastos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1_gastos;
     // End of variables declaration//GEN-END:variables
