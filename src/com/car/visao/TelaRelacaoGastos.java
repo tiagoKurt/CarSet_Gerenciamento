@@ -20,6 +20,10 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 public class TelaRelacaoGastos extends javax.swing.JFrame {
 
@@ -156,6 +160,41 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton4_voltarActionPerformed
 
+<<<<<<< Updated upstream
+=======
+    private void jComboBox1_itemRelacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_itemRelacaoActionPerformed
+        if (jComboBox1_itemRelacao.getSelectedIndex() == 0) {
+            jScrollPane1.setVisible(true);
+            jComboBox1_tipoDoGasto.setSelectedIndex(0);
+            jLabel2.setVisible(true);
+            jComboBox1_tipoDoGasto.setVisible(true);
+
+            jLabel7_graficos.setVisible(false);
+            jComboBox1_tipoDoGastoGraficos.setVisible(false);
+        } else if (jComboBox1_itemRelacao.getSelectedIndex() == 1) {
+            jLabel7_graficos.setVisible(true);
+            jComboBox1_tipoDoGastoGraficos.setVisible(true);
+
+            jScrollPane1.setVisible(false);
+            jComboBox1_tipoDoGasto.setSelectedIndex(0);
+            jLabel2.setVisible(false);
+            jComboBox1_tipoDoGasto.setVisible(false);
+
+        }
+    }//GEN-LAST:event_jComboBox1_itemRelacaoActionPerformed
+
+    private void jComboBox1_tipoDoGastoGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
+
+    }//GEN-LAST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
+
+    private void graficosSkr() {
+        try{
+
+        } catch (Exception e) {
+        }
+    }
+
+>>>>>>> Stashed changes
     private void imprimirDadosNaGrid() {
 
         try {
