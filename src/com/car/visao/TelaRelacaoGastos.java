@@ -20,11 +20,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
+
 
 public class TelaRelacaoGastos extends javax.swing.JFrame {
 
@@ -220,38 +216,6 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     private void jComboBox1_tipoDoGastoGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
 
     }//GEN-LAST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
-
-    private void graficosSkr() {
-        try {
-            conexao = ConexaoBD.getConexao();
-            Statement statement = conexao.createStatement();
-            String query = "select tipogasto as \"Tipo do Gasto\", valortotal as Valor, datagasto as \"Data do gasto\" \n"
-                    + "from gastosgeral";
-            ResultSet resultSet = statement.executeQuery(query);
-
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            while (resultSet.next()) {
-                String categoria = resultSet.getString("tipogasto");
-                int quantidade = resultSet.getInt("valortotal");
-                dataset.addValue(quantidade, "Quantidade", categoria);
-            }
-            JFreeChart chart = ChartFactory.createBarChart(
-                    "Gráfico de Barras", // Título do gráfico
-                    "Categoria", // Rótulo do eixo x
-                    "Quantidade", // Rótulo do eixo y
-                    dataset, // Conjunto de dados
-                    PlotOrientation.VERTICAL, // Orientação do gráfico
-                    true, // Incluir legenda
-                    true, // Incluir dicas
-                    false // Incluir URLs
-            );
-            ChartFrame frame = new ChartFrame("Gráfico de Barras", chart);
-            frame.pack();
-            frame.setVisible(true);
-
-        } catch (Exception e) {
-        }
-    }
 
     private void imprimirDadosNaGrid() {
 
