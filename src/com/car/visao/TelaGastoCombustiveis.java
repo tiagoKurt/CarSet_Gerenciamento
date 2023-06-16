@@ -165,6 +165,11 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
         jComboBox1_veiculos.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jComboBox1_veiculos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jComboBox1_veiculos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox1_veiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1_veiculosActionPerformed(evt);
+            }
+        });
         getContentPane().add(jComboBox1_veiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 610, 220, 50));
 
         jLabel11.setFont(new java.awt.Font("Bodoni MT", 3, 21)); // NOI18N
@@ -272,6 +277,10 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
         
         System.out.println(tipoCombustivel);
     }//GEN-LAST:event_jComboBox1_tipoDeCombustivelActionPerformed
+
+    private void jComboBox1_veiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_veiculosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1_veiculosActionPerformed
 
     public void limparTela(){
         jTextField1_LitrosColocados.setText("");
