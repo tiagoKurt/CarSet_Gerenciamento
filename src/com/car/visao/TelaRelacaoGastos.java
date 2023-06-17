@@ -87,8 +87,11 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             classGastos = ClassificacaoGastos.COMBUSTIVEL + "";
             carregarComboBox();
             carregarComboBox2();
+
             criarGraficoGERAL();
             puxarDadosComboBox();
+            criarGraficoCombustivel();
+            criarGraficos();
             jComboBox_Filtro.setEnabled(false);
             jPanel1_Combustivel.setVisible(false);
             jPanel1_mecanico.setVisible(false);
@@ -96,8 +99,9 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jPanel1_Imposto.setVisible(false);
             jPanel1_outrosGastos.setVisible(false);
             jPanel1_gastosGeral.setVisible(false);
+            jPanel1_testeMeses.setVisible(false);
             jLabel7_graficos.setVisible(true);
-            
+
             jComboBox1_tipoDoGastoGraficos.setVisible(false);
             jLabel4_PLACASELECIONADA.setVisible(false);
             jTextField1_PlacaSelecionada.setVisible(false);
@@ -243,6 +247,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         jPanel1_Imposto = new javax.swing.JPanel();
         jPanel1_outrosGastos = new javax.swing.JPanel();
         jPanel1_gastosGeral = new javax.swing.JPanel();
+        jPanel1_testeMeses = new javax.swing.JPanel();
         jTextField1_PlacaSelecionada = new javax.swing.JTextField();
         jLabel4_PLACASELECIONADA = new javax.swing.JLabel();
         jTextField1_TipoDoGasto = new javax.swing.JTextField();
@@ -829,6 +834,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         getContentPane().add(jComboBox1_tipoDoGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 130, 280, 50));
 
         jComboBox_Filtro.setFont(new java.awt.Font("Comic Sans MS", 3, 26)); // NOI18N
+        jComboBox_Filtro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TOTAL", "POR ANO", "POR MÊS", "POR DIA" }));
         jComboBox_Filtro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         jComboBox_Filtro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -907,6 +913,9 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
         jPanel1_gastosGeral.setBackground(new java.awt.Color(255, 51, 153));
         getContentPane().add(jPanel1_gastosGeral, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 680, 430));
+
+        jPanel1_testeMeses.setBackground(new java.awt.Color(255, 51, 153));
+        getContentPane().add(jPanel1_testeMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 680, 430));
 
         jTextField1_PlacaSelecionada.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_PlacaSelecionada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
@@ -990,8 +999,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jTextField3_qntDeItens.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 5).toString());
             jTextField1_ValorDoItem.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 6).toString());
             jTextField2_valorMaoDeObra.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 7).toString());
-            
-            
+
             jTextField1_PlacaSelecionada.setVisible(true);
             jLabel4_PLACASELECIONADA.setVisible(true);
             jTextField1_TipoDoGasto.setVisible(true);
@@ -1076,8 +1084,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jPanel1_Imposto.setVisible(false);
             jPanel1_outrosGastos.setVisible(false);
             jPanel1_gastosGeral.setVisible(false);
+            jComboBox_Filtro.setVisible(false);
 
-            jLabel7_graficos.setVisible(false);
             jComboBox1_tipoDoGastoGraficos.setVisible(false);
         } else if (jComboBox1_itemRelacao.getSelectedIndex() == 1) {
             try {
@@ -1087,9 +1095,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 jComboBox1_tipoDoGasto.setSelectedIndex(0);
                 jComboBox1_tipoDoGasto.setVisible(false);
                 jComboBox_Filtro.setEnabled(true);
-                jComboBox_Filtro.addItem("POR ANO");
-                jComboBox_Filtro.addItem("POR MES");
-                jComboBox_Filtro.addItem("POR DIA");
+                jComboBox_Filtro.setVisible(true);
+
                 jPanel1_Combustivel.setVisible(true);
 
                 jLabel4_tipoDoGasto.setVisible(false);
@@ -1258,47 +1265,46 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void criarGraficoCombustivel(){
-        try{
-            
+
+    public void criarGraficoCombustivel() {
+        try {
+
             DefaultCategoryDataset barra = new DefaultCategoryDataset();
             IGastosDao objetoDao = new GastosDao();
             int cont = 0;
             ArrayList<Gastos> listaDeGastos = objetoDao.listaDeGastos();
-            String[] meses = {"janeiro", "fevereiro", "março", "abril", "maio" ,"junho", "julho" ,"agosto" ,"setembro" ,"outubro", "novembro" ,"dezembro"};
-            if(jComboBox_Filtro.getSelectedIndex() == 0){
-                jPanel1_Combustivel.removeAll();
-                for (int i = 0; i < listaDeGastos.size(); i++) {
-                if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL) {
-                   String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+            String[] meses = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
+            if (jComboBox_Filtro.getSelectedIndex() == 0) {
 
-                        
-                           if(data[1].equals("01")){
-                                barra.setValue(listaDeGastos.get(i).getGastoTotal(), meses[0], "");
-                           }
-                           if(data[1].equals("02")){
-                                System.out.println("Entrou no fevereiro");
-                                System.out.println(listaDeGastos.get(i).getGastoTotal());
-                                barra.setValue(listaDeGastos.get(i).getGastoTotal(), "Fevereiro", "");
-                           }
-                       
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                    if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL) {
+                        String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+
+                        if (data[1].equals("01")) {
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), meses[0], "");
+                        }
+                        if (data[1].equals("02")) {
+                            System.out.println("Entrou no fevereiro");
+                            System.out.println(listaDeGastos.get(i).getGastoTotal());
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "Fevereiro", "");
+                        }
+
+                    }
                 }
+
             }
-                        
-                
-            }if(jComboBox_Filtro.getSelectedIndex() == 1){
-                jPanel1_Combustivel.removeAll();
+            if (jComboBox_Filtro.getSelectedIndex() == 1) {
+
                 barra.setValue(listaDeGastos.get(0).getGastoTotal(), "Cu", "");
-                           
-                       }
-        JFreeChart grafico1 = ChartFactory.createBarChart3D("GASTOS COM COMBUSTIVEL", "DATA", "TOTAL GASTO", barra, PlotOrientation.VERTICAL, true, true, false);
-                    ChartPanel painel = new ChartPanel(grafico1); 
-                    jPanel1_Combustivel.add(painel);
-            
-            
-    }catch(Exception e){
+
+            }
+            JFreeChart grafico1 = ChartFactory.createBarChart3D("GASTOS COM COMBUSTIVEL", "DATA", "TOTAL GASTO", barra, PlotOrientation.VERTICAL, true, true, false);
+            ChartPanel painel = new ChartPanel(grafico1);
+            jPanel1_testeMeses.add(painel);
+
+        } catch (Exception e) {
             System.out.println(e);
-    }
+        }
     }
 
     private void jComboBox1_tipoDoGastoGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
@@ -1306,11 +1312,14 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jPanel1_mecanico.setVisible(false);
             jPanel1_Seguro.setVisible(false);
             jPanel1_Imposto.setVisible(false);
+            jPanel1_gastosGeral.setVisible(false);
+
             jPanel1_Combustivel.setVisible(true);
         } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 1) {
             jPanel1_Combustivel.setVisible(false);
             jPanel1_Seguro.setVisible(false);
             jPanel1_Imposto.setVisible(false);
+
             jPanel1_mecanico.setVisible(true);
         } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 2) {
             jPanel1_Combustivel.setVisible(false);
@@ -1597,15 +1606,34 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_alterarTelaComb3ActionPerformed
 
     private void jComboBox_FiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_FiltroActionPerformed
-      criarGraficoCombustivel();
-            
+
+        if (jComboBox_Filtro.getSelectedIndex() == 0) {
+            jPanel1_outrosGastos.setVisible(false);
+            jPanel1_mecanico.setVisible(false);
+            jPanel1_Seguro.setVisible(false);
+            jPanel1_Combustivel.setVisible(true);
+            jPanel1_Imposto.setVisible(false);
+            jPanel1_gastosGeral.setVisible(false);
+            jPanel1_testeMeses.setVisible(false);
+        } else if (jComboBox_Filtro.getSelectedIndex() == 1) {
+            jPanel1_outrosGastos.setVisible(false);
+            jPanel1_mecanico.setVisible(false);
+            jPanel1_Seguro.setVisible(false);
+            jPanel1_Combustivel.setVisible(false);
+            jPanel1_Imposto.setVisible(false);
+            jPanel1_gastosGeral.setVisible(false);
+
+            jPanel1_testeMeses.setVisible(true);
+        }
+
+
     }//GEN-LAST:event_jComboBox_FiltroActionPerformed
 
     private void jComboBox_FiltroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_FiltroItemStateChanged
     }//GEN-LAST:event_jComboBox_FiltroItemStateChanged
 
     private void jComboBox_FiltroPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBox_FiltroPropertyChange
-    
+
     }//GEN-LAST:event_jComboBox_FiltroPropertyChange
 
     private void imprimirDadosNaGrid() {
@@ -2101,6 +2129,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1_gastosGeral;
     private javax.swing.JPanel jPanel1_mecanico;
     private javax.swing.JPanel jPanel1_outrosGastos;
+    private javax.swing.JPanel jPanel1_testeMeses;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1_gastos;
     private javax.swing.JTextField jTextField1_DescricaoDoGasto;
