@@ -67,6 +67,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     float gastosImposto = 0;
     float outrosGastos = 0;
     float gastosGerais = 0;
+    float custoTotal = 0;
 
     public TelaRelacaoGastos() {
         try {
@@ -90,16 +91,14 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
             criarGraficoGERAL();
             puxarDadosComboBox();
-            criarGraficoCombustivel();
             criarGraficos();
-            jComboBox_Filtro.setEnabled(false);
-            jPanel1_Combustivel.setVisible(false);
-            jPanel1_mecanico.setVisible(false);
+            jPanel1_Combustivel_total.setVisible(false);
+            jPanel1_Combustivel_mes.setVisible(false);
             jPanel1_Seguro.setVisible(false);
             jPanel1_Imposto.setVisible(false);
             jPanel1_outrosGastos.setVisible(false);
             jPanel1_gastosGeral.setVisible(false);
-            jPanel1_testeMeses.setVisible(false);
+            jPanel1_Combustivel_ano.setVisible(false);
             jLabel7_graficos.setVisible(true);
 
             jComboBox1_tipoDoGastoGraficos.setVisible(false);
@@ -232,7 +231,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         jTable1_gastos = new javax.swing.JTable();
         jButton4_voltar = new javax.swing.JButton();
         jComboBox1_tipoDoGasto = new javax.swing.JComboBox<>();
-        jComboBox_Filtro = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabelFiltro = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -241,13 +241,14 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         jLabel7_graficos = new javax.swing.JLabel();
         jComboBox1_itemRelacao = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jPanel1_mecanico = new javax.swing.JPanel();
-        jPanel1_Combustivel = new javax.swing.JPanel();
+        jPanel1_Combustivel_total = new javax.swing.JPanel();
         jPanel1_Seguro = new javax.swing.JPanel();
         jPanel1_Imposto = new javax.swing.JPanel();
         jPanel1_outrosGastos = new javax.swing.JPanel();
         jPanel1_gastosGeral = new javax.swing.JPanel();
-        jPanel1_testeMeses = new javax.swing.JPanel();
+        jPanel1_Combustivel_ano = new javax.swing.JPanel();
+        jPanel1_Combustivel_mes = new javax.swing.JPanel();
+        jPanel1_mecanico1 = new javax.swing.JPanel();
         jTextField1_PlacaSelecionada = new javax.swing.JTextField();
         jLabel4_PLACASELECIONADA = new javax.swing.JLabel();
         jTextField1_TipoDoGasto = new javax.swing.JTextField();
@@ -807,7 +808,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1_gastos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 1190, 250));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 1150, 250));
 
         jButton4_voltar.setBackground(new java.awt.Color(102, 102, 102));
         jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
@@ -833,28 +834,24 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         });
         getContentPane().add(jComboBox1_tipoDoGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 130, 280, 50));
 
-        jComboBox_Filtro.setFont(new java.awt.Font("Comic Sans MS", 3, 26)); // NOI18N
-        jComboBox_Filtro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TOTAL", "POR ANO", "POR MÊS", "POR DIA" }));
-        jComboBox_Filtro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        jComboBox_Filtro.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox_FiltroItemStateChanged(evt);
-            }
-        });
-        jComboBox_Filtro.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Por Mes");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_FiltroActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        jComboBox_Filtro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jComboBox_FiltroPropertyChange(evt);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1350, 380, 100, -1));
+
+        jButton1.setText("Por Ano");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox_Filtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 130, 200, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1350, 330, 100, -1));
 
         jLabelFiltro.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "FILTRO", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 26), new java.awt.Color(255, 255, 255))); // NOI18N
-        getContentPane().add(jLabelFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 90, 250, 120));
+        getContentPane().add(jLabelFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 260, 120, 300));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/pinkLogoMenorzinha.gif"))); // NOI18N
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
@@ -896,11 +893,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         jLabel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "VER GASTOS EM", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 26), new java.awt.Color(255, 255, 255))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 310, 120));
 
-        jPanel1_mecanico.setBackground(new java.awt.Color(255, 51, 153));
-        getContentPane().add(jPanel1_mecanico, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 680, 430));
-
-        jPanel1_Combustivel.setBackground(new java.awt.Color(255, 51, 153));
-        getContentPane().add(jPanel1_Combustivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 680, 430));
+        jPanel1_Combustivel_total.setBackground(new java.awt.Color(255, 51, 153));
+        getContentPane().add(jPanel1_Combustivel_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 680, 430));
 
         jPanel1_Seguro.setBackground(new java.awt.Color(255, 51, 153));
         getContentPane().add(jPanel1_Seguro, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 680, 430));
@@ -914,8 +908,15 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         jPanel1_gastosGeral.setBackground(new java.awt.Color(255, 51, 153));
         getContentPane().add(jPanel1_gastosGeral, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 680, 430));
 
-        jPanel1_testeMeses.setBackground(new java.awt.Color(255, 51, 153));
-        getContentPane().add(jPanel1_testeMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 680, 430));
+        jPanel1_Combustivel_ano.setBackground(new java.awt.Color(255, 51, 153));
+        getContentPane().add(jPanel1_Combustivel_ano, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 680, 430));
+
+        jPanel1_Combustivel_mes.setBackground(new java.awt.Color(255, 51, 153));
+
+        jPanel1_mecanico1.setBackground(new java.awt.Color(255, 51, 153));
+        jPanel1_Combustivel_mes.add(jPanel1_mecanico1);
+
+        getContentPane().add(jPanel1_Combustivel_mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 680, 430));
 
         jTextField1_PlacaSelecionada.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jTextField1_PlacaSelecionada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
@@ -1078,13 +1079,12 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jComboBox1_tipoDoGasto.setVisible(true);
             jComboBox1_tipoDoGastoGraficos.setSelectedIndex(0);
 
-            jPanel1_Combustivel.setVisible(false);
-            jPanel1_mecanico.setVisible(false);
+            jPanel1_Combustivel_total.setVisible(false);
+            jPanel1_Combustivel_mes.setVisible(false);
             jPanel1_Seguro.setVisible(false);
             jPanel1_Imposto.setVisible(false);
             jPanel1_outrosGastos.setVisible(false);
             jPanel1_gastosGeral.setVisible(false);
-            jComboBox_Filtro.setVisible(false);
 
             jComboBox1_tipoDoGastoGraficos.setVisible(false);
         } else if (jComboBox1_itemRelacao.getSelectedIndex() == 1) {
@@ -1094,10 +1094,9 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 jScrollPane1.setVisible(false);
                 jComboBox1_tipoDoGasto.setSelectedIndex(0);
                 jComboBox1_tipoDoGasto.setVisible(false);
-                jComboBox_Filtro.setEnabled(true);
-                jComboBox_Filtro.setVisible(true);
+                
 
-                jPanel1_Combustivel.setVisible(true);
+                jPanel1_Combustivel_total.setVisible(true);
 
                 jLabel4_tipoDoGasto.setVisible(false);
                 jTextField1_TipoDoGasto.setVisible(false);
@@ -1135,7 +1134,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             renderer1.setSeriesPaint(0, barColor1);
             ChartPanel painel = new ChartPanel(grafico1);
 
-            jPanel1_Combustivel.add(painel);
+            jPanel1_Combustivel_total.add(painel);
 
             DefaultCategoryDataset barra2 = new DefaultCategoryDataset();
 
@@ -1212,7 +1211,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             renderer.setSeriesPaint(0, barColor);
 
             ChartPanel painell = new ChartPanel(graficos);
-            jPanel1_mecanico.add(painell);
+            jPanel1_mecanico1.add(painell);
 
             //
         } catch (Exception e) {
@@ -1265,87 +1264,275 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void criarGraficoCombustivelMes(){
+      
+        try {
+        DefaultCategoryDataset barra = new DefaultCategoryDataset();
+            IGastosDao objetoDao = new GastosDao();
+            ArrayList<Gastos> listaDeGastos = objetoDao.listaDeGastos();
+            
+                String ano = JOptionPane.showInputDialog(null,"Informe o ano a ser buscado");
+                String mes = JOptionPane.showInputDialog(null,"Informe o mes a ser buscado");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                    if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL) {
+                    String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
 
-    public void criarGraficoCombustivel() {
+                        if(data[0].equals(ano) && data[1].equals(mes)){
+                          if (data[2].equals("01")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                            gastoTemp+=listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("02")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                            gastoTemp += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("03")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                            gastoTemp += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastoTemp, data[2], "");
+                            
+                                                        
+                            } else if (data[2].equals("04")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                        gastoTemp += listaDeGastos.get(i).getGastoTotal();
+
+                            barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("05")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                        gastoTemp += listaDeGastos.get(i).getGastoTotal();
+
+                            barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("06")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                        gastoTemp += listaDeGastos.get(i).getGastoTotal();
+
+                            barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("07")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                        gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("08")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                        gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("09")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                        gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("10")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                        gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("11")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                       gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("12")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                       gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("13")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                       gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("14")) {
+                            float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                       gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("15")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                           gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("16")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                            gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("17")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                            gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("18")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                            gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("19")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                            gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("20")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                            gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("21")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                          gastoTemp += listaDeGastos.get(i).getGastoTotal();
+  barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("22")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                            gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("23")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                          gastoTemp += listaDeGastos.get(i).getGastoTotal();
+  barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("24")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                           gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("25")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                           gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("26")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                           gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("27")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                           gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("28")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                           gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("29")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                            gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("30")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                           gastoTemp += listaDeGastos.get(i).getGastoTotal();
+ barra.setValue(gastoTemp, data[2], "");
+                            } else if (data[2].equals("31")) {
+                                float gastoTemp = listaDeGastos.get(i).getGastoTotal();
+                                                            gastoTemp += listaDeGastos.get(i).getGastoTotal();
+barra.setValue(gastoTemp, data[2], "");
+                            } 
+                                
+                           }
+                       
+                    }   
+                }
+                JFreeChart grafico1 = ChartFactory.createBarChart3D("GASTOS COM COMBUSTIVEL", "DATA", "TOTAL GASTO", barra, PlotOrientation.VERTICAL, true, true, false);
+            ChartPanel painel = new ChartPanel(grafico1);
+            jPanel1_Combustivel_mes.add(painel);
+                
+        
+        
+    }catch(Exception e){
+          System.out.println(e);
+    }
+    }
+    public void criarGraficoCombustivelAno() {
         try {
 
             DefaultCategoryDataset barra = new DefaultCategoryDataset();
             IGastosDao objetoDao = new GastosDao();
             int cont = 0;
             ArrayList<Gastos> listaDeGastos = objetoDao.listaDeGastos();
-            String[] meses = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
-            if (jComboBox_Filtro.getSelectedIndex() == 0) {
-
+            
+                String ano = JOptionPane.showInputDialog(null,"Informe o ano a ser buscado");
                 for (int i = 0; i < listaDeGastos.size(); i++) {
                     if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL) {
+                        
                         String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
-
-                        if (data[1].equals("01")) {
-                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), meses[0], "");
+                        if(data[0].equals(ano)){
+                        if (data[1].equals("12") || listaDeGastos.get(i).getGastoTotal() == 0) {
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "DEZEMBRO", "");
+                        }
+                        if (data[1].equals("11")) {
+                            
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "NOVEMBRO", "");
+                        }
+                        if (data[1].equals("10")) {
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "OUTUBRO", "");
+                        }
+                        if (data[1].equals("09")) {
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "SETEMBRO", "");
+                        }
+                        if (data[1].equals("08")) {
+                            
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "AGOSTO", "");
+                        }
+                        if (data[1].equals("07")) {
+                           
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "JULHO", "");
+                        }
+                        if (data[1].equals("06")) {
+                            
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "JUNHO", "");
+                        }
+                        if (data[1].equals("05")) {
+                       
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "MAIO", "");
+                        }
+                        if (data[1].equals("04")) {
+                         
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "ABRIL", "");
+                        }
+                        if (data[1].equals("03")) {
+                           
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "MARÇO", "");
                         }
                         if (data[1].equals("02")) {
-                            System.out.println("Entrou no fevereiro");
-                            System.out.println(listaDeGastos.get(i).getGastoTotal());
-                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "Fevereiro", "");
+                            
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "FEVEREIRO", "");
                         }
-
-                    }
+                        if (data[1].equals("01")) {
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(), "JANEIRO", "");
+                        }
+                        }
+                    
                 }
-
-            }
-            if (jComboBox_Filtro.getSelectedIndex() == 1) {
-
-                barra.setValue(listaDeGastos.get(0).getGastoTotal(), "Cu", "");
-
-            }
             JFreeChart grafico1 = ChartFactory.createBarChart3D("GASTOS COM COMBUSTIVEL", "DATA", "TOTAL GASTO", barra, PlotOrientation.VERTICAL, true, true, false);
             ChartPanel painel = new ChartPanel(grafico1);
-            jPanel1_testeMeses.add(painel);
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+            jPanel1_Combustivel_ano.add(painel);
+            }
+        
+    }catch(Exception e){
+        
+    }
     }
 
     private void jComboBox1_tipoDoGastoGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_tipoDoGastoGraficosActionPerformed
         if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 0) {
-            jPanel1_mecanico.setVisible(false);
+            jPanel1_Combustivel_mes.setVisible(false);
             jPanel1_Seguro.setVisible(false);
             jPanel1_Imposto.setVisible(false);
             jPanel1_gastosGeral.setVisible(false);
 
-            jPanel1_Combustivel.setVisible(true);
+            jPanel1_Combustivel_total.setVisible(true);
         } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 1) {
-            jPanel1_Combustivel.setVisible(false);
+            jPanel1_Combustivel_total.setVisible(false);
             jPanel1_Seguro.setVisible(false);
             jPanel1_Imposto.setVisible(false);
 
-            jPanel1_mecanico.setVisible(true);
+            jPanel1_Combustivel_mes.setVisible(true);
         } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 2) {
-            jPanel1_Combustivel.setVisible(false);
-            jPanel1_mecanico.setVisible(false);
+            jPanel1_Combustivel_total.setVisible(false);
+            jPanel1_Combustivel_mes.setVisible(false);
             jPanel1_Imposto.setVisible(false);
 
             jPanel1_Seguro.setVisible(true);
         } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 3) {
-            jPanel1_mecanico.setVisible(false);
+            jPanel1_Combustivel_mes.setVisible(false);
             jPanel1_Seguro.setVisible(false);
-            jPanel1_Combustivel.setVisible(false);
+            jPanel1_Combustivel_total.setVisible(false);
 
             jPanel1_Imposto.setVisible(true);
         } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 4) {
-            jPanel1_mecanico.setVisible(false);
+            jPanel1_Combustivel_mes.setVisible(false);
             jPanel1_Seguro.setVisible(false);
-            jPanel1_Combustivel.setVisible(false);
+            jPanel1_Combustivel_total.setVisible(false);
             jPanel1_gastosGeral.setVisible(false);
             jPanel1_Imposto.setVisible(false);
 
             jPanel1_outrosGastos.setVisible(true);
         } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 5) {
             jPanel1_outrosGastos.setVisible(false);
-            jPanel1_mecanico.setVisible(false);
+            jPanel1_Combustivel_mes.setVisible(false);
             jPanel1_Seguro.setVisible(false);
-            jPanel1_Combustivel.setVisible(false);
+            jPanel1_Combustivel_total.setVisible(false);
             jPanel1_Imposto.setVisible(false);
 
             jPanel1_gastosGeral.setVisible(true);
@@ -1605,36 +1792,31 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton_alterarTelaComb3ActionPerformed
 
-    private void jComboBox_FiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_FiltroActionPerformed
-
-        if (jComboBox_Filtro.getSelectedIndex() == 0) {
-            jPanel1_outrosGastos.setVisible(false);
-            jPanel1_mecanico.setVisible(false);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jPanel1_Combustivel_mes.removeAll();
+        jPanel1_Combustivel_ano.removeAll();
+        criarGraficoCombustivelAno();
+        jPanel1_Combustivel_mes.setVisible(false);
             jPanel1_Seguro.setVisible(false);
-            jPanel1_Combustivel.setVisible(true);
             jPanel1_Imposto.setVisible(false);
             jPanel1_gastosGeral.setVisible(false);
-            jPanel1_testeMeses.setVisible(false);
-        } else if (jComboBox_Filtro.getSelectedIndex() == 1) {
-            jPanel1_outrosGastos.setVisible(false);
-            jPanel1_mecanico.setVisible(false);
+            jPanel1_Combustivel_total.setVisible(false);
+            jPanel1_Combustivel_ano.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         jPanel1_Combustivel_mes.removeAll();
+        jPanel1_Combustivel_ano.removeAll();
+        criarGraficoCombustivelMes();
+            jPanel1_Combustivel_mes.setVisible(true);
             jPanel1_Seguro.setVisible(false);
-            jPanel1_Combustivel.setVisible(false);
             jPanel1_Imposto.setVisible(false);
             jPanel1_gastosGeral.setVisible(false);
-
-            jPanel1_testeMeses.setVisible(true);
-        }
-
-
-    }//GEN-LAST:event_jComboBox_FiltroActionPerformed
-
-    private void jComboBox_FiltroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_FiltroItemStateChanged
-    }//GEN-LAST:event_jComboBox_FiltroItemStateChanged
-
-    private void jComboBox_FiltroPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBox_FiltroPropertyChange
-
-    }//GEN-LAST:event_jComboBox_FiltroPropertyChange
+            jPanel1_Combustivel_total.setVisible(false);
+            jPanel1_Combustivel_ano.setVisible(false);
+            jPanel1_mecanico1.setVisible(false);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void imprimirDadosNaGrid() {
 
@@ -2029,6 +2211,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4_voltar;
     private javax.swing.JButton jButton4_voltar1;
     private javax.swing.JButton jButton4_voltar3;
@@ -2051,7 +2235,6 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1_veiculos2;
     private javax.swing.JComboBox<String> jComboBox1_veiculos3;
     private javax.swing.JComboBox<String> jComboBox1_veiculos4;
-    private javax.swing.JComboBox<String> jComboBox_Filtro;
     private javax.swing.JFormattedTextField jFormattedTextField1_dataAbastecimento;
     private javax.swing.JFormattedTextField jFormattedTextField1_dataDoGasto;
     private javax.swing.JFormattedTextField jFormattedTextField1_dataDoPagamento;
@@ -2123,13 +2306,14 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelFiltro;
-    private javax.swing.JPanel jPanel1_Combustivel;
+    private javax.swing.JPanel jPanel1_Combustivel_ano;
+    private javax.swing.JPanel jPanel1_Combustivel_mes;
+    private javax.swing.JPanel jPanel1_Combustivel_total;
     private javax.swing.JPanel jPanel1_Imposto;
     private javax.swing.JPanel jPanel1_Seguro;
     private javax.swing.JPanel jPanel1_gastosGeral;
-    private javax.swing.JPanel jPanel1_mecanico;
+    private javax.swing.JPanel jPanel1_mecanico1;
     private javax.swing.JPanel jPanel1_outrosGastos;
-    private javax.swing.JPanel jPanel1_testeMeses;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1_gastos;
     private javax.swing.JTextField jTextField1_DescricaoDoGasto;
