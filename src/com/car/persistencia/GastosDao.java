@@ -59,7 +59,7 @@ public class GastosDao implements IGastosDao{
     public ArrayList<Gastos> listaDeGastos() throws Exception {
           ArrayList<Gastos> listaDeGastos = new ArrayList<>();
           try{
-             String sql = "select * from gastosgeral";
+             String sql = "select * from gastosgeral order by datagasto";
              PreparedStatement st = conexao.prepareStatement(sql);
              
              ResultSet rs = st.executeQuery();
