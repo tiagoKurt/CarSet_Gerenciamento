@@ -45,33 +45,23 @@ public class testeGraficos extends JFrame{
                 IGastosDao objetoDao = new GastosDao();
                 
                 ArrayList<Gastos> listaDeGastos = objetoDao.listaDeGastos();
-                
                 for(int i = 0; i < listaDeGastos.size();i++){
                     if(listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL ){
-                         
+                        String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
                         gastosGraficoCombustivel += listaDeGastos.get(i).getGastoTotal();
-                        barra.setValue(gastosGraficoCombustivel,"COMBUSTIVEL","");
-                    }
-                    if(listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.MECANICO ){
-                       
                         
-                        gastosGraficoMecanico += listaDeGastos.get(i).getGastoTotal();
-                        barra.setValue(gastosGraficoMecanico,"MECANICO","");
+                        if(data[1].equals("01")){
+                            barra.setValue(listaDeGastos.get(i).getGastoTotal(),"JANEIRO","");
+                        }
+                        if(data[1].equals("02")){
+                             barra.setValue(listaDeGastos.get(i).getGastoTotal(),"FEVEREIRO","");
+                        }
+                        if(data[1].equals("03")){
+                             barra.setValue(listaDeGastos.get(i).getGastoTotal(),"MARÇO","");
+                        }
                     }
-                    if(listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.IMPOSTO ){
-                        gastosGraficoImposto += listaDeGastos.get(i).getGastoTotal();
-                        barra.setValue(gastosGraficoImposto,"IMPOSTO","");
-                    }
-                    if(listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.OUTROS ){
-                        
-                        gastosGraficoOutros += listaDeGastos.get(i).getGastoTotal();
-                        barra.setValue(gastosGraficoOutros,"OUTROS", "");
-                    }
-                    if(listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.SEGURO ){
-                        
-                        gastosGraficoSeguro += listaDeGastos.get(i).getGastoTotal();
-                        barra.setValue(gastosGraficoSeguro,"SEGURO", "");
-                    }
+                    
+                   
                     
                     
                 }

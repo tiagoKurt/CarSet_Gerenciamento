@@ -14,7 +14,7 @@ public class Gastos {
     private int idGasto;
     private ClassificacaoGastos identificadorGasto;
     private String descricao;
-    private float gastoTotal;
+    private float gastoTotal = 0;
     private Date dataGasto;
     private int id_veiculo;
     
