@@ -1815,6 +1815,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
             alterarCombustivel();
+            jFormattedTextField1_dataAbastecimento.setText("");
             imprimirDadosNaGrid();
             jFrame1_gasolinaAlterar.setVisible(false);
         } catch (Exception e) {
@@ -2564,17 +2565,16 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                     TiposCombustiveisGastos.valueOf(tipoCombustivel), Float.parseFloat(jTextField1_LitrosColocados.getText()),
                     Float.parseFloat(jTextField1_precoLitro.getText()), Float.parseFloat(jTextField1_kmsPercorridosLItro.getText()), data,
                     veiculos.buscarVeiculos(jComboBox1_veiculos.getSelectedItem().toString()));
-            
+
             comb.AlterarGastos(gastos);
-            
-            
 
             GastosCombustivelDao pog = new GastosCombustivelDao();
+
             ResultSet rs = pog.puxarIDVeiculo(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()));
             int idVeiculo = rs.getInt(1);
+            
             ResultSet rss = pog.puxarIDGasto(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()));
             int idGasto = rss.getInt(1);
-            System.out.println(idVeiculo);
             System.out.println(idGasto);
             System.out.println(idVeiculo);
             Gastos SkrSkr = new Gastos(idGasto, Integer.parseInt(jTextField1_idAlterar_Deletar.getText()),
@@ -2584,9 +2584,21 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                     idVeiculo);
 
             GeralGastos.AlterarGastos(SkrSkr);
-
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
+        }
+    }
+
+    public void alterarGastosComb() {
+        try {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            java.sql.Date data = null;
+            data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataAbastecimento.getText()).getTime());
+
+            
+
+        } catch (Exception ex) {
+            Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

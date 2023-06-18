@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * @author tiago
  */
 public class GastosAvulsosDao implements IGastosAvulsosDao{
-private Connection conexao = null;
+    private Connection conexao = null;
     PreparedStatement st;
     public GastosAvulsosDao()throws Exception{
         try{

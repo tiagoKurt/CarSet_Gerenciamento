@@ -133,6 +133,7 @@ public class GastosCombustivelDao implements IGastosCombustivelDao {
                 + "gastosgeral.id_gasto = gastos_combustivel.id\n"
                 + "where gastos_combustivel.id = ?";
         st = conexao.prepareStatement(query);
+        st.setInt(1, id);
         return st.executeQuery();
 
     }
@@ -141,9 +142,13 @@ public class GastosCombustivelDao implements IGastosCombustivelDao {
         String query = "select gastosgeral.id from gastosgeral inner join gastos_combustivel on \n"
                 + "gastosgeral.id_gasto = gastos_combustivel.id\n"
                 + "where gastos_combustivel.id = ?";
+        try {
         st = conexao.prepareStatement(query);
+        st.setInt(1, id);
         return st.executeQuery();
-
+        } catch (SQLException erro) {
+            throw new Exception("SQL Erro: " + erro.getMessage());
+        }
     }
 
     @Override
