@@ -48,12 +48,74 @@ public class GastosSeguroDao implements IGastosSeguroDao{
 
     @Override
     public void AlterarGastos(GastosSeguro gastos) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        st = conexao.prepareStatement(" UPDATE gastos_seguro SET tipogasto = ? ,descgasto = ?,valorfranquia = ?,datapagamento = ?,id_veiculo = ? where id = ?");
+        st.setString(1, gastos.getIdentificadorGasto().toString());
+            st.setString(2, gastos.getDescricaoGastos());
+            st.setFloat(3, gastos.getValorFranquia());
+            st.setDate(4, gastos.getDataPagamento());
+            st.setInt(5, gastos.getVeiculo().getId());  
+            st.setInt(6, gastos.getId());
+            
+            st.executeUpdate();
+            st.close();
+            
+            GastosDao objetoGastosGerais = new GastosDao();
+            objetoGastosGerais.AlterarGastos(alterarGastosGerais(gastos.getId()));
+    
     }
 
     @Override
     public boolean ExcluirGastos(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            GastosDao objetoDao = new GastosDao();
+            objetoDao.ExcluirGastos(buscarParaAlterarGastoGeral(id, ClassificacaoGastos.SEGURO.toString()));
+        try {
+            st = conexao.prepareStatement("DELETE FROM gastos_seguro WHERE id = ?");
+            st.setInt(1, id);
+            st.executeUpdate();
+            st.close();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    
+   
+    public int buscarParaAlterarGastoGeral(int idgasto,String tipogasto){
+       
+        try {
+            String sql ="select id from gastosgeral where id_gasto = ? and tipogasto = ? ";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setInt(1, idgasto);
+            st.setString(2, tipogasto); 
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return rs.getInt("id");
+            }
+            
+            
+        } catch (SQLException ex) {
+            
+        }
+        return 0;
+    }
+    
+    public GastosSeguro buscarParaAlterar(int idgasto) throws Exception {
+        String sql = "select * from gastos_seguro where id = ? ";
+             PreparedStatement st = conexao.prepareStatement(sql);
+             st.setInt(1, idgasto);
+             ResultSet rs = st.executeQuery();
+             while(rs.next()){
+                 GastosSeguro gastos = new GastosSeguro();
+                 IVeiculosDAO objetoDaoVeiculos = new VeiculosDAO();
+                 gastos.setId(rs.getInt("id"));
+                 gastos.setIdentificadorGasto(ClassificacaoGastos.valueOf(rs.getString("tipogasto")));
+                 gastos.setDescricaoGastos(rs.getString("descgasto"));
+                 gastos.setValorFranquia(rs.getFloat("valorfranquia"));
+                 gastos.setDataPagamento(rs.getDate("datapagamento"));
+                 gastos.setVeiculo(objetoDaoVeiculos.buscarPeloId(rs.getInt("id_veiculo")));
+                 return new GastosSeguro(gastos.getId(), gastos.getIdentificadorGasto(), gastos.getDescricaoGastos(), gastos.getValorFranquia(), gastos.getDataPagamento(), gastos.getVeiculo());
+         }
+        return null;
     }
 
     @Override
@@ -83,6 +145,10 @@ public class GastosSeguroDao implements IGastosSeguroDao{
     @Override
     public GastosSeguro buscar(int id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public Gastos alterarGastosGerais(int id) throws Exception {
+        return new Gastos(buscarParaAlterarGastoGeral(id, ClassificacaoGastos.SEGURO.toString()), buscarParaAlterar(id).getId(), buscarParaAlterar(id).getIdentificadorGasto(),  buscarParaAlterar(id).getDescricaoGastos(),  buscarParaAlterar(id).getValorFranquia(),  buscarParaAlterar(id).getDataPagamento(), buscarParaAlterar(id).getVeiculo().getId());
     }
 
     @Override

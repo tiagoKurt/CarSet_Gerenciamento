@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class GastosCombustivelDao implements IGastosCombustivelDao {
@@ -62,6 +64,8 @@ public class GastosCombustivelDao implements IGastosCombustivelDao {
             st.setInt(8, gastos.getId());
             st.executeUpdate();
             st.close();
+            GastosDao objetoGastosGerais = new GastosDao();
+            objetoGastosGerais.AlterarGastos(alterarGastosGerais(gastos.getId()));
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ALTERAR" + e);
@@ -70,6 +74,8 @@ public class GastosCombustivelDao implements IGastosCombustivelDao {
 
     @Override
     public boolean ExcluirGastos(int id) throws Exception {
+        GastosDao objetoDao = new GastosDao();
+        objetoDao.ExcluirGastos(buscarParaAlterarGastoGeral(id, ClassificacaoGastos.COMBUSTIVEL.toString()));
         try {
             st = conexao.prepareStatement("DELETE FROM gastos_combustivel WHERE id = ?");
             st.setInt(1, id);
@@ -121,34 +127,10 @@ public class GastosCombustivelDao implements IGastosCombustivelDao {
         return new Gastos(0, buscarUltimoRegistroInserido().getId(), buscarUltimoRegistroInserido().getIdentificadorGasto(), buscarUltimoRegistroInserido().getDescricao().toString(), gastoTotal, buscarUltimoRegistroInserido().getDataAbastecimento(), buscarUltimoRegistroInserido().getVeiculos().getId());
     }
 
-    public Gastos alterarGastosGerais() throws Exception {
-        float gastoTotal = buscarUltimoRegistroInserido().getQuantidadeLitrosCombustivel() * buscarUltimoRegistroInserido().getValorLitroCombustivel();
-
-        return new Gastos(0, buscarUltimoRegistroInserido().getId(), buscarUltimoRegistroInserido().getIdentificadorGasto(), buscarUltimoRegistroInserido().getDescricao().toString(), gastoTotal, buscarUltimoRegistroInserido().getDataAbastecimento(), buscarUltimoRegistroInserido().getVeiculos().getId());
-    }
-
-    public ResultSet puxarIDVeiculo(int id) throws Exception {
+    public Gastos alterarGastosGerais(int id) throws Exception {
+        float gastoTotal = buscarParaAlterar(id).getQuantidadeLitrosCombustivel() * buscarParaAlterar(id).getValorLitroCombustivel();
         
-        String query = "select gastos_combustivel.id_veiculo from gastosgeral inner join gastos_combustivel on \n"
-                + "gastosgeral.id_gasto = gastos_combustivel.id\n"
-                + "where gastos_combustivel.id = ?";
-        st = conexao.prepareStatement(query);
-        st.setInt(1, id);
-        return st.executeQuery();
-
-    }
-    public ResultSet puxarIDGasto(int id) throws Exception {
-        
-        String query = "select gastosgeral.id from gastosgeral inner join gastos_combustivel on \n"
-                + "gastosgeral.id_gasto = gastos_combustivel.id\n"
-                + "where gastos_combustivel.id = ?";
-        try {
-        st = conexao.prepareStatement(query);
-        st.setInt(1, id);
-        return st.executeQuery();
-        } catch (SQLException erro) {
-            throw new Exception("SQL Erro: " + erro.getMessage());
-        }
+        return new Gastos(buscarParaAlterarGastoGeral(id,ClassificacaoGastos.COMBUSTIVEL.toString()),  buscarParaAlterar(id).getId(),  buscarParaAlterar(id).getIdentificadorGasto(),  buscarParaAlterar(id).getDescricao().toString(), gastoTotal,  buscarParaAlterar(id).getDataAbastecimento(),  buscarParaAlterar(id).getVeiculos().getId());
     }
 
     @Override
@@ -183,5 +165,46 @@ public class GastosCombustivelDao implements IGastosCombustivelDao {
         }
         return null;
     }
+    public int buscarParaAlterarGastoGeral(int idgasto,String tipogasto){
+       
+        try {
+            String sql ="select id from gastosgeral where id_gasto = ? and tipogasto = ? ";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setInt(1, idgasto);
+            st.setString(2, tipogasto); 
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return rs.getInt("id");
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GastosCombustivelDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    @Override
+    public GastosCombustivel buscarParaAlterar(int idgasto) throws Exception {
+        String sql ="select * from gastos_combustivel where id = ?";
+        PreparedStatement st = conexao.prepareStatement(sql);
+        st.setInt(1, idgasto);
+        ResultSet rs = st.executeQuery();
 
+        while (rs.next()) {
+            GastosCombustivel gastosCombustivel = new GastosCombustivel();
+            IVeiculosDAO objetoVeiculosDao = new VeiculosDAO();
+            gastosCombustivel.setId(rs.getInt("id"));
+            gastosCombustivel.setIdentificadorGasto(ClassificacaoGastos.valueOf(rs.getString("tipogasto")));
+            gastosCombustivel.setDescricao(TiposCombustiveisGastos.valueOf(rs.getString("descgasto")));
+            gastosCombustivel.setQuantidadeLitrosCombustivel(rs.getFloat("qtdlcomb"));
+            gastosCombustivel.setValorLitroCombustivel(rs.getFloat("valorlitrocomb"));
+            gastosCombustivel.setQntdKmPorLitroCarro(rs.getFloat("kmplcarro"));
+            gastosCombustivel.setDataAbastecimento(rs.getDate("dataabast"));
+            gastosCombustivel.setVeiculos(objetoVeiculosDao.buscarPeloId(rs.getInt("id_veiculo")));
+            return new GastosCombustivel(gastosCombustivel.getId(), gastosCombustivel.getIdentificadorGasto(), gastosCombustivel.getDescricao(), gastosCombustivel.getQuantidadeLitrosCombustivel(), gastosCombustivel.getValorLitroCombustivel(), gastosCombustivel.getQntdKmPorLitroCarro(), gastosCombustivel.getDataAbastecimento(), gastosCombustivel.getVeiculos());
+        }
+        return null;
+    }
+    
+    
 }

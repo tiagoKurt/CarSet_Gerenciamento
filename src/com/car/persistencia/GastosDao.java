@@ -48,17 +48,17 @@ public class GastosDao implements IGastosDao{
     @Override
     public void AlterarGastos(Gastos gastos) throws Exception {
        try{
-            st = conexao.prepareStatement("UPDATE gastosgeral SET id_gasto = ?, tipogasto = ?, descgasto = ?, valortotal = ?, "
-                    + "datagasto = ?, id_veiculo = ? WHERE id = ?");
+            st = conexao.prepareStatement("UPDATE gastosgeral SET id_gasto = ?, tipogasto = ?, descgasto = ?, valortotal = ?,datagasto = ?, id_veiculo = ? WHERE id = ?");
             st.setInt(1, gastos.getIdGasto());
             st.setString(2, gastos.getIdentificadorGasto().toString());
-            st.setString(3, gastos.getDescricao());
+            st.setString(3, gastos.getDescricao());            
             st.setFloat(4, gastos.getGastoTotal());
             st.setDate(5, gastos.getDataGasto());
             st.setInt(6, gastos.getId_veiculo());
             st.setInt(7, gastos.getId());
             st.executeUpdate();
             st.close();
+            
         }catch(SQLException e){
             throw new Exception(e);
         }
@@ -66,7 +66,16 @@ public class GastosDao implements IGastosDao{
 
     @Override
     public boolean ExcluirGastos(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         try {
+            st = conexao.prepareStatement("DELETE FROM gastosgeral WHERE id = ?");
+            st.setInt(1, id);           
+            st.executeUpdate();
+            st.close();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.car.Modelos.GastosCombustivel;
 import com.car.Modelos.GastosImposto;
 import com.car.Modelos.GastosMecanico;
 import com.car.Modelos.GastosSeguro;
+import com.car.Modelos.Veiculos;
 import com.car.persistencia.GastosAvulsosDao;
 import com.car.persistencia.GastosCombustivelDao;
 import com.car.persistencia.GastosDao;
@@ -22,8 +23,10 @@ import com.car.persistencia.GastosSeguroDao;
 import com.car.persistencia.IGastosAvulsosDao;
 import com.car.persistencia.IGastosCombustivelDao;
 import com.car.persistencia.IGastosDao;
+import com.car.persistencia.IGastosImpostosDao;
 import com.car.persistencia.IGastosMecanicoDao;
 import com.car.persistencia.IGastosSeguroDao;
+import com.car.persistencia.IVeiculosDAO;
 import com.car.persistencia.VeiculosDAO;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -95,9 +98,12 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             setLocation(0, 0);
             classGastos = ClassificacaoGastos.COMBUSTIVEL + "";
             carregarComboBox();
+            comboPlacas();
             carregarComboBox2();
             criarGraficoCombustivelAno();
             puxarDadosComboBox();
+            jComboBox_Placa.setVisible(false);
+            jLabelPlaca1.setVisible(false);
             jPanel1_Combustivel_total.setVisible(false);
             jPanel1_Combustivel_mes.setVisible(false);
             jPanel1_Seguro.setVisible(false);
@@ -234,6 +240,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         jButton4_voltar6 = new javax.swing.JButton();
         jButton_alterarTelaComb3 = new javax.swing.JButton();
         jLabel57 = new javax.swing.JLabel();
+        jComboBox_Placa = new javax.swing.JComboBox<>();
+        jLabelPlaca1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1_gastos = new javax.swing.JTable();
         jButton4_voltar = new javax.swing.JButton();
@@ -781,6 +789,18 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jComboBox_Placa.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
+        jComboBox_Placa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        jComboBox_Placa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_PlacaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBox_Placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 260, 200, 40));
+
+        jLabelPlaca1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4), "CARRO", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bodoni MT", 3, 26), new java.awt.Color(255, 255, 255))); // NOI18N
+        getContentPane().add(jLabelPlaca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 220, 260, 120));
+
         jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
@@ -977,18 +997,29 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jTextField1_PlacaSelecionada.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 2).toString());
             jTextField1_TipoDoGasto.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 1).toString());
             jTextField1_idAlterar_Deletar.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 0).toString());
-
+            
             jTextField1_LitrosColocados.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 4).toString());
             jTextField1_precoLitro.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 5).toString());
             jTextField1_kmsPercorridosLItro.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 6).toString());
-            jComboBox1_veiculos.setSelectedItem(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 2).toString());
-
+           
+            if(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(),3).toString().equals(TiposCombustiveisGastos.Gasolina.toString()))jComboBox1_tipoDeCombustivel.setSelectedIndex(0);
+            else if(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(),3).toString().equals(TiposCombustiveisGastos.Gasolina_Aditivada.toString()))jComboBox1_tipoDeCombustivel.setSelectedIndex(1);
+            else if(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(),3).toString().equals(TiposCombustiveisGastos.Gasolina_Premium.toString()))jComboBox1_tipoDeCombustivel.setSelectedIndex(2);
+            else if(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(),3).toString().equals(TiposCombustiveisGastos.Etanol.toString()))jComboBox1_tipoDeCombustivel.setSelectedIndex(3);
+            else if(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(),3).toString().equals(TiposCombustiveisGastos.Etanol_aditivado.toString()))jComboBox1_tipoDeCombustivel.setSelectedIndex(4);
+            else if(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(),3).toString().equals(TiposCombustiveisGastos.GNV.toString()))jComboBox1_tipoDeCombustivel.setSelectedIndex(5);
+            else if(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(),3).toString().equals(TiposCombustiveisGastos.Diesel.toString()))jComboBox1_tipoDeCombustivel.setSelectedIndex(6);
+            
+            String[] data = jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 7).toString().split("-");
+            jFormattedTextField1_dataAbastecimento.setText(data[2]+data[1]+data[0]);
+            
             jTextField1_PlacaSelecionada.setVisible(true);
             jLabel4_PLACASELECIONADA.setVisible(true);
             jTextField1_TipoDoGasto.setVisible(true);
             jLabel4_tipoDoGasto.setVisible(true);
             jButton_Alterar.setVisible(true);
             jButton_Remover.setVisible(true);
+            
         } else if (jComboBox1_tipoDoGasto.getSelectedIndex() == 1) {
             jTextField1_PlacaSelecionada.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 2).toString());
             jTextField1_TipoDoGasto.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 1).toString());
@@ -1000,7 +1031,9 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jTextField3_qntDeItens.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 5).toString());
             jTextField1_ValorDoItem.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 6).toString());
             jTextField2_valorMaoDeObra.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 7).toString());
-
+            String[] data = jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 8).toString().split("-");
+            jFormattedTextField1_dataVisitaMecanico1.setText(data[2]+data[1]+data[0]);
+            
             jTextField1_PlacaSelecionada.setVisible(true);
             jLabel4_PLACASELECIONADA.setVisible(true);
             jTextField1_TipoDoGasto.setVisible(true);
@@ -1015,7 +1048,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jTextField1_descricaoServico.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 3).toString());
             jTextField1_valorDaFranquia.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 4).toString());
             jComboBox1_veiculos1.setSelectedItem(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 2).toString());
-
+            String[] data = jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 5).toString().split("-");
+            jFormattedTextField1_dataDoPagamento.setText(data[2]+data[1]+data[0]);
             jTextField1_PlacaSelecionada.setVisible(true);
             jLabel4_PLACASELECIONADA.setVisible(true);
             jTextField1_TipoDoGasto.setVisible(true);
@@ -1031,7 +1065,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jTextField1_descricaoServico1.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 3).toString());
             jTextField1_TipoDoVeiculo.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 4).toString());
             jTextField1_ValoGastoImposto.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 5).toString());
-
+            String[] data = jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 6).toString().split("-");
+            jFormattedTextField1_dataVisitaMecanico.setText(data[2]+data[1]+data[0]);
             jTextField1_PlacaSelecionada.setVisible(true);
             jLabel4_PLACASELECIONADA.setVisible(true);
             jTextField1_TipoDoGasto.setVisible(true);
@@ -1047,7 +1082,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jTextField1_DescricaoDoGasto.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 3).toString());
             jTextField1_ValorDoGasto.setText(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 4).toString());
             jComboBox1_veiculos3.setSelectedItem(jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 2).toString());
-
+            String[] data = jTable1_gastos.getValueAt(jTable1_gastos.getSelectedRow(), 5).toString().split("-");
+            jFormattedTextField1_dataDoGasto.setText(data[2]+data[1]+data[0]);
             jTextField1_PlacaSelecionada.setVisible(true);
             jLabel4_PLACASELECIONADA.setVisible(true);
             jTextField1_TipoDoGasto.setVisible(true);
@@ -1091,6 +1127,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jComboBox1_tipoDoGastoGraficos.setVisible(false);
         } else if (jComboBox1_itemRelacao.getSelectedIndex() == 1) {
             try {
+                jComboBox_Placa.setVisible(true);
+            jLabelPlaca1.setVisible(true);
                 jComboBox_filtro.setEnabled(true);
                 jComboBox_filtro.setVisible(true);
                 jLabel7_graficos.setVisible(true);
@@ -1114,61 +1152,18 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1_itemRelacaoActionPerformed
 
-    public void criarGraficoGERAL() {
-        try {
-            gastosGraficoCombustivel = 0;
-            gastosMecanico = 0;
-            gastosImposto = 0;
-            outrosGastos = 0;
-            gastosSeguro = 0;
-
-            DefaultCategoryDataset barra5 = new DefaultCategoryDataset();
-            IGastosDao objetoDao = new GastosDao();
-            ArrayList<Gastos> listaDeGastos5 = objetoDao.listaDeGastos();
-
-            for (int i = 0; i < listaDeGastos5.size(); i++) {
-                if (listaDeGastos5.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL) {
-
-                    gastosGraficoCombustivel += listaDeGastos5.get(i).getGastoTotal();
-                    barra5.setValue(gastosGraficoCombustivel, "COMBUSTIVEL", "");
-                }
-                if (listaDeGastos5.get(i).getIdentificadorGasto() == ClassificacaoGastos.MECANICO) {
-                    gastosMecanico += listaDeGastos5.get(i).getGastoTotal();
-                    barra5.setValue(gastosMecanico, "MECANICO", "");
-                }
-                if (listaDeGastos5.get(i).getIdentificadorGasto() == ClassificacaoGastos.IMPOSTO) {
-                    gastosImposto += listaDeGastos5.get(i).getGastoTotal();
-                    barra5.setValue(gastosImposto, "IMPOSTO", "");
-                }
-                if (listaDeGastos5.get(i).getIdentificadorGasto() == ClassificacaoGastos.OUTROS) {
-
-                    outrosGastos += listaDeGastos5.get(i).getGastoTotal();
-                    barra5.setValue(outrosGastos, "OUTROS", "");
-                }
-                if (listaDeGastos5.get(i).getIdentificadorGasto() == ClassificacaoGastos.SEGURO) {
-                    gastosSeguro += listaDeGastos5.get(i).getGastoTotal();
-                    barra5.setValue(gastosSeguro, "SEGURO", "");
-                }
-
-            }
-
-            JFreeChart grafico = ChartFactory.createBarChart3D("SOMA DE TODOS OS GASTOS POR TIPO", "TIPOS DE GASTOS", "TOTAL GASTOS", barra5, PlotOrientation.VERTICAL, true, true, false);
-            ChartPanel painel5 = new ChartPanel(grafico);
-            jPanel1_gastosGeral.add(painel5);
-        } catch (Exception ex) {
-            Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
     public void criarGraficoCombustivelAno() {
         try {
+            IVeiculosDAO objetoVeiculoDao = new VeiculosDAO();
             gastosGraficoCombustivelPorMes = 0;
             gastosGraficoCombustivel = 0;
             DefaultCategoryDataset barra = new DefaultCategoryDataset();
             IGastosDao objetoDao = new GastosDao();
             String dataAnterior = "";
             ArrayList<Gastos> listaDeGastos = objetoDao.listaDeGastos();
-
+            if(jComboBox_Placa.getSelectedIndex() == 0){
             for (int i = 0; i < listaDeGastos.size(); i++) {
                 if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL) {
                     if (jComboBox_filtro.getSelectedIndex() == 0) {
@@ -1228,7 +1223,67 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                     }
                 }
             }
+            }else{
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                    if (jComboBox_filtro.getSelectedIndex() == 0) {
+                        gastosGraficoCombustivel += listaDeGastos.get(i).getGastoTotal();
+                        barra.setValue(gastosGraficoCombustivel, "COMBUSTIVEL", "");
+                    }
+                }
+            }
 
+            if (jComboBox_filtro.getSelectedIndex() == 1) {
+                tipo = "Meses do ano";
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano a ser buscado");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+
+                    if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                        String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[1] == null ? dataAnterior != null : !data[1].equals(dataAnterior)) {
+                            System.out.println("entrou");
+                            gastosGraficoCombustivelPorMes = 0;
+                        }
+
+                        if (data[0].equals(ano)) {
+                            gastosGraficoCombustivelPorMes += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoCombustivelPorMes, data[1], "");
+                        }
+                        dataAnterior = data[1];
+
+                    }
+                }
+            }
+            if (jComboBox_filtro.getSelectedIndex() == 2) {
+                tipo = "Dias do mes";
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano da consulta");
+                String mes = JOptionPane.showInputDialog(null, "Informe o mes da consulta");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                    if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                        String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[0].equals(ano) && data[1].equals(mes)) {
+                            gastosGraficoCombustivelPorMes += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoCombustivelPorMes, data[2], "");
+                        }
+                    }
+                }
+            }
+            if (jComboBox_filtro.getSelectedIndex() == 3) {
+                tipo = "Dia do mes";
+                String dia = JOptionPane.showInputDialog(null, "Informe o dia da consulta");
+                String mes = JOptionPane.showInputDialog(null, "Informe o mes da consulta");
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano da consulta");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                    if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.COMBUSTIVEL && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                        String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[0].equals(ano) && data[1].equals(mes) && data[2].equals(dia)) {
+                            gastosGraficoCombustivelPorMes += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoCombustivelPorMes, data[2] + "/" + data[1] + "/" + data[0], "");
+                        }
+                    }
+                }
+            }
+            }
             jPanel1_Combustivel_total.removeAll();
             jPanel1_Combustivel_total.revalidate();
             jPanel1_Combustivel_total.repaint();
@@ -1243,13 +1298,16 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
     public void criarGraficoMecanico() {
         try {
+            IVeiculosDAO objetoVeiculoDao = new VeiculosDAO();
             gastosGraficoMecanico = 0;
             gastosMecanico = 0;
             DefaultCategoryDataset barra = new DefaultCategoryDataset();
             IGastosDao objetoDao = new GastosDao();
             String dataAnterior = "";
             ArrayList<Gastos> listaDeGastos = objetoDao.listaDeGastos();
-
+            if(jComboBox_Placa.getSelectedIndex() == 0){
+                
+            
             for (int i = 0; i < listaDeGastos.size(); i++) {
                 if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.MECANICO) {
                     if (jComboBox_filtro.getSelectedIndex() == 0) {
@@ -1309,6 +1367,67 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                     }
                 }
             }
+            }else{
+              for (int i = 0; i < listaDeGastos.size(); i++) {
+                if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.MECANICO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                    if (jComboBox_filtro.getSelectedIndex() == 0) {
+                        gastosMecanico += listaDeGastos.get(i).getGastoTotal();
+                        barra.setValue(gastosMecanico, "MECANICO", "");
+                    }
+                }
+            }
+
+            if (jComboBox_filtro.getSelectedIndex() == 1) {
+                tipo = "Meses do ano";
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano a ser buscado");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+
+                    if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.MECANICO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                        String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[1] == null ? dataAnterior != null : !data[1].equals(dataAnterior)) {
+                            System.out.println("entrou mec");
+                            gastosGraficoMecanico = 0;
+                        }
+
+                        if (data[0].equals(ano)) {
+                            gastosGraficoMecanico += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoMecanico, data[1], "");
+                        }
+                        dataAnterior = data[1];
+
+                    }
+                }
+            }
+            if (jComboBox_filtro.getSelectedIndex() == 2) {
+                tipo = "Dias do mes";
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano da consulta");
+                String mes = JOptionPane.showInputDialog(null, "Informe o mes da consulta");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                    if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.MECANICO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                        String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[0].equals(ano) && data[1].equals(mes)) {
+                            gastosGraficoMecanico += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoMecanico, data[2], "");
+                        }
+                    }
+                }
+            }
+            if (jComboBox_filtro.getSelectedIndex() == 3) {
+                tipo = "Dia do mes";
+                String dia = JOptionPane.showInputDialog(null, "Informe o dia da consulta");
+                String mes = JOptionPane.showInputDialog(null, "Informe o mes da consulta");
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano da consulta");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                    if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.MECANICO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                        String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[0].equals(ano) && data[1].equals(mes) && data[2].equals(dia)) {
+                            gastosGraficoMecanico += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoMecanico, data[2] + "/" + data[1] + "/" + data[0], "");
+                        }
+                    }
+                }
+            }  
+            }
 
             jPanel1_Combustivel_total.removeAll();
             jPanel1_Combustivel_total.revalidate();
@@ -1324,13 +1443,14 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
     public void criarGraficoSeguro() {
         try {
+            IVeiculosDAO objetoVeiculoDao = new VeiculosDAO();
             gastosGraficoSeguro = 0;
             gastosSeguro = 0;
             DefaultCategoryDataset barra = new DefaultCategoryDataset();
             IGastosDao objetoDao = new GastosDao();
             String dataAnterior = "";
             ArrayList<Gastos> listaDeGastos = objetoDao.listaDeGastos();
-
+            if(jComboBox_Placa.getSelectedIndex() == 0){
             for (int i = 0; i < listaDeGastos.size(); i++) {
                 if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.SEGURO) {
                     if (jComboBox_filtro.getSelectedIndex() == 0) {
@@ -1390,6 +1510,69 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                     }
                 }
             }
+            }
+            else{
+               for (int i = 0; i < listaDeGastos.size(); i++) {
+                if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.SEGURO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                    if (jComboBox_filtro.getSelectedIndex() == 0) {
+                        gastosSeguro += listaDeGastos.get(i).getGastoTotal();
+                        barra.setValue(gastosSeguro, "SEGURO", "");
+                    }
+                }
+            }
+
+            if (jComboBox_filtro.getSelectedIndex() == 1) {
+                tipo = "Meses do ano";
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano a ser buscado");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+
+                      if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.SEGURO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                  String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[1] == null ? dataAnterior != null : !data[1].equals(dataAnterior)) {
+                            System.out.println("entrou mec");
+                            gastosGraficoSeguro = 0;
+                        }
+
+                        if (data[0].equals(ano)) {
+                            gastosGraficoSeguro += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoSeguro, data[1], "");
+                        }
+                        dataAnterior = data[1];
+
+                    }
+                }
+            }
+            if (jComboBox_filtro.getSelectedIndex() == 2) {
+                tipo = "Dias do mes";
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano da consulta");
+                String mes = JOptionPane.showInputDialog(null, "Informe o mes da consulta");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                     if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.SEGURO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                   String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[0].equals(ano) && data[1].equals(mes)) {
+                            gastosGraficoSeguro += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoSeguro, data[2], "");
+                        }
+                    }
+                }
+            }
+            if (jComboBox_filtro.getSelectedIndex() == 3) {
+                tipo = "Dia do mes";
+                String dia = JOptionPane.showInputDialog(null, "Informe o dia da consulta");
+                String mes = JOptionPane.showInputDialog(null, "Informe o mes da consulta");
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano da consulta");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                      if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.SEGURO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                  String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[0].equals(ano) && data[1].equals(mes) && data[2].equals(dia)) {
+                            gastosGraficoSeguro += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoSeguro, data[2] + "/" + data[1] + "/" + data[0], "");
+                        }
+                    }
+                }
+            }
+            }
+            
 
             jPanel1_Combustivel_total.removeAll();
             jPanel1_Combustivel_total.revalidate();
@@ -1405,6 +1588,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
     public void criarGraficoImposto() {
         try {
+            IVeiculosDAO objetoVeiculoDao = new VeiculosDAO();
             gastosGraficoImposto = 0;
             gastosImposto = 0;
             DefaultCategoryDataset barra = new DefaultCategoryDataset();
@@ -1412,6 +1596,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             String dataAnterior = "";
             ArrayList<Gastos> listaDeGastos = objetoDao.listaDeGastos();
 
+           if(jComboBox_Placa.getSelectedIndex() == 0){
+           
             for (int i = 0; i < listaDeGastos.size(); i++) {
                 if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.IMPOSTO) {
                     if (jComboBox_filtro.getSelectedIndex() == 0) {
@@ -1471,6 +1657,67 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                     }
                 }
             }
+            }else{
+              for (int i = 0; i < listaDeGastos.size(); i++) {
+                 if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.IMPOSTO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                     if (jComboBox_filtro.getSelectedIndex() == 0) {
+                        gastosImposto += listaDeGastos.get(i).getGastoTotal();
+                        barra.setValue(gastosImposto, "IMPOSTO", "");
+                    }
+                }
+            }
+
+            if (jComboBox_filtro.getSelectedIndex() == 1) {
+                tipo = "Meses do ano";
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano a ser buscado");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+
+                   if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.IMPOSTO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                     String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[1] == null ? dataAnterior != null : !data[1].equals(dataAnterior)) {
+                            System.out.println("entrou");
+                            gastosGraficoImposto = 0;
+                        }
+
+                        if (data[0].equals(ano)) {
+                            gastosGraficoImposto += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoImposto, data[1], "");
+                        }
+                        dataAnterior = data[1];
+
+                    }
+                }
+            }
+            if (jComboBox_filtro.getSelectedIndex() == 2) {
+                tipo = "Dias do mes";
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano da consulta");
+                String mes = JOptionPane.showInputDialog(null, "Informe o mes da consulta");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                   if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.IMPOSTO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                     String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[0].equals(ano) && data[1].equals(mes)) {
+                            gastosGraficoImposto += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoImposto, data[2], "");
+                        }
+                    }
+                }
+            }
+            if (jComboBox_filtro.getSelectedIndex() == 3) {
+                tipo = "Dia do mes";
+                String dia = JOptionPane.showInputDialog(null, "Informe o dia da consulta");
+                String mes = JOptionPane.showInputDialog(null, "Informe o mes da consulta");
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano da consulta");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                   if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.IMPOSTO && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                     String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[0].equals(ano) && data[1].equals(mes) && data[2].equals(dia)) {
+                            gastosGraficoImposto += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoImposto, data[2] + "/" + data[1] + "/" + data[0], "");
+                        }
+                    }
+                }
+            }  
+            }
 
             jPanel1_Combustivel_total.removeAll();
             jPanel1_Combustivel_total.revalidate();
@@ -1486,13 +1733,15 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
     public void criarGraficoOutros() {
         try {
+            IVeiculosDAO objetoVeiculoDao = new VeiculosDAO();
             gastosGraficoOutros = 0;
             gastosOutros = 0;
             DefaultCategoryDataset barra = new DefaultCategoryDataset();
             IGastosDao objetoDao = new GastosDao();
             String dataAnterior = "";
             ArrayList<Gastos> listaDeGastos = objetoDao.listaDeGastos();
-
+            
+            if(jComboBox_Placa.getSelectedIndex() == 0){
             for (int i = 0; i < listaDeGastos.size(); i++) {
                 if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.OUTROS) {
                     if (jComboBox_filtro.getSelectedIndex() == 0) {
@@ -1552,6 +1801,68 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                     }
                 }
             }
+            }else{
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.OUTROS && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                      if (jComboBox_filtro.getSelectedIndex() == 0) {
+                        gastosOutros += listaDeGastos.get(i).getGastoTotal();
+                        barra.setValue(gastosOutros, "OUTROS", listaDeGastos.get(i).getDescricao());
+                    }
+                }
+            }
+
+            if (jComboBox_filtro.getSelectedIndex() == 1) {
+                tipo = "Meses do ano";
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano a ser buscado");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+
+                if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.OUTROS && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                          String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[1] == null ? dataAnterior != null : !data[1].equals(dataAnterior)) {
+                            System.out.println("entrou");
+                            gastosGraficoOutros = 0;
+                        }
+
+                        if (data[0].equals(ano)) {
+                            gastosGraficoOutros += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoOutros, data[1], "");
+                        }
+                        dataAnterior = data[1];
+
+                    }
+                }
+            }
+            if (jComboBox_filtro.getSelectedIndex() == 2) {
+                tipo = "Dias do mes";
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano da consulta");
+                String mes = JOptionPane.showInputDialog(null, "Informe o mes da consulta");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                    if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.OUTROS && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                    String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[0].equals(ano) && data[1].equals(mes)) {
+                            gastosGraficoOutros += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoOutros, data[2], "");
+                        }
+                    }
+                }
+            }
+            if (jComboBox_filtro.getSelectedIndex() == 3) {
+                tipo = "Dia do mes";
+                String dia = JOptionPane.showInputDialog(null, "Informe o dia da consulta");
+                String mes = JOptionPane.showInputDialog(null, "Informe o mes da consulta");
+                String ano = JOptionPane.showInputDialog(null, "Informe o ano da consulta");
+                for (int i = 0; i < listaDeGastos.size(); i++) {
+                    if (listaDeGastos.get(i).getIdentificadorGasto() == ClassificacaoGastos.OUTROS && listaDeGastos.get(i).getId_veiculo() == objetoVeiculoDao.buscarVeiculos((String) jComboBox_Placa.getSelectedItem()).getId()) {
+                     String[] data = listaDeGastos.get(i).getDataGasto().toString().split("-");
+                        if (data[0].equals(ano) && data[1].equals(mes) && data[2].equals(dia)) {
+                            gastosGraficoOutros += listaDeGastos.get(i).getGastoTotal();
+                            barra.setValue(gastosGraficoOutros, data[2] + "/" + data[1] + "/" + data[0], "");
+                        }
+                    }
+                }
+                }
+            }
+            
 
             jPanel1_Combustivel_total.removeAll();
             jPanel1_Combustivel_total.revalidate();
@@ -1706,7 +2017,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
     private void jButton_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AlterarActionPerformed
         if (jTextField1_TipoDoGasto.getText().equals("COMBUSTIVEL")) {
-
+            
             jFrame1_gasolinaAlterar.setVisible(true);
         } else if (jTextField1_TipoDoGasto.getText().equals("SEGURO")) {
 
@@ -1736,8 +2047,10 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 jTextField1_PlacaSelecionada.setVisible(false);
                 jTextField1_TipoDoGasto.setText("");
                 jTextField1_TipoDoGasto.setVisible(false);
+                jComboBox1_tipoDoGasto.setSelectedIndex(0);
             } else if (jTextField1_TipoDoGasto.getText().equals("SEGURO")) {
-
+                IGastosSeguroDao seg = new GastosSeguroDao();
+                seg.ExcluirGastos(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()));
                 imprimirDadosNaGrid();
                 jLabel4_tipoDoGasto.setVisible(false);
                 jLabel4_PLACASELECIONADA.setVisible(false);
@@ -1745,8 +2058,11 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 jTextField1_PlacaSelecionada.setVisible(false);
                 jTextField1_TipoDoGasto.setText("");
                 jTextField1_TipoDoGasto.setVisible(false);
+                jComboBox1_tipoDoGasto.setSelectedIndex(0);
             } else if (jTextField1_TipoDoGasto.getText().equals("IMPOSTO")) {
-
+                IGastosImpostosDao imp = new GastosImpostosDao();
+                imp.ExcluirGastos(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()));
+               
                 imprimirDadosNaGrid();
                 jLabel4_tipoDoGasto.setVisible(false);
                 jLabel4_PLACASELECIONADA.setVisible(false);
@@ -1754,8 +2070,10 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 jTextField1_PlacaSelecionada.setVisible(false);
                 jTextField1_TipoDoGasto.setText("");
                 jTextField1_TipoDoGasto.setVisible(false);
+                jComboBox1_tipoDoGasto.setSelectedIndex(0);
             } else if (jTextField1_TipoDoGasto.getText().equals("OUTROS")) {
-
+                IGastosAvulsosDao avulsos = new GastosAvulsosDao();
+                avulsos.ExcluirGastos(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()));
                 imprimirDadosNaGrid();
                 jLabel4_tipoDoGasto.setVisible(false);
                 jLabel4_PLACASELECIONADA.setVisible(false);
@@ -1763,8 +2081,10 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 jTextField1_PlacaSelecionada.setVisible(false);
                 jTextField1_TipoDoGasto.setText("");
                 jTextField1_TipoDoGasto.setVisible(false);
+                jComboBox1_tipoDoGasto.setSelectedIndex(0);
             } else if (jTextField1_TipoDoGasto.getText().equals("MECANICO")) {
-
+                 IGastosMecanicoDao mec = new GastosMecanicoDao();
+                mec.ExcluirGastos(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()));
                 imprimirDadosNaGrid();
                 jLabel4_tipoDoGasto.setVisible(false);
                 jLabel4_PLACASELECIONADA.setVisible(false);
@@ -1772,6 +2092,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
                 jTextField1_PlacaSelecionada.setVisible(false);
                 jTextField1_TipoDoGasto.setText("");
                 jTextField1_TipoDoGasto.setVisible(false);
+                jComboBox1_tipoDoGasto.setSelectedIndex(0);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
@@ -1809,7 +2130,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1_tipoDeCombustivelActionPerformed
 
     private void jFormattedTextField1_dataAbastecimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1_dataAbastecimentoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jFormattedTextField1_dataAbastecimentoActionPerformed
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
@@ -1817,6 +2138,12 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             alterarCombustivel();
             jFormattedTextField1_dataAbastecimento.setText("");
             imprimirDadosNaGrid();
+            jButton_Alterar.setVisible(false);
+            jButton_Remover.setVisible(false);
+            jTextField1_PlacaSelecionada.setVisible(false);
+            jLabel4_PLACASELECIONADA.setVisible(false);
+            jTextField1_TipoDoGasto.setVisible(false);
+            jLabel4_tipoDoGasto.setVisible(false);
             jFrame1_gasolinaAlterar.setVisible(false);
         } catch (Exception e) {
         }
@@ -1831,19 +2158,17 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     }//GEN-LAST:event_jFormattedTextField1_dataDoPagamentoActionPerformed
 
     private void jButton_alterarTelaCombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_alterarTelaCombActionPerformed
-        try {
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            java.sql.Date data = null;
-            data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataDoPagamento.getText()).getTime());
-            VeiculosDAO veiculo = new VeiculosDAO();
-            GastosSeguro seguro = new GastosSeguro(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()), ClassificacaoGastos.SEGURO, jTextField1_descricaoServico.getText(),
-                    Float.parseFloat(jTextField1_valorDaFranquia.getText()), data,
-                    veiculo.buscarVeiculos(jComboBox1_veiculos.getSelectedItem().toString()));
-
-            IGastosSeguroDao seguroDAO = new GastosSeguroDao();
-        } catch (Exception ex) {
-            Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            alterarSeguro();
+            jFormattedTextField1_dataVisitaMecanico.setText("");
+            imprimirDadosNaGrid();
+            jComboBox1_tipoDoGasto.setSelectedIndex(0);
+            jButton_Alterar.setVisible(false);
+            jButton_Remover.setVisible(false);
+            jTextField1_PlacaSelecionada.setVisible(false);
+            jLabel4_PLACASELECIONADA.setVisible(false);
+            jTextField1_TipoDoGasto.setVisible(false);
+            jLabel4_tipoDoGasto.setVisible(false);
+            jFrame1_seguroAlterar.setVisible(false);
 
     }//GEN-LAST:event_jButton_alterarTelaCombActionPerformed
 
@@ -1862,17 +2187,17 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     private void jButton_alterarTelaComb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_alterarTelaComb1ActionPerformed
         try {
 
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            java.sql.Date data = null;
-            data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataVisitaMecanico.getText()).getTime());
-
-            VeiculosDAO veiculo = new VeiculosDAO();
-            GastosImpostosDao impostoDAO = new GastosImpostosDao();
-            GastosImposto imposto = new GastosImposto(0, ClassificacaoGastos.IMPOSTO, jTextField1_descricaoServico.getText(),
-                    jTextField1_TipoDoVeiculo.getText(), Float.parseFloat(jTextField1_ValoGastoImposto.getText()), data,
-                    veiculo.buscarVeiculos(jComboBox1_veiculos.getSelectedItem().toString()));
-
-            impostoDAO.InserirGastos(imposto);
+            alterarImposto();
+            jFormattedTextField1_dataVisitaMecanico.setText("");
+            imprimirDadosNaGrid();
+            jComboBox1_tipoDoGasto.setSelectedIndex(0);
+            jButton_Alterar.setVisible(false);
+            jButton_Remover.setVisible(false);
+            jTextField1_PlacaSelecionada.setVisible(false);
+            jLabel4_PLACASELECIONADA.setVisible(false);
+            jTextField1_TipoDoGasto.setVisible(false);
+            jLabel4_tipoDoGasto.setVisible(false);
+            jFrame1_alterarImposto.setVisible(false);
 
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
@@ -1892,23 +2217,18 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4_voltar5ActionPerformed
 
     private void jButton_alterarTelaComb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_alterarTelaComb2ActionPerformed
-
-        try {
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            java.sql.Date data = null;
-            data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataDoGasto.getText()).getTime());
-
-            VeiculosDAO veiculo = new VeiculosDAO();
-
-            GastosAvulsos avulsos = new GastosAvulsos(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()), ClassificacaoGastos.OUTROS, jTextField1_DescricaoDoGasto.getText(),
-                    Float.parseFloat(jTextField1_ValorDoGasto.getText()), data,
-                    veiculo.buscarVeiculos(jComboBox1_veiculos.getSelectedItem().toString()));
-
-            IGastosAvulsosDao avulsosDAO = new GastosAvulsosDao();
-            avulsosDAO.InserirGastos(avulsos);
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(this, err);
-        }
+            alterarOutros();
+            jFormattedTextField1_dataVisitaMecanico.setText("");
+            imprimirDadosNaGrid();
+            jComboBox1_tipoDoGasto.setSelectedIndex(0);
+            jButton_Alterar.setVisible(false);
+            jButton_Remover.setVisible(false);
+            jTextField1_PlacaSelecionada.setVisible(false);
+            jLabel4_PLACASELECIONADA.setVisible(false);
+            jTextField1_TipoDoGasto.setVisible(false);
+            jLabel4_tipoDoGasto.setVisible(false);
+            jFrame1_alterarOutros.setVisible(false);
+        
 
     }//GEN-LAST:event_jButton_alterarTelaComb2ActionPerformed
 
@@ -1925,37 +2245,17 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4_voltar6ActionPerformed
 
     private void jButton_alterarTelaComb3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_alterarTelaComb3ActionPerformed
-        try {
-
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            java.sql.Date data = null;
-            data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataVisitaMecanico.getText()).getTime());
-
-            if (jTextField1_ValorDoItem.getText().matches("")) {
-                jTextField1_ValorDoItem.setText("0");
-            }
-            if (jTextField1_item_manutencao.getText().matches("")) {
-                jTextField1_item_manutencao.setText("N/A");
-            }
-            if (jTextField2_valorMaoDeObra.getText().matches("")) {
-                jTextField2_valorMaoDeObra.setText("0");
-            }
-            if (jTextField3_qntDeItens.getText().matches("")) {
-                jTextField3_qntDeItens.setText("0");
-            }
-
-            VeiculosDAO veiculos = new VeiculosDAO();
-            IGastosMecanicoDao mecanic = new GastosMecanicoDao();
-            GastosMecanico mecanico = new GastosMecanico(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()), ClassificacaoGastos.MECANICO,
-                    jTextField1_descricaoServico.getText(), jTextField1_item_manutencao.getText(),
-                    Integer.parseInt(jTextField3_qntDeItens.getText()), Float.parseFloat(jTextField1_ValorDoItem.getText()),
-                    Float.parseFloat(jTextField2_valorMaoDeObra.getText()), data,
-                    veiculos.buscarVeiculos(jComboBox1_veiculos.getSelectedItem().toString()));
-
-            mecanic.InserirGastos(mecanico);
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(this, err);
-        }
+            alterarMecanico();
+            jFormattedTextField1_dataVisitaMecanico.setText("");
+            imprimirDadosNaGrid();
+            jComboBox1_tipoDoGasto.setSelectedIndex(0);
+            jButton_Alterar.setVisible(false);
+            jButton_Remover.setVisible(false);
+            jTextField1_PlacaSelecionada.setVisible(false);
+            jLabel4_PLACASELECIONADA.setVisible(false);
+            jTextField1_TipoDoGasto.setVisible(false);
+            jLabel4_tipoDoGasto.setVisible(false);
+            jFrame1_alterarMecanico.setVisible(false);        
 
 
     }//GEN-LAST:event_jButton_alterarTelaComb3ActionPerformed
@@ -1981,6 +2281,27 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jPanel1_Combustivel_total.setVisible(true);
         }
     }//GEN-LAST:event_jComboBox_filtroActionPerformed
+
+    private void jComboBox_PlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_PlacaActionPerformed
+if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 0) {
+            criarGraficoCombustivelAno();
+            jPanel1_Combustivel_total.setVisible(true);
+        } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 1) {
+            criarGraficoMecanico();
+            jPanel1_Combustivel_total.setVisible(true);
+        } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 2) {
+            criarGraficoSeguro();
+            jPanel1_Combustivel_total.setVisible(true);
+        } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 3) {
+            criarGraficoImposto();
+            jPanel1_Combustivel_total.setVisible(true);
+        } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 4) {
+            criarGraficoOutros();
+            jPanel1_Combustivel_total.setVisible(true);
+        } else if (jComboBox1_tipoDoGastoGraficos.getSelectedIndex() == 5) {
+            criarGraficogeral();
+            jPanel1_Combustivel_total.setVisible(true);
+        }    }//GEN-LAST:event_jComboBox_PlacaActionPerformed
 
     private void imprimirDadosNaGrid() {
 
@@ -2397,6 +2718,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1_veiculos2;
     private javax.swing.JComboBox<String> jComboBox1_veiculos3;
     private javax.swing.JComboBox<String> jComboBox1_veiculos4;
+    private javax.swing.JComboBox<String> jComboBox_Placa;
     private javax.swing.JComboBox<String> jComboBox_filtro;
     private javax.swing.JFormattedTextField jFormattedTextField1_dataAbastecimento;
     private javax.swing.JFormattedTextField jFormattedTextField1_dataDoGasto;
@@ -2469,6 +2791,7 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelFiltro;
+    private javax.swing.JLabel jLabelPlaca1;
     private javax.swing.JPanel jPanel1_Combustivel_ano;
     private javax.swing.JPanel jPanel1_Combustivel_mes;
     private javax.swing.JPanel jPanel1_Combustivel_total;
@@ -2526,31 +2849,77 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
         }
     }
-
-    public void alterarCombustivel() {
+    public void alterarMecanico(){
         try {
 
-            if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 0) {
-                tipoCombustivel = TiposCombustiveisGastos.Gasolina + "";
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            java.sql.Date data = null;
+            data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataVisitaMecanico1.getText()).getTime());
+
+            if (jTextField1_ValorDoItem.getText().matches("")) {
+                jTextField1_ValorDoItem.setText("0");
             }
-            if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 1) {
-                tipoCombustivel = TiposCombustiveisGastos.Gasolina_Aditivada + "";
+            if (jTextField1_item_manutencao.getText().matches("")) {
+                jTextField1_item_manutencao.setText("N/A");
             }
-            if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 2) {
-                tipoCombustivel = TiposCombustiveisGastos.Gasolina_Premium + "";
+            if (jTextField2_valorMaoDeObra.getText().matches("")) {
+                jTextField2_valorMaoDeObra.setText("0");
             }
-            if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 3) {
-                tipoCombustivel = TiposCombustiveisGastos.Etanol + "";
+            if (jTextField3_qntDeItens.getText().matches("")) {
+                jTextField3_qntDeItens.setText("0");
             }
-            if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 4) {
-                tipoCombustivel = TiposCombustiveisGastos.Etanol_aditivado + "";
-            }
-            if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 5) {
-                tipoCombustivel = TiposCombustiveisGastos.GNV + "";
-            }
-            if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 6) {
-                tipoCombustivel = TiposCombustiveisGastos.Diesel + "";
-            }
+
+            VeiculosDAO veiculos = new VeiculosDAO();
+            IGastosMecanicoDao mecanic = new GastosMecanicoDao();
+            GastosMecanico mecanico = new GastosMecanico(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()), ClassificacaoGastos.MECANICO,
+                    jTextField1_descricaoServico2.getText(), jTextField1_item_manutencao.getText(),
+                    Integer.parseInt(jTextField3_qntDeItens.getText()), Float.parseFloat(jTextField1_ValorDoItem.getText()),
+                    Float.parseFloat(jTextField2_valorMaoDeObra.getText()), data,
+                    veiculos.buscarVeiculos(jComboBox1_veiculos4.getSelectedItem().toString()));
+
+            mecanic.AlterarGastos(mecanico);
+        } catch (Exception err) {
+                                       Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, err);
+ 
+        }
+    }
+    
+    public void alterarSeguro(){
+        try {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            java.sql.Date data = null;
+            data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataDoPagamento.getText()).getTime());
+            VeiculosDAO veiculo = new VeiculosDAO();
+            GastosSeguro seguro = new GastosSeguro(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()), ClassificacaoGastos.SEGURO, jTextField1_descricaoServico.getText(),
+                    Float.parseFloat(jTextField1_valorDaFranquia.getText()), data,
+                    veiculo.buscarVeiculos(jComboBox1_veiculos1.getSelectedItem().toString()));
+
+            IGastosSeguroDao seguroDAO = new GastosSeguroDao();
+            seguroDAO.AlterarGastos(seguro);
+        } catch (Exception ex) {
+            Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void alterarOutros(){
+        try {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            java.sql.Date data = null;
+            data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataDoGasto.getText()).getTime());
+
+            VeiculosDAO veiculo = new VeiculosDAO();
+
+            GastosAvulsos avulsos = new GastosAvulsos(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()), ClassificacaoGastos.OUTROS, jTextField1_DescricaoDoGasto.getText(),
+                    Float.parseFloat(jTextField1_ValorDoGasto.getText()), data,
+                    veiculo.buscarVeiculos(jComboBox1_veiculos3.getSelectedItem().toString()));
+
+            IGastosAvulsosDao avulsosDAO = new GastosAvulsosDao();
+            avulsosDAO.AlterarGastos(avulsos);
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(this, err);
+        }
+    }
+    public void alterarCombustivel() {
+        try {
 
             VeiculosDAO veiculos = new VeiculosDAO();
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -2559,7 +2928,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
             IGastosCombustivelDao comb = new GastosCombustivelDao();
             IGastosDao GeralGastos = new GastosDao();
-
+            
+            
             GastosCombustivel gastos = new GastosCombustivel(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()),
                     ClassificacaoGastos.COMBUSTIVEL,
                     TiposCombustiveisGastos.valueOf(tipoCombustivel), Float.parseFloat(jTextField1_LitrosColocados.getText()),
@@ -2568,27 +2938,49 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
 
             comb.AlterarGastos(gastos);
 
-            GastosCombustivelDao pog = new GastosCombustivelDao();
-
-            ResultSet rs = pog.puxarIDVeiculo(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()));
-            int idVeiculo = rs.getInt(1);
             
-            ResultSet rss = pog.puxarIDGasto(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()));
-            int idGasto = rss.getInt(1);
-            System.out.println(idGasto);
-            System.out.println(idVeiculo);
-            Gastos SkrSkr = new Gastos(idGasto, Integer.parseInt(jTextField1_idAlterar_Deletar.getText()),
-                    ClassificacaoGastos.COMBUSTIVEL,
-                    tipoCombustivel,
-                    2, data,
-                    idVeiculo);
+            
 
-            GeralGastos.AlterarGastos(SkrSkr);
+           
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }
     }
+    public void alterarImposto(){
+        try {
+            VeiculosDAO veiculos = new VeiculosDAO();
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            java.sql.Date data = null;
+            data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataVisitaMecanico.getText()).getTime());
+            System.out.println(jTextField1_descricaoServico1.getText());
+            IGastosImpostosDao imp = new GastosImpostosDao();
+            IGastosDao GeralGastos = new GastosDao();
+            GastosImposto gastos = new GastosImposto(Integer.parseInt(jTextField1_idAlterar_Deletar.getText()),ClassificacaoGastos.IMPOSTO, jTextField1_descricaoServico1.getText(), jTextField1_TipoDoVeiculo.getText(),Float.parseFloat(jTextField1_ValoGastoImposto.getText()), data,veiculos.buscarVeiculos(jComboBox1_veiculos2.getSelectedItem().toString()));
 
+            imp.AlterarGastos(gastos);
+        } catch (Exception ex) {
+            Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void comboPlacas(){
+        try {
+            IVeiculosDAO objetoDao = new VeiculosDAO();
+            ArrayList<Veiculos> lista = objetoDao.listagemDeVeiculos();
+            jComboBox_Placa.addItem("TOTAl");
+            
+            for(int i = 0; i < lista.size();i++){
+                System.out.println(lista.get(i).getPlaca());
+                jComboBox_Placa.addItem(lista.get(i).getPlaca());
+            }
+            
+                
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(TelaRelacaoGastos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void alterarGastosComb() {
         try {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

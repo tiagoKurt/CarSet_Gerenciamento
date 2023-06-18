@@ -20,4 +20,5 @@ public interface IGastosCombustivelDao {
     GastosCombustivel buscar(int id) throws Exception; 
     Gastos inserirGastosGerais() throws Exception;
     GastosCombustivel buscarUltimoRegistroInserido() throws Exception;
+    GastosCombustivel buscarParaAlterar(int idgasto) throws Exception;
 }

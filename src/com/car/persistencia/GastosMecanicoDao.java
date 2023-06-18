@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -57,12 +59,39 @@ public class GastosMecanicoDao implements IGastosMecanicoDao{
 
     @Override
     public void AlterarGastos(GastosMecanico gastos) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        st = conexao.prepareStatement(" UPDATE gastos_mecanico SET tipogasto = ?,descgasto = ?,descitemman = ?,qtditemman = ?,valoritemman = ?,valormaoobra = ?,datamanutencao = ?,id_veiculo = ? where id = ?");
+        System.out.println(gastos.getIdentificadorGasto().toString());
+        st.setString(1, gastos.getIdentificadorGasto().toString());
+            st.setString(2, gastos.getDecricaoGasto());
+            st.setString(3, gastos.getDescricaoItemManutencao());
+            st.setFloat(4, gastos.getQuantidadeDeItensManutencao());
+            st.setFloat(5, gastos.getValorItemManutencao());
+            st.setFloat(6, gastos.getValorMaoDeObra());
+            st.setDate(7, gastos.getDataManutencao());
+            st.setInt(8, gastos.getVeiculo().getId());
+            st.setInt(9, gastos.getId());
+            st.executeUpdate();
+            st.close();
+            
+            GastosDao objetoGastosGerais = new GastosDao();
+            objetoGastosGerais.AlterarGastos(alterarGastosGerais(gastos.getId()));
+            
     }
 
     @Override
     public boolean ExcluirGastos(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        GastosDao objetoDao = new GastosDao();
+            objetoDao.ExcluirGastos(buscarParaAlterarGastoGeral(id, ClassificacaoGastos.MECANICO.toString()));
+        try {
+            st = conexao.prepareStatement("DELETE FROM gastos_mecanico WHERE id = ?");
+            st.setInt(1, id);
+            st.executeUpdate();
+            st.close();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    
     }
 
     @Override
@@ -107,6 +136,59 @@ public class GastosMecanicoDao implements IGastosMecanicoDao{
         }
         
         return new Gastos(0, buscarUltimoRegistroInserido().getId(),buscarUltimoRegistroInserido().getIdentificadorGasto(), buscarUltimoRegistroInserido().getDecricaoGasto(), gastoTotal, buscarUltimoRegistroInserido().getDataManutencao(),buscarUltimoRegistroInserido().getVeiculo().getId());
+    }
+    
+    public Gastos alterarGastosGerais(int id) throws Exception {
+        float gastoTotal = 0;
+        System.out.println(buscarParaAlterar(id).getQuantidadeDeItensManutencao());
+        if(buscarParaAlterar(id).getQuantidadeDeItensManutencao() == 0){
+            gastoTotal = buscarParaAlterar(id).getValorMaoDeObra();
+        }else{
+            gastoTotal = (buscarParaAlterar(id).getQuantidadeDeItensManutencao() * buscarParaAlterar(id).getValorItemManutencao()) + buscarParaAlterar(id).getValorMaoDeObra();
+           }
+    return new Gastos(buscarParaAlterarGastoGeral(id, ClassificacaoGastos.MECANICO.toString()), buscarParaAlterar(id).getId(),buscarParaAlterar(id).getIdentificadorGasto(), buscarParaAlterar(id).getDecricaoGasto(), gastoTotal, buscarParaAlterar(id).getDataManutencao(),buscarParaAlterar(id).getVeiculo().getId());    
+    
+    }
+     public GastosMecanico buscarParaAlterar(int idgasto) throws Exception {
+        String sql ="select * from gastos_mecanico where id = ?";
+         PreparedStatement st = conexao.prepareStatement(sql);
+         st.setInt(1, idgasto);
+         ResultSet rs = st.executeQuery();
+         
+         while(rs.next()){
+         GastosMecanico gastos = new GastosMecanico();
+                 IVeiculosDAO objetoDaoVeiculos = new VeiculosDAO();
+                 gastos.setId(rs.getInt("id"));
+                 gastos.setIdentificadorGasto(ClassificacaoGastos.valueOf(rs.getString("tipogasto")));
+                 gastos.setDecricaoGasto(rs.getString("descgasto"));
+                 gastos.setDescricaoItemManutencao(rs.getString("descitemman"));
+                 gastos.setQuantidadeDeItensManutencao(rs.getInt("qtditemman"));
+                 gastos.setValorItemManutencao(rs.getFloat("valoritemman"));
+                 gastos.setValorMaoDeObra(rs.getFloat("valormaoobra"));
+                 gastos.setDataManutencao(rs.getDate("datamanutencao"));
+                 gastos.setVeiculo(objetoDaoVeiculos.buscarPeloId(rs.getInt("id_veiculo")));
+         return new GastosMecanico(gastos.getId(), gastos.getIdentificadorGasto(), gastos.getDecricaoGasto(), gastos.getDescricaoItemManutencao(),gastos.getQuantidadeDeItensManutencao(), gastos.getValorItemManutencao(), gastos.getValorMaoDeObra(), gastos.getDataManutencao(), gastos.getVeiculo());
+         }
+         return null;
+    }
+    
+    public int buscarParaAlterarGastoGeral(int idgasto,String tipogasto){
+       
+        try {
+            String sql ="select id from gastosgeral where id_gasto = ? and tipogasto = ? ";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setInt(1, idgasto);
+            st.setString(2, tipogasto); 
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return rs.getInt("id");
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GastosCombustivelDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
     @Override

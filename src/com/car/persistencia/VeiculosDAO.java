@@ -75,8 +75,29 @@ public class VeiculosDAO implements IVeiculosDAO {
     }
 
     @Override
-    public ArrayList<Veiculos> listagemDeModelos() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<Veiculos> listagemDeVeiculos() throws Exception {
+        ArrayList<Veiculos> listagemDeVeiculos = new ArrayList<Veiculos>();
+        try {
+
+            String sql = "select * from veiculos order by id";
+             PreparedStatement statement = conexao.prepareStatement(sql);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Veiculos veiculo = new Veiculos();
+                IModelosDAO objetoModelo = new ModelosDAO();
+                veiculo.setId(rs.getInt("id"));
+                veiculo.setModelo(objetoModelo.buscar(rs.getInt("id_modelo")));
+                veiculo.setPlaca(rs.getString("placa"));
+                veiculo.setTipoDoVeiculo(TipoDoVeiculo.valueOf(rs.getString("tipo_veiculo")));
+                veiculo.setCategoriaVeiculos(CategoriaVeiculos.valueOf(rs.getString("categoria_veiculo")));
+                veiculo.setTipoCombustivel(TipoCombustivel.valueOf(rs.getString("tipo_combustivel")));
+                veiculo.setQuilometragemAtual(rs.getInt("quilometragem"));
+                listagemDeVeiculos.add(veiculo);
+            }
+        } catch (Exception e) {
+        }
+        return listagemDeVeiculos;
     }
 
     @Override
