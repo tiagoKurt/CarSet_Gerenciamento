@@ -212,9 +212,16 @@ public class TelaGerarRelatorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        TelaGastosImpostos impostos = new TelaGastosImpostos();
-        impostos.setVisible(true);
-        this.dispose();
+        try {
+
+            relatorioPDF pdfzin = new relatorioPDF();
+            pdfzin.gerarRelatorioGastosImposto();
+            File file = new File("./src/com/car/Relatorio/RelatorioGastosIPVA_imposto.pdf");
+            Desktop.getDesktop().open(file);
+
+        } catch (Exception ex) {
+            Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -244,7 +251,16 @@ public class TelaGerarRelatorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+       try {
+
+            relatorioPDF pdfzin = new relatorioPDF();
+            pdfzin.gerarRelatorioGastosAvulsos();
+            File file = new File("./src/com/car/Relatorio/RelatorioGastosAvulsos.pdf");
+            Desktop.getDesktop().open(file);
+
+        } catch (Exception ex) {
+            Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**

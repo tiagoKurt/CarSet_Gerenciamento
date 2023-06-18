@@ -102,6 +102,42 @@ public class relatorioPDF {
         }
     }
 
+    public void gerarRelatorioGastosImposto() {
+        String sql = "select tipogasto, veiculos.placa, descgasto, tipocarro, valorpago, datapagamento from\n"
+                + "gastos_impostos inner join veiculos on \n"
+                + "gastos_impostos.id_veiculo = veiculos.id order by datapagamento";
+
+        try {
+            Statement statment = conexao.createStatement();
+            ResultSet rs = statment.executeQuery(sql);
+
+            gerarRelatorioImpostoPDF(rs);
+
+            rs.close();
+            statment.close();
+        } catch (SQLException erro) {
+
+        }
+    }
+
+    public void gerarRelatorioGastosAvulsos() {
+        String sql = "select tipogasto, veiculos.placa, descgasto, valorgasto, datarealizacao from\n"
+                + "gastos_avulsos inner join veiculos on \n"
+                + "gastos_avulsos.id_veiculo = veiculos.id order by datarealizacao";
+
+        try {
+            Statement statment = conexao.createStatement();
+            ResultSet rs = statment.executeQuery(sql);
+
+            gerarRelatorioAvulsosPDF(rs);
+
+            rs.close();
+            statment.close();
+        } catch (SQLException erro) {
+
+        }
+    }
+
     public static void gerarRelatorioCombustivelPDF(ResultSet rs) {
 
         try {
@@ -117,6 +153,8 @@ public class relatorioPDF {
             Font font = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
             relatorioPDF.add(new Paragraph("   RELÁTORIO DOS GASTOS COM COMBUSTÍVEL"));
+            Paragraph pularLinha = new Paragraph("\n");
+            relatorioPDF.add(pularLinha);
             relatorioPDF.bottomMargin();
 
             while (rs.next()) {
@@ -157,7 +195,6 @@ public class relatorioPDF {
                 Paragraph paragrafo5 = new Paragraph("   Valor do litro abastecidos: " + valorLitro);
                 Paragraph paragrafo6 = new Paragraph("   Quantos KM/l o veículos faz: " + kmPorLitro);
                 Paragraph paragrafo7 = new Paragraph("   Data do abastecimento: " + datagasto);
-                Paragraph pularLinha = new Paragraph("\n");
 
                 paragrafo.setFont(font);
                 paragrafo2.setFont(font);
@@ -204,6 +241,8 @@ public class relatorioPDF {
             Font font = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
             relatorioPDF.add(new Paragraph("   RELÁTORIO DOS GASTOS COM MECÂNICO"));
+            Paragraph pularLinha = new Paragraph("\n");
+            relatorioPDF.add(pularLinha);
             relatorioPDF.bottomMargin();
 
             while (rs.next()) {
@@ -246,7 +285,6 @@ public class relatorioPDF {
                 Paragraph paragrafo6 = new Paragraph("   Valor do item (Caso tiver) : " + valorItem);
                 Paragraph paragrafo7 = new Paragraph("   Valor da mão de obra/manutenção/revisão (Caso tiver) : " + valorMaoDeObra);
                 Paragraph paragrafo8 = new Paragraph("   Data da visita ao mecânico: " + dataMecanico);
-                Paragraph pularLinha = new Paragraph("\n");
 
                 paragrafo.setFont(font);
                 paragrafo2.setFont(font);
@@ -295,6 +333,8 @@ public class relatorioPDF {
             Font font = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
             relatorioPDF.add(new Paragraph("   RELÁTORIO DOS GASTOS COM SEGURO"));
+            Paragraph pularLinha = new Paragraph("\n");
+            relatorioPDF.add(pularLinha);
             relatorioPDF.bottomMargin();
 
             while (rs.next()) {
@@ -331,7 +371,175 @@ public class relatorioPDF {
                 Paragraph paragrafo3 = new Paragraph("   Veículo que foi realizado o serviço: " + placaVeiculo);
                 Paragraph paragrafo4 = new Paragraph("   Valor pago na franquia do seguro : " + ValorDaFranquia);
                 Paragraph paragrafo5 = new Paragraph("   Data do pagamento do seguro " + dataPagamento);
-                Paragraph pularLinha = new Paragraph("\n");
+
+                paragrafo.setFont(font);
+                paragrafo2.setFont(font);
+                paragrafo3.setFont(font);
+                paragrafo4.setFont(font);
+                paragrafo5.setFont(font);
+
+                relatorioPDF.add(paragrafo);
+                relatorioPDF.add(paragrafo3);
+                relatorioPDF.add(paragrafo2);
+                relatorioPDF.add(paragrafo4);
+                relatorioPDF.add(paragrafo5);
+
+                relatorioPDF.add(pularLinha);
+
+                LineSeparator linhaSeparadora = new LineSeparator();
+                relatorioPDF.add(linhaSeparadora);
+            }
+
+            relatorioPDF.close();
+
+        } catch (DocumentException doc) {
+            doc.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } catch (SQLException ex) {
+
+        }
+    }
+
+    public static void gerarRelatorioImpostoPDF(ResultSet rs) {
+
+        try {
+            Document relatorioPDF = new Document(PageSize.A4, 36, 36, 36, 36);
+            PdfWriter escritor = PdfWriter.getInstance(relatorioPDF, new FileOutputStream("./src/com/car/Relatorio/RelatorioGastosIPVA_imposto.pdf"));
+            relatorioPDF.setPageSize(PageSize.A4);
+
+            relatorioPDF.open();
+
+            Image logoImagem = Image.getInstance("./src/com/car/visao/icons/skr.jpg");
+            logoImagem.scaleToFit(175, 175);
+            relatorioPDF.add(logoImagem);
+            Font font = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+
+            relatorioPDF.add(new Paragraph("   RELÁTORIO DOS GASTOS COM IPVA"));
+            Paragraph pularLinha = new Paragraph("\n");
+            relatorioPDF.add(pularLinha);
+            relatorioPDF.bottomMargin();
+
+            while (rs.next()) {
+                String tipoDoGasto = rs.getString("tipogasto");
+                String descGasto = rs.getString("descgasto");
+                String placaVeiculo = rs.getString("placa");
+                String tipoVeiculo = rs.getString("tipocarro");
+                float valorPago = rs.getFloat("valorpago");
+                Date dataPagamento = rs.getDate("datapagamento");
+
+                PdfContentByte contentByte = escritor.getDirectContent();
+
+//                contentByte.moveTo(relatorioPDF.left(), relatorioPDF.top());
+//                contentByte.lineTo(relatorioPDF.right(), relatorioPDF.top());
+//                contentByte.stroke();
+//
+//                contentByte.moveTo(relatorioPDF.left(), relatorioPDF.bottom());
+//                contentByte.lineTo(relatorioPDF.right(), relatorioPDF.bottom());
+//                contentByte.stroke();
+//
+//                contentByte.moveTo(relatorioPDF.left(), relatorioPDF.bottom());
+//                contentByte.lineTo(relatorioPDF.left(), relatorioPDF.top());
+//                contentByte.stroke();
+//
+//                contentByte.moveTo(relatorioPDF.right(), relatorioPDF.bottom());
+//                contentByte.lineTo(relatorioPDF.right(), relatorioPDF.top());
+//                contentByte.stroke();
+                contentByte.setLineWidth(1f);
+                contentByte.moveTo(relatorioPDF.leftMargin(), relatorioPDF.topMargin() - 10);
+                contentByte.lineTo(relatorioPDF.getPageSize().getWidth() - relatorioPDF.rightMargin(), relatorioPDF.topMargin() - 10);
+                contentByte.stroke();
+
+                Paragraph paragrafo = new Paragraph("   Tipo do gasto: " + tipoDoGasto);
+                Paragraph paragrafo2 = new Paragraph("   Serviço realizado junto ao seguro " + descGasto);
+                Paragraph paragrafo3 = new Paragraph("   Veículo que foi realizado o serviço: " + placaVeiculo);
+                Paragraph paragrafo4 = new Paragraph("   Tipo do veículo: " + tipoVeiculo);
+                Paragraph paragrafo5 = new Paragraph("   Valor pago na franquia do seguro : " + valorPago);
+                Paragraph paragrafo6 = new Paragraph("   Data do pagamento do seguro " + dataPagamento);
+
+                paragrafo.setFont(font);
+                paragrafo2.setFont(font);
+                paragrafo3.setFont(font);
+                paragrafo4.setFont(font);
+                paragrafo5.setFont(font);
+
+                relatorioPDF.add(paragrafo);
+                relatorioPDF.add(paragrafo3);
+                relatorioPDF.add(paragrafo2);
+                relatorioPDF.add(paragrafo4);
+                relatorioPDF.add(paragrafo5);
+                relatorioPDF.add(paragrafo6);
+
+                relatorioPDF.add(pularLinha);
+
+                LineSeparator linhaSeparadora = new LineSeparator();
+                relatorioPDF.add(linhaSeparadora);
+            }
+
+            relatorioPDF.close();
+
+        } catch (DocumentException doc) {
+            doc.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } catch (SQLException ex) {
+
+        }
+    }
+
+    public static void gerarRelatorioAvulsosPDF(ResultSet rs) {
+
+        try {
+            Document relatorioPDF = new Document(PageSize.A4, 36, 36, 36, 36);
+            PdfWriter escritor = PdfWriter.getInstance(relatorioPDF, new FileOutputStream("./src/com/car/Relatorio/RelatorioGastosAvulsos.pdf"));
+            relatorioPDF.setPageSize(PageSize.A4);
+
+            relatorioPDF.open();
+
+            Image logoImagem = Image.getInstance("./src/com/car/visao/icons/skr.jpg");
+            logoImagem.scaleToFit(175, 175);
+            relatorioPDF.add(logoImagem);
+            Font font = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+
+            relatorioPDF.add(new Paragraph("   RELÁTORIO DOS GASTOS AVULSOS"));
+            Paragraph pularLinha = new Paragraph("\n");
+            relatorioPDF.add(pularLinha);
+            relatorioPDF.bottomMargin();
+
+            while (rs.next()) {
+                String tipoDoGasto = rs.getString("tipogasto");
+                String descGasto = rs.getString("descgasto");
+                String placaVeiculo = rs.getString("placa");
+                float valorGasto = rs.getFloat("valorgasto");
+                Date dataRealizacao = rs.getDate("datarealizacao");
+
+                PdfContentByte contentByte = escritor.getDirectContent();
+
+//                contentByte.moveTo(relatorioPDF.left(), relatorioPDF.top());
+//                contentByte.lineTo(relatorioPDF.right(), relatorioPDF.top());
+//                contentByte.stroke();
+//
+//                contentByte.moveTo(relatorioPDF.left(), relatorioPDF.bottom());
+//                contentByte.lineTo(relatorioPDF.right(), relatorioPDF.bottom());
+//                contentByte.stroke();
+//
+//                contentByte.moveTo(relatorioPDF.left(), relatorioPDF.bottom());
+//                contentByte.lineTo(relatorioPDF.left(), relatorioPDF.top());
+//                contentByte.stroke();
+//
+//                contentByte.moveTo(relatorioPDF.right(), relatorioPDF.bottom());
+//                contentByte.lineTo(relatorioPDF.right(), relatorioPDF.top());
+//                contentByte.stroke();
+                contentByte.setLineWidth(1f);
+                contentByte.moveTo(relatorioPDF.leftMargin(), relatorioPDF.topMargin() - 10);
+                contentByte.lineTo(relatorioPDF.getPageSize().getWidth() - relatorioPDF.rightMargin(), relatorioPDF.topMargin() - 10);
+                contentByte.stroke();
+
+                Paragraph paragrafo = new Paragraph("   Tipo do gasto: " + tipoDoGasto);
+                Paragraph paragrafo2 = new Paragraph("   Descrição do gasto feito de forma avulsa:  " + descGasto);
+                Paragraph paragrafo3 = new Paragraph("   Veículo no qual foi gasto: " + placaVeiculo);
+                Paragraph paragrafo4 = new Paragraph("   Valor gasto na transação: " + valorGasto);
+                Paragraph paragrafo5 = new Paragraph("   Data da transação do gasto: " + dataRealizacao);
 
                 paragrafo.setFont(font);
                 paragrafo2.setFont(font);
@@ -379,6 +587,8 @@ public class relatorioPDF {
             Font font = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
             relatorioPDF.add(new Paragraph("   RELÁTORIO DOS GASTOS GERAIS"));
+            Paragraph pularLinha = new Paragraph("\n");
+            relatorioPDF.add(pularLinha);
             relatorioPDF.bottomMargin();
 
             while (rs.next()) {
@@ -413,7 +623,7 @@ public class relatorioPDF {
                 Paragraph paragrafo2 = new Paragraph("   Descrição do gasto: " + descGasto);
                 Paragraph paragrafo3 = new Paragraph("   Valor total do gasto: " + valorTotal);
                 Paragraph paragrafo4 = new Paragraph("   Data do gasto: " + datagasto);
-                Paragraph pularLinha = new Paragraph("\n");
+
                 paragrafo.setFont(font);
                 paragrafo2.setFont(font);
                 paragrafo3.setFont(font);
