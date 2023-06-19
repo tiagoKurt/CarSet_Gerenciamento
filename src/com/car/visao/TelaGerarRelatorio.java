@@ -4,6 +4,7 @@
  */
 package com.car.visao;
 
+import com.car.Ferramentas.ConexaoBD;
 import com.car.Relatorio.relatorioPDF;
 import java.awt.Desktop;
 import java.awt.GraphicsEnvironment;
@@ -11,26 +12,42 @@ import java.awt.Rectangle;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
-/**
- *
- * @author Pichau
- */
 public class TelaGerarRelatorio extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaGerarRelatorio
-     */
-    public TelaGerarRelatorio() {
-        initComponents();
+    private Connection conexao = null;
+    int relatorioOPC = 0;
 
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Rectangle bounds = env.getMaximumWindowBounds();
-        setLocationRelativeTo(null);
-        int largura = bounds.width;
-        int altura = bounds.height;
-        setSize(largura, altura);
-        setLocation(0, 0);
+    public TelaGerarRelatorio() {
+        try {
+            initComponents();
+            
+            conexao = ConexaoBD.getConexao();
+            
+            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            Rectangle bounds = env.getMaximumWindowBounds();
+            setLocationRelativeTo(null);
+            int largura = bounds.width;
+            int altura = bounds.height;
+            setSize(largura, altura);
+            setLocation(0, 0);
+            
+            jFrame1_combQuestion.setBounds(0, 0, 780, 780);
+            jFrame1_combQuestion.setLocationRelativeTo(null);
+            jFormattedTextField1_dataFiltro1.setVisible(false);
+            jFormattedTextField1_dataFiltro.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel10.setVisible(false);
+            jButton1_ConfirmarCombustivel.setVisible(false);
+            jButton1_OPCAnterior.setVisible(false);
+        } catch (Exception ex) {
+            Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -42,6 +59,19 @@ public class TelaGerarRelatorio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFrame1_combQuestion = new javax.swing.JFrame();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jButton1_Voltar = new javax.swing.JButton();
+        jButton1_OPCAnterior = new javax.swing.JButton();
+        jButton1_naoCombustivel1 = new javax.swing.JButton();
+        jFormattedTextField1_dataFiltro = new javax.swing.JFormattedTextField();
+        jFormattedTextField1_dataFiltro1 = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jButton1_simCombustivel1 = new javax.swing.JButton();
+        jButton1_ConfirmarCombustivel = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButton4_voltar = new javax.swing.JButton();
@@ -54,6 +84,115 @@ public class TelaGerarRelatorio extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+
+        jFrame1_combQuestion.setUndecorated(true);
+        jFrame1_combQuestion.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/pinkLogoMenorzinha.gif"))); // NOI18N
+        jLabel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        jFrame1_combQuestion.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("PARA");
+        jFrame1_combQuestion.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, 90, 40));
+
+        jButton1_Voltar.setFont(new java.awt.Font("Bodoni MT", 3, 30)); // NOI18N
+        jButton1_Voltar.setText("VOLTAR");
+        jButton1_Voltar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        jButton1_Voltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1_Voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1_VoltarActionPerformed(evt);
+            }
+        });
+        jFrame1_combQuestion.getContentPane().add(jButton1_Voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 640, 260, 60));
+
+        jButton1_OPCAnterior.setFont(new java.awt.Font("Bodoni MT", 3, 30)); // NOI18N
+        jButton1_OPCAnterior.setText("ANTERIOR");
+        jButton1_OPCAnterior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        jButton1_OPCAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1_OPCAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1_OPCAnteriorActionPerformed(evt);
+            }
+        });
+        jFrame1_combQuestion.getContentPane().add(jButton1_OPCAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 640, 260, 60));
+
+        jButton1_naoCombustivel1.setFont(new java.awt.Font("Bodoni MT", 3, 30)); // NOI18N
+        jButton1_naoCombustivel1.setText("NÃO");
+        jButton1_naoCombustivel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        jButton1_naoCombustivel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1_naoCombustivel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1_naoCombustivel1ActionPerformed(evt);
+            }
+        });
+        jFrame1_combQuestion.getContentPane().add(jButton1_naoCombustivel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 160, 60));
+
+        jFormattedTextField1_dataFiltro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        try {
+            jFormattedTextField1_dataFiltro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextField1_dataFiltro.setFont(new java.awt.Font("Bodoni MT", 3, 32)); // NOI18N
+        jFormattedTextField1_dataFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1_dataFiltroActionPerformed(evt);
+            }
+        });
+        jFrame1_combQuestion.getContentPane().add(jFormattedTextField1_dataFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 460, 160, 60));
+
+        jFormattedTextField1_dataFiltro1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        try {
+            jFormattedTextField1_dataFiltro1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextField1_dataFiltro1.setFont(new java.awt.Font("Bodoni MT", 3, 32)); // NOI18N
+        jFormattedTextField1_dataFiltro1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1_dataFiltro1ActionPerformed(evt);
+            }
+        });
+        jFrame1_combQuestion.getContentPane().add(jFormattedTextField1_dataFiltro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 460, 160, 60));
+
+        jLabel9.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("DESEJA FILTRAR POR DATA?");
+        jFrame1_combQuestion.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, 440, 30));
+
+        jLabel10.setFont(new java.awt.Font("Bodoni MT", 3, 28)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("DE");
+        jFrame1_combQuestion.getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 60, 40));
+
+        jButton1_simCombustivel1.setFont(new java.awt.Font("Bodoni MT", 3, 30)); // NOI18N
+        jButton1_simCombustivel1.setText("SIM");
+        jButton1_simCombustivel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        jButton1_simCombustivel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1_simCombustivel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1_simCombustivel1ActionPerformed(evt);
+            }
+        });
+        jFrame1_combQuestion.getContentPane().add(jButton1_simCombustivel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, 160, 60));
+
+        jButton1_ConfirmarCombustivel.setFont(new java.awt.Font("Bodoni MT", 3, 30)); // NOI18N
+        jButton1_ConfirmarCombustivel.setText("CONFIRMAR");
+        jButton1_ConfirmarCombustivel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        jButton1_ConfirmarCombustivel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1_ConfirmarCombustivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1_ConfirmarCombustivelActionPerformed(evt);
+            }
+        });
+        jFrame1_combQuestion.getContentPane().add(jButton1_ConfirmarCombustivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 560, 260, 60));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/FundoTelas.png"))); // NOI18N
+        jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        jFrame1_combQuestion.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 780));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -187,12 +326,21 @@ public class TelaGerarRelatorio extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         try {
+            relatorioOPC = 6;
 
-            relatorioPDF pdfzin = new relatorioPDF();
-            pdfzin.gerarRelatorioGastosGeral();
-            File file = new File("./src/com/car/Relatorio/RelatorioDeGastos.pdf");
-            Desktop.getDesktop().open(file);
-
+            jFormattedTextField1_dataFiltro1.setVisible(false);
+            jFormattedTextField1_dataFiltro.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel10.setVisible(false);
+            jButton1_ConfirmarCombustivel.setVisible(false);
+            jButton1_OPCAnterior.setVisible(false);
+            jButton1_simCombustivel1.setVisible(true);
+            jButton1_naoCombustivel1.setVisible(true);
+            jButton1_Voltar.setVisible(true);
+            jFrame1_combQuestion.setVisible(true);
+            jFrame1_combQuestion.setVisible(true);
+            jFormattedTextField1_dataFiltro1.setText("");
+            jFormattedTextField1_dataFiltro.setText("");
         } catch (Exception ex) {
             Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -200,11 +348,21 @@ public class TelaGerarRelatorio extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
+            relatorioOPC = 3;
 
-            relatorioPDF pdfzin = new relatorioPDF();
-            pdfzin.gerarRelatorioGastosSeguro();
-            File file = new File("./src/com/car/Relatorio/RelatorioGastosSeguro.pdf");
-            Desktop.getDesktop().open(file);
+            jFormattedTextField1_dataFiltro1.setVisible(false);
+            jFormattedTextField1_dataFiltro.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel10.setVisible(false);
+            jButton1_ConfirmarCombustivel.setVisible(false);
+            jButton1_OPCAnterior.setVisible(false);
+            jButton1_simCombustivel1.setVisible(true);
+            jButton1_naoCombustivel1.setVisible(true);
+            jButton1_Voltar.setVisible(true);
+            jFrame1_combQuestion.setVisible(true);
+            jFrame1_combQuestion.setVisible(true);
+            jFormattedTextField1_dataFiltro1.setText("");
+            jFormattedTextField1_dataFiltro.setText("");
 
         } catch (Exception ex) {
             Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
@@ -213,12 +371,21 @@ public class TelaGerarRelatorio extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
+            relatorioOPC = 4;
 
-            relatorioPDF pdfzin = new relatorioPDF();
-            pdfzin.gerarRelatorioGastosImposto();
-            File file = new File("./src/com/car/Relatorio/RelatorioGastosIPVA_imposto.pdf");
-            Desktop.getDesktop().open(file);
-
+            jFormattedTextField1_dataFiltro1.setVisible(false);
+            jFormattedTextField1_dataFiltro.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel10.setVisible(false);
+            jButton1_ConfirmarCombustivel.setVisible(false);
+            jButton1_OPCAnterior.setVisible(false);
+            jButton1_simCombustivel1.setVisible(true);
+            jButton1_naoCombustivel1.setVisible(true);
+            jButton1_Voltar.setVisible(true);
+            jFrame1_combQuestion.setVisible(true);
+            jFrame1_combQuestion.setVisible(true);
+            jFormattedTextField1_dataFiltro1.setText("");
+            jFormattedTextField1_dataFiltro.setText("");
         } catch (Exception ex) {
             Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -227,41 +394,340 @@ public class TelaGerarRelatorio extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
 
-            relatorioPDF pdfzin = new relatorioPDF();
-            pdfzin.gerarRelatorioGastosMecanico();
-            File file = new File("./src/com/car/Relatorio/RelatorioDoMecanico.pdf");
-            Desktop.getDesktop().open(file);
+            relatorioOPC = 2;
 
+            jFormattedTextField1_dataFiltro1.setVisible(false);
+            jFormattedTextField1_dataFiltro.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel10.setVisible(false);
+            jButton1_ConfirmarCombustivel.setVisible(false);
+            jButton1_OPCAnterior.setVisible(false);
+            jButton1_simCombustivel1.setVisible(true);
+            jButton1_naoCombustivel1.setVisible(true);
+            jButton1_Voltar.setVisible(true);
+            jFrame1_combQuestion.setVisible(true);
+            jFrame1_combQuestion.setVisible(true);
+            jFormattedTextField1_dataFiltro1.setText("");
+            jFormattedTextField1_dataFiltro.setText("");
         } catch (Exception ex) {
             Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       try {
+        relatorioOPC = 1;
 
-            relatorioPDF pdfzin = new relatorioPDF();
-            pdfzin.gerarRelatorioGastosCombustivel();
-            File file = new File("./src/com/car/Relatorio/RelatorioDeCombustivel.pdf");
-            Desktop.getDesktop().open(file);
-
-        } catch (Exception ex) {
-            Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        jFormattedTextField1_dataFiltro1.setVisible(false);
+        jFormattedTextField1_dataFiltro.setVisible(false);
+        jLabel8.setVisible(false);
+        jLabel10.setVisible(false);
+        jButton1_ConfirmarCombustivel.setVisible(false);
+        jButton1_OPCAnterior.setVisible(false);
+        jButton1_simCombustivel1.setVisible(true);
+        jButton1_naoCombustivel1.setVisible(true);
+        jButton1_Voltar.setVisible(true);
+        jFrame1_combQuestion.setVisible(true);
+        jFrame1_combQuestion.setVisible(true);
+        jFormattedTextField1_dataFiltro1.setText("");
+        jFormattedTextField1_dataFiltro.setText("");
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       try {
+        try {
+            relatorioOPC = 5;
 
-            relatorioPDF pdfzin = new relatorioPDF();
-            pdfzin.gerarRelatorioGastosAvulsos();
-            File file = new File("./src/com/car/Relatorio/RelatorioGastosAvulsos.pdf");
-            Desktop.getDesktop().open(file);
-
+            jFormattedTextField1_dataFiltro1.setVisible(false);
+            jFormattedTextField1_dataFiltro.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel10.setVisible(false);
+            jButton1_ConfirmarCombustivel.setVisible(false);
+            jButton1_OPCAnterior.setVisible(false);
+            jButton1_simCombustivel1.setVisible(true);
+            jButton1_naoCombustivel1.setVisible(true);
+            jButton1_Voltar.setVisible(true);
+            jFrame1_combQuestion.setVisible(true);
+            jFrame1_combQuestion.setVisible(true);
+            jFormattedTextField1_dataFiltro1.setText("");
+            jFormattedTextField1_dataFiltro.setText("");
         } catch (Exception ex) {
             Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton1_VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_VoltarActionPerformed
+        jFrame1_combQuestion.dispose();
+    }//GEN-LAST:event_jButton1_VoltarActionPerformed
+
+    private void jButton1_OPCAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_OPCAnteriorActionPerformed
+        jButton1_naoCombustivel1.setVisible(false);
+        jFormattedTextField1_dataFiltro1.setVisible(false);
+        jFormattedTextField1_dataFiltro.setVisible(false);
+        jLabel8.setVisible(false);
+        jLabel10.setVisible(false);
+        jButton1_ConfirmarCombustivel.setVisible(false);
+        jButton1_OPCAnterior.setVisible(false);
+
+        jButton1_Voltar.setVisible(true);
+        jButton1_naoCombustivel1.setVisible(true);
+        jButton1_simCombustivel1.setVisible(true);
+    }//GEN-LAST:event_jButton1_OPCAnteriorActionPerformed
+
+    private void jButton1_naoCombustivel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_naoCombustivel1ActionPerformed
+        try {
+            if (relatorioOPC == 1) {
+
+                relatorioPDF pdfzin = new relatorioPDF();
+                pdfzin.gerarRelatorioGastosCombustivel();
+                File file = new File("./src/com/car/Relatorio/RelatorioDeCombustivel.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+
+            } else if (relatorioOPC == 2) {
+
+                relatorioPDF pdfzin = new relatorioPDF();
+                pdfzin.gerarRelatorioGastosMecanico();
+                File file = new File("./src/com/car/Relatorio/RelatorioDoMecanico.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+            } else if (relatorioOPC == 3) {
+
+                relatorioPDF pdfzin = new relatorioPDF();
+                pdfzin.gerarRelatorioGastosSeguro();
+                File file = new File("./src/com/car/Relatorio/RelatorioGastosSeguro.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+
+            } else if (relatorioOPC == 4) {
+
+                relatorioPDF pdfzin = new relatorioPDF();
+                pdfzin.gerarRelatorioGastosImposto();
+                File file = new File("./src/com/car/Relatorio/RelatorioGastosIPVA_imposto.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+
+            } else if (relatorioOPC == 5) {
+
+                relatorioPDF pdfzin = new relatorioPDF();
+                pdfzin.gerarRelatorioGastosAvulsos();
+                File file = new File("./src/com/car/Relatorio/RelatorioGastosAvulsos.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+
+            } else if (relatorioOPC == 6) {
+
+                relatorioPDF pdfzin = new relatorioPDF();
+                pdfzin.gerarRelatorioGastosGeral();
+                File file = new File("./src/com/car/Relatorio/RelatorioDeGastos.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1_naoCombustivel1ActionPerformed
+
+    private void jFormattedTextField1_dataFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1_dataFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1_dataFiltroActionPerformed
+
+    private void jFormattedTextField1_dataFiltro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1_dataFiltro1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1_dataFiltro1ActionPerformed
+
+    private void jButton1_simCombustivel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_simCombustivel1ActionPerformed
+        jButton1_naoCombustivel1.setVisible(false);
+        jFormattedTextField1_dataFiltro1.setVisible(true);
+        jFormattedTextField1_dataFiltro.setVisible(true);
+        jLabel8.setVisible(true);
+        jLabel10.setVisible(true);
+        jButton1_ConfirmarCombustivel.setVisible(true);
+        jButton1_OPCAnterior.setVisible(true);
+        jButton4_voltar.setVisible(false);
+
+        jButton1_Voltar.setVisible(false);
+        jButton1_naoCombustivel1.setVisible(false);
+        jButton1_simCombustivel1.setVisible(false);
+    }//GEN-LAST:event_jButton1_simCombustivel1ActionPerformed
+
+    private void jButton1_ConfirmarCombustivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_ConfirmarCombustivelActionPerformed
+        try {
+
+            if (relatorioOPC == 1) {
+
+                String sql = "select tipogasto, veiculos.placa, descgasto, qtdlcomb, valorlitrocomb, kmplcarro,\n"
+                        + "dataabast from gastos_combustivel inner join  veiculos on \n"
+                        + "gastos_combustivel.id_veiculo = veiculos.id where dataabast\n"
+                        + "between ? and ?\n"
+                        + "order by dataabast";
+
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = null;
+                java.sql.Date data1 = null;
+                data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro.getText()).getTime());
+                data1 = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro1.getText()).getTime());
+
+                PreparedStatement statement = conexao.prepareStatement(sql);
+                statement.setDate(1, data1);
+                statement.setDate(2, data);
+                ResultSet rs = statement.executeQuery();
+
+                relatorioPDF gastosComb = new relatorioPDF();
+                gastosComb.gerarRelatorioCombustivelPDF(rs);
+
+                File file = new File("./src/com/car/Relatorio/RelatorioDeCombustivel.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+                jFormattedTextField1_dataFiltro1.setText("");
+                jFormattedTextField1_dataFiltro.setText("");
+                rs.close();
+                statement.close();
+
+            } else if (relatorioOPC == 2) {
+
+                String sql = "select tipogasto, veiculos.placa , descgasto, descitemman, qtditemman,\n"
+                        + "valoritemman, valormaoobra, datamanutencao from gastos_mecanico inner join veiculos\n"
+                        + "on gastos_mecanico.id_veiculo = veiculos.id where datamanutencao\n"
+                        + "between ? and ? order by datamanutencao";
+
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = null;
+                java.sql.Date data1 = null;
+                data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro.getText()).getTime());
+                data1 = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro1.getText()).getTime());
+
+                PreparedStatement statement = conexao.prepareStatement(sql);
+                statement.setDate(1, data1);
+                statement.setDate(2, data);
+                ResultSet rs = statement.executeQuery();
+
+                relatorioPDF gastosComb = new relatorioPDF();
+                gastosComb.gerarRelatorioMecanicoPDF(rs);
+
+                File file = new File("./src/com/car/Relatorio/RelatorioDoMecanico.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+                jFormattedTextField1_dataFiltro1.setText("");
+                jFormattedTextField1_dataFiltro.setText("");
+                rs.close();
+                statement.close();
+            } else if (relatorioOPC == 3) {
+
+                String sql = "select tipogasto, veiculos.placa , descgasto, valorfranquia, datapagamento \n"
+                        + "from gastos_seguro inner join veiculos\n"
+                        + "on gastos_seguro.id_veiculo = veiculos.id where datapagamento\n"
+                        + "between ? and ? order by datapagamento";
+
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = null;
+                java.sql.Date data1 = null;
+                data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro.getText()).getTime());
+                data1 = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro1.getText()).getTime());
+
+                PreparedStatement statement = conexao.prepareStatement(sql);
+                statement.setDate(1, data1);
+                statement.setDate(2, data);
+                ResultSet rs = statement.executeQuery();
+
+                relatorioPDF gastosComb = new relatorioPDF();
+                gastosComb.gerarRelatorioSeguroPDF(rs);
+
+                File file = new File("./src/com/car/Relatorio/RelatorioGastosSeguro.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+                jFormattedTextField1_dataFiltro1.setText("");
+                jFormattedTextField1_dataFiltro.setText("");
+                rs.close();
+                statement.close();
+            } else if (relatorioOPC == 4) {
+
+                String sql = "select tipogasto, veiculos.placa , descgasto, tipocarro, valorpago, datapagamento\n"
+                        + "from gastos_impostos inner join veiculos on gastos_impostos.id_veiculo = veiculos.id\n"
+                        + "where datapagamento between ? and ? order by datapagamento";
+
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = null;
+                java.sql.Date data1 = null;
+                data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro.getText()).getTime());
+                data1 = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro1.getText()).getTime());
+
+                PreparedStatement statement = conexao.prepareStatement(sql);
+                statement.setDate(1, data1);
+                statement.setDate(2, data);
+                ResultSet rs = statement.executeQuery();
+
+                relatorioPDF gastosComb = new relatorioPDF();
+                gastosComb.gerarRelatorioImpostoPDF(rs);
+
+                File file = new File("./src/com/car/Relatorio/RelatorioGastosIPVA_imposto.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+                jFormattedTextField1_dataFiltro1.setText("");
+                jFormattedTextField1_dataFiltro.setText("");
+                rs.close();
+                statement.close();
+            } else if (relatorioOPC == 5) {
+
+                String sql = "select tipogasto, veiculos.placa , descgasto,valorgasto, datarealizacao from\n"
+                        + "gastos_avulsos inner join veiculos on gastos_avulsos.id_veiculo = veiculos.id\n"
+                        + "where datarealizacao between ? and ? order by datarealizacao";
+
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = null;
+                java.sql.Date data1 = null;
+                data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro.getText()).getTime());
+                data1 = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro1.getText()).getTime());
+
+                PreparedStatement statement = conexao.prepareStatement(sql);
+                statement.setDate(1, data1);
+                statement.setDate(2, data);
+                ResultSet rs = statement.executeQuery();
+
+                relatorioPDF gastosComb = new relatorioPDF();
+                gastosComb.gerarRelatorioAvulsosPDF(rs);
+
+                File file = new File("./src/com/car/Relatorio/RelatorioGastosAvulsos.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+                jFormattedTextField1_dataFiltro1.setText("");
+                jFormattedTextField1_dataFiltro.setText("");
+                rs.close();
+                statement.close();
+            } else if (relatorioOPC == 6) {
+
+                String sql = "select tipogasto, veiculos.placa, descgasto, valortotal, datagasto from gastosgeral\n"
+                        + "inner join veiculos on gastosgeral.id_veiculo = veiculos.id\n"
+                        + "where datagasto between ? and ? order by datagasto";
+
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = null;
+                java.sql.Date data1 = null;
+                data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro.getText()).getTime());
+                data1 = new java.sql.Date(formatter.parse(jFormattedTextField1_dataFiltro1.getText()).getTime());
+
+                PreparedStatement statement = conexao.prepareStatement(sql);
+                statement.setDate(1, data1);
+                statement.setDate(2, data);
+                ResultSet rs = statement.executeQuery();
+
+                relatorioPDF gastosComb = new relatorioPDF();
+                gastosComb.gerarRelatorioGeralPDF(rs);
+
+                File file = new File("./src/com/car/Relatorio/RelatorioDeGastos.pdf");
+                Desktop.getDesktop().open(file);
+                jFrame1_combQuestion.dispose();
+                jFormattedTextField1_dataFiltro1.setText("");
+                jFormattedTextField1_dataFiltro.setText("");
+                rs.close();
+                statement.close();
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(TelaGerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton1_ConfirmarCombustivelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,6 +765,11 @@ public class TelaGerarRelatorio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1_ConfirmarCombustivel;
+    private javax.swing.JButton jButton1_OPCAnterior;
+    private javax.swing.JButton jButton1_Voltar;
+    private javax.swing.JButton jButton1_naoCombustivel1;
+    private javax.swing.JButton jButton1_simCombustivel1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -306,10 +777,18 @@ public class TelaGerarRelatorio extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JFormattedTextField jFormattedTextField1_dataFiltro;
+    private javax.swing.JFormattedTextField jFormattedTextField1_dataFiltro1;
+    private javax.swing.JFrame jFrame1_combQuestion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 }

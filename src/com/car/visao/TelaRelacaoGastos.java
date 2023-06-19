@@ -1123,7 +1123,8 @@ public class TelaRelacaoGastos extends javax.swing.JFrame {
             jPanel1_outrosGastos.setVisible(false);
             jPanel1_gastosGeral.setVisible(false);
             jLabelFiltro.setVisible(false);
-
+            jComboBox_Placa.setVisible(false);
+            jLabelPlaca1.setVisible(false);
             jComboBox1_tipoDoGastoGraficos.setVisible(false);
         } else if (jComboBox1_itemRelacao.getSelectedIndex() == 1) {
             try {
