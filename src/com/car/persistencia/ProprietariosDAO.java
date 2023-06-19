@@ -75,7 +75,23 @@ public class ProprietariosDAO implements IProprietariosDAO {
 
     @Override
     public void alterarProprietario(Proprietario proprietario) throws Exception {
+        try {
 
+            st = conexao.prepareStatement("UPDATE proprietario set tipo = ?, documento_identificador = ?, nome = ?, telefone = ?,"
+                    + "email = ?, cnh = ?, categoriacnh = ? WHERE id = ?");
+            st.setString(1, proprietario.getTipoDoProprietario().toString());
+            st.setString(2, proprietario.getCPF_CNPJ());
+            st.setString(3, proprietario.getNome());
+            st.setString(4, proprietario.getTelefone());
+            st.setString(5, proprietario.getEmail());
+            st.setInt(6, proprietario.getCNH());
+            st.setString(7, proprietario.getCategoriaCNH().toString());
+            st.setInt(8, proprietario.getIdProprietarios());
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ALTERAR" + e);
+        }
     }
 
     @Override

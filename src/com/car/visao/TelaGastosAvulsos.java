@@ -175,6 +175,10 @@ public class TelaGastosAvulsos extends javax.swing.JFrame {
     
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
+            
+            if (jTextField1_DescricaoDoGasto.getText().matches("") || jTextField1_ValorDoGasto.getText().matches("")){
+                JOptionPane.showMessageDialog(rootPane, "Alguns campos não foram preenchidos corretamente!");
+            }else{
             DateFormat  formatter = new SimpleDateFormat("dd/MM/yyyy");
             java.sql.Date data = null;
             data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataDoGasto.getText()).getTime());
@@ -188,6 +192,8 @@ public class TelaGastosAvulsos extends javax.swing.JFrame {
             IGastosAvulsosDao avulsosDAO = new GastosAvulsosDao();
             avulsosDAO.InserirGastos(avulsos);
             limparCampos();
+            JOptionPane.showMessageDialog(rootPane, "Gasto cadastrado com sucesso!");
+            }
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }

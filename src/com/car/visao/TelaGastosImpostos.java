@@ -19,7 +19,7 @@ public class TelaGastosImpostos extends javax.swing.JFrame {
     public TelaGastosImpostos() {
         try {
             initComponents();
-            
+
             GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
             Rectangle bounds = env.getMaximumWindowBounds();
             setLocationRelativeTo(null);
@@ -27,9 +27,9 @@ public class TelaGastosImpostos extends javax.swing.JFrame {
             int altura = bounds.height;
             setSize(largura, altura);
             setLocation(0, 0);
-            
+
             jTextField1_ValoGastoImposto.setDocument(new limitaCaracteres(10, limitaCaracteres.tipoEntrada.PRECO));
-            
+
             puxarDadosComboBox();
         } catch (Exception ex) {
             Logger.getLogger(TelaGastosImpostos.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,7 +180,7 @@ public class TelaGastosImpostos extends javax.swing.JFrame {
 
         }
     }
-    
+
     private void jFormattedTextField1_dataVisitaMecanicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1_dataVisitaMecanicoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextField1_dataVisitaMecanicoActionPerformed
@@ -191,20 +191,27 @@ public class TelaGastosImpostos extends javax.swing.JFrame {
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
+            if (jTextField1_descricaoServico.getText().matches("") || jTextField1_TipoDoVeiculo.getText().matches("")
+                     || jTextField1_ValoGastoImposto.getText().matches("")) {
+               
+                JOptionPane.showMessageDialog(rootPane, "Alguns campos não foram preenchidos corretamente!");
+                
+            } else {
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date data = null;
+                data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataVisitaMecanico.getText()).getTime());
 
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            java.sql.Date data = null;
-            data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataVisitaMecanico.getText()).getTime());
+                VeiculosDAO veiculo = new VeiculosDAO();
+                GastosImpostosDao impostoDAO = new GastosImpostosDao();
+                GastosImposto imposto = new GastosImposto(0, ClassificacaoGastos.IMPOSTO, jTextField1_descricaoServico.getText(),
+                        jTextField1_TipoDoVeiculo.getText(), Float.parseFloat(jTextField1_ValoGastoImposto.getText()), data,
+                        veiculo.buscarVeiculos(jComboBox1_veiculos.getSelectedItem().toString()));
 
-            VeiculosDAO veiculo = new VeiculosDAO();
-            GastosImpostosDao impostoDAO = new GastosImpostosDao();
-            GastosImposto imposto = new GastosImposto(0, ClassificacaoGastos.IMPOSTO, jTextField1_descricaoServico.getText(), 
-                    jTextField1_TipoDoVeiculo.getText(), Float.parseFloat(jTextField1_ValoGastoImposto.getText()), data, 
-                    veiculo.buscarVeiculos(jComboBox1_veiculos.getSelectedItem().toString()));
-            
-            impostoDAO.InserirGastos(imposto);
-            
-            limparCampos();
+                impostoDAO.InserirGastos(imposto);
+
+                limparCampos();
+                JOptionPane.showMessageDialog(rootPane, "Gasto cadastrado com sucesso!");
+            }
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }

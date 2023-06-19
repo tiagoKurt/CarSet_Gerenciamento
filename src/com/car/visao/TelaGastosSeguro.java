@@ -164,6 +164,9 @@ public class TelaGastosSeguro extends javax.swing.JFrame {
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
+            if(jTextField1_descricaoServico.getText().matches("") || jTextField1_valorDaFranquia.getText().matches("")){
+                JOptionPane.showMessageDialog(rootPane, "Alguns campos não foram preenchidos corretamente");
+            }else{
             DateFormat  formatter = new SimpleDateFormat("dd/MM/yyyy");
             java.sql.Date data = null;
             data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataDoPagamento.getText()).getTime());
@@ -176,6 +179,8 @@ public class TelaGastosSeguro extends javax.swing.JFrame {
             IGastosSeguroDao seguroDAO = new GastosSeguroDao();
             seguroDAO.InserirGastos(seguro);
             limparCampos();
+            JOptionPane.showMessageDialog(rootPane, "Gasto cadastrado com sucesso!");
+            }
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }

@@ -205,7 +205,11 @@ public class TelaGastosMecanico extends javax.swing.JFrame {
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
-
+            if(jTextField1_descricaoServico.getText().matches("") || jTextField1_item_manutencao.getText().matches("") || 
+                    jTextField1_ValorDoItem.getText().matches("") || jTextField2_valorMaoDeObra.getText().matches("") || 
+                    jTextField3_qntDeItens.getText().matches("")){
+                JOptionPane.showMessageDialog(rootPane, "Alguns campos não foram preenchidos corretamente!");
+            }else{
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             java.sql.Date data = null;
             data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataVisitaMecanico.getText()).getTime());
@@ -233,6 +237,8 @@ public class TelaGastosMecanico extends javax.swing.JFrame {
             
             mecanic.InserirGastos(mecanico);
             limparCampos();
+            JOptionPane.showMessageDialog(rootPane, "Gasto cadastrado com sucesso!");
+            }
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }

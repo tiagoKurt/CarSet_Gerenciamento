@@ -15,6 +15,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
 
     String tipoPropri;
     String CatCNH;
+
     public TelaProprietarios() {
         initComponents();
 
@@ -26,7 +27,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
         carregarComboBox();
 
         tipoPropri = tipoProprietario.PF + "";
-        CatCNH = CategoriaCNH.A+"";
+        CatCNH = CategoriaCNH.A + "";
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle bounds = env.getMaximumWindowBounds();
@@ -64,10 +65,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
         jTextField1_razaoSocial = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel10_nome = new javax.swing.JLabel();
-        jButton_Remover = new javax.swing.JButton();
-        jButton_Alterar = new javax.swing.JButton();
         jButton_iNCLUIR = new javax.swing.JButton();
-        jButton4_voltar = new javax.swing.JButton();
         jLabel8_cpf = new javax.swing.JLabel();
         jLabel9_CNPJ = new javax.swing.JLabel();
         jFormattedTextField1_cpf = new javax.swing.JFormattedTextField();
@@ -156,36 +154,11 @@ public class TelaProprietarios extends javax.swing.JFrame {
         jLabel10_nome.setText("NOME");
         getContentPane().add(jLabel10_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, -1, 40));
 
-        jButton_Remover.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jButton_Remover.setForeground(new java.awt.Color(255, 51, 153));
-        jButton_Remover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/removeriten.png"))); // NOI18N
-        jButton_Remover.setText("REMOVER");
-        jButton_Remover.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jButton_Remover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton_Remover.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_RemoverActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton_Remover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 350, 140, 40));
-
-        jButton_Alterar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jButton_Alterar.setForeground(new java.awt.Color(255, 51, 153));
-        jButton_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/alterar.png"))); // NOI18N
-        jButton_Alterar.setText("ALTERAR");
-        jButton_Alterar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jButton_Alterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton_Alterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_AlterarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 300, 140, 40));
-
-        jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
+        jButton_iNCLUIR.setBackground(new java.awt.Color(153, 153, 153));
+        jButton_iNCLUIR.setFont(new java.awt.Font("Bodoni MT", 3, 26)); // NOI18N
         jButton_iNCLUIR.setForeground(new java.awt.Color(255, 51, 153));
-        jButton_iNCLUIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/adicionarItens.png"))); // NOI18N
-        jButton_iNCLUIR.setText("  INCLUIR");
+        jButton_iNCLUIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/skrskrksr.png"))); // NOI18N
+        jButton_iNCLUIR.setText("  CADASTRAR");
         jButton_iNCLUIR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jButton_iNCLUIR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_iNCLUIR.addActionListener(new java.awt.event.ActionListener() {
@@ -193,20 +166,7 @@ public class TelaProprietarios extends javax.swing.JFrame {
                 jButton_iNCLUIRActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_iNCLUIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 250, 140, 40));
-
-        jButton4_voltar.setFont(new java.awt.Font("Bodoni MT", 3, 18)); // NOI18N
-        jButton4_voltar.setForeground(new java.awt.Color(255, 51, 153));
-        jButton4_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/car/visao/icons/voltar.png"))); // NOI18N
-        jButton4_voltar.setText("VOLTAR");
-        jButton4_voltar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jButton4_voltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4_voltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4_voltarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton4_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 630, 140, 40));
+        getContentPane().add(jButton_iNCLUIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 290, 290, 60));
 
         jLabel8_cpf.setBackground(new java.awt.Color(187, 187, 187));
         jLabel8_cpf.setFont(new java.awt.Font("Bodoni MT", 3, 34)); // NOI18N
@@ -311,61 +271,68 @@ public class TelaProprietarios extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jComboBox1_TipoDoProprietárioActionPerformed
 
-    private void jButton_RemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RemoverActionPerformed
-
-    }//GEN-LAST:event_jButton_RemoverActionPerformed
-
-    private void jButton_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AlterarActionPerformed
-
-    }//GEN-LAST:event_jButton_AlterarActionPerformed
-
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
-            if(jComboBox1_TipoDoProprietário.getSelectedIndex() == 0){
-                tipoPropri = tipoProprietario.PF+"";
-            }else if(jComboBox1_TipoDoProprietário.getSelectedIndex() ==1){
-                tipoPropri = tipoProprietario.PJ+"";
-            }
-            
-            if(jComboBox1_tipoCNH.getSelectedIndex() == 0){
-                CatCNH = CategoriaCNH.A+"";
-            }else if(jComboBox1_tipoCNH.getSelectedIndex() == 1){
-                CatCNH = CategoriaCNH.B+"";
-            }else if(jComboBox1_tipoCNH.getSelectedIndex() == 2){
-                CatCNH = CategoriaCNH.AB+"";
-            }else if(jComboBox1_tipoCNH.getSelectedIndex() == 3){
-                CatCNH = CategoriaCNH.C+"";
-            }else if(jComboBox1_tipoCNH.getSelectedIndex() == 4){
-                CatCNH = CategoriaCNH.D+"";
-            }else if (jComboBox1_tipoCNH.getSelectedIndex() == 5){
-                CatCNH = CategoriaCNH.E+"";
-            }
-            
-            if (jComboBox1_TipoDoProprietário.getSelectedIndex() == 0) {
-                ProprietariosDAO proprietariosDAO = new ProprietariosDAO();
-                Proprietario propri = new Proprietario(0, tipoProprietario.valueOf(tipoPropri), 
-                        jFormattedTextField1_cpf.getText(), jTextField1_Nome.getText(), jFormattedTextField1_telefone.getText(), 
-                        jTextField1_EMAIL.getText(), Integer.parseInt(jTextField1_CNH.getText()), CategoriaCNH.valueOf(CatCNH));
-                proprietariosDAO.incluirProprietario(propri);
-                JOptionPane.showMessageDialog(rootPane, "Proprietário do tipo '"+tipoPropri+"' cadastrado com sucesso !");
-                
-                limparCampos();
-            }else if(jComboBox1_TipoDoProprietário.getSelectedIndex() == 1){
-                ProprietariosDAO proprietariosDAO = new ProprietariosDAO();
-                Proprietario propri = new Proprietario(0, tipoProprietario.valueOf(tipoPropri), 
-                        jFormattedTextField1_CNPJ.getText(), jTextField1_razaoSocial.getText(), jFormattedTextField1_telefone.getText(), 
-                        jTextField1_EMAIL.getText(), Integer.parseInt(jTextField1_CNH.getText()), CategoriaCNH.valueOf(CatCNH));
-                proprietariosDAO.incluirProprietario(propri);
-                JOptionPane.showMessageDialog(rootPane, "Proprietário do tipo '"+tipoPropri+"' cadastrado com sucesso !");
-                limparCampos();
-            }
 
+            if (jTextField1_CNH.getText().matches("") || jTextField1_EMAIL.getText().matches("")) {
+                JOptionPane.showMessageDialog(rootPane, "Alguns campos não foram preenchidos!");
+            } else {
+
+                if (jComboBox1_TipoDoProprietário.getSelectedIndex() == 0) {
+                    tipoPropri = tipoProprietario.PF + "";
+                } else if (jComboBox1_TipoDoProprietário.getSelectedIndex() == 1) {
+                    tipoPropri = tipoProprietario.PJ + "";
+                }
+
+                if (jComboBox1_tipoCNH.getSelectedIndex() == 0) {
+                    CatCNH = CategoriaCNH.A + "";
+                } else if (jComboBox1_tipoCNH.getSelectedIndex() == 1) {
+                    CatCNH = CategoriaCNH.B + "";
+                } else if (jComboBox1_tipoCNH.getSelectedIndex() == 2) {
+                    CatCNH = CategoriaCNH.AB + "";
+                } else if (jComboBox1_tipoCNH.getSelectedIndex() == 3) {
+                    CatCNH = CategoriaCNH.C + "";
+                } else if (jComboBox1_tipoCNH.getSelectedIndex() == 4) {
+                    CatCNH = CategoriaCNH.D + "";
+                } else if (jComboBox1_tipoCNH.getSelectedIndex() == 5) {
+                    CatCNH = CategoriaCNH.E + "";
+                }
+
+                if (jComboBox1_TipoDoProprietário.getSelectedIndex() == 0) {
+                    ProprietariosDAO proprietariosDAO = new ProprietariosDAO();
+                    Proprietario propri = new Proprietario(0, tipoProprietario.valueOf(tipoPropri),
+                            jFormattedTextField1_cpf.getText(), jTextField1_Nome.getText(), jFormattedTextField1_telefone.getText(),
+                            jTextField1_EMAIL.getText(), Integer.parseInt(jTextField1_CNH.getText()), CategoriaCNH.valueOf(CatCNH));
+                    proprietariosDAO.incluirProprietario(propri);
+                    JOptionPane.showMessageDialog(rootPane, "Proprietário: " + jTextField1_Nome.getText() + ", cadastrado com sucesso !");
+
+                    limparCampos();
+                    
+                    TelaPrincipal pog = new TelaPrincipal();
+                    pog.setVisible(true);
+                    this.dispose();
+                    
+                } else if (jComboBox1_TipoDoProprietário.getSelectedIndex() == 1) {
+                    
+                    ProprietariosDAO proprietariosDAO = new ProprietariosDAO();
+                    Proprietario propri = new Proprietario(0, tipoProprietario.valueOf(tipoPropri),
+                            jFormattedTextField1_CNPJ.getText(), jTextField1_razaoSocial.getText(), jFormattedTextField1_telefone.getText(),
+                            jTextField1_EMAIL.getText(), Integer.parseInt(jTextField1_CNH.getText()), CategoriaCNH.valueOf(CatCNH));
+                    proprietariosDAO.incluirProprietario(propri);
+                    JOptionPane.showMessageDialog(rootPane, "Proprietário do tipo: " + jTextField1_razaoSocial.getText() + ", cadastrado com sucesso !");
+                    limparCampos();
+                    
+                    TelaPrincipal pog = new TelaPrincipal();
+                    pog.setVisible(true);
+                    this.dispose();
+                }
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
         }
     }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
 
-    private void limparCampos(){
+    private void limparCampos() {
         jTextField1_CNH.setText("");
         jTextField1_EMAIL.setText("");
         jTextField1_Nome.setText("");
@@ -376,13 +343,6 @@ public class TelaProprietarios extends javax.swing.JFrame {
         jComboBox1_TipoDoProprietário.setSelectedIndex(0);
         jComboBox1_tipoCNH.setSelectedIndex(0);
     }
-    
-    private void jButton4_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4_voltarActionPerformed
-        // TODO add your handling code here:
-        TelaPrincipal principal = new TelaPrincipal();
-        principal.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton4_voltarActionPerformed
 
     private void jFormattedTextField1_cpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jFormattedTextField1_cpfMouseClicked
         // TODO add your handling code here:
@@ -429,9 +389,6 @@ public class TelaProprietarios extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4_voltar;
-    private javax.swing.JButton jButton_Alterar;
-    private javax.swing.JButton jButton_Remover;
     private javax.swing.JButton jButton_iNCLUIR;
     private javax.swing.JComboBox<tipoProprietario> jComboBox1_TipoDoProprietário;
     private javax.swing.JComboBox<CategoriaCNH> jComboBox1_tipoCNH;

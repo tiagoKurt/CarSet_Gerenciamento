@@ -33,8 +33,7 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
             jTextField1_LitrosColocados.setDocument(new limitaCaracteres(12, limitaCaracteres.tipoEntrada.PRECO));
             jTextField1_precoLitro.setDocument(new limitaCaracteres(10, limitaCaracteres.tipoEntrada.PRECO));
             jTextField1_kmsPercorridosLItro.setDocument(new limitaCaracteres(7, limitaCaracteres.tipoEntrada.PRECO));
-            
-            
+
             GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
             Rectangle bounds = env.getMaximumWindowBounds();
             setLocationRelativeTo(null);
@@ -215,42 +214,51 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
-            
+
+            if (jTextField1_LitrosColocados.getText().matches("") || jTextField1_kmsPercorridosLItro.getText().matches("") || 
+                    jTextField1_precoLitro.getText().matches("")) {
+                JOptionPane.showMessageDialog(rootPane, "Alguns campos não foram preenchidos corretamente!");
                 
-                if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 0){
-                    tipoCombustivel = TiposCombustiveisGastos.Gasolina+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 1){
-                    tipoCombustivel = TiposCombustiveisGastos.Gasolina_Aditivada+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 2){
-                    tipoCombustivel = TiposCombustiveisGastos.Gasolina_Premium+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 3){
-                    tipoCombustivel = TiposCombustiveisGastos.Etanol+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 4){
-                    tipoCombustivel = TiposCombustiveisGastos.Etanol_aditivado+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 5){
-                    tipoCombustivel = TiposCombustiveisGastos.GNV+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 6){
-                    tipoCombustivel = TiposCombustiveisGastos.Diesel+"";
+            } else {
+
+                if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 0) {
+                    tipoCombustivel = TiposCombustiveisGastos.Gasolina + "";
                 }
-                
-                
-                
+                if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 1) {
+                    tipoCombustivel = TiposCombustiveisGastos.Gasolina_Aditivada + "";
+                }
+                if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 2) {
+                    tipoCombustivel = TiposCombustiveisGastos.Gasolina_Premium + "";
+                }
+                if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 3) {
+                    tipoCombustivel = TiposCombustiveisGastos.Etanol + "";
+                }
+                if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 4) {
+                    tipoCombustivel = TiposCombustiveisGastos.Etanol_aditivado + "";
+                }
+                if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 5) {
+                    tipoCombustivel = TiposCombustiveisGastos.GNV + "";
+                }
+                if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 6) {
+                    tipoCombustivel = TiposCombustiveisGastos.Diesel + "";
+                }
+
                 VeiculosDAO veiculos = new VeiculosDAO();
-                
-                DateFormat  formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 java.sql.Date data = null;
                 data = new java.sql.Date(formatter.parse(jFormattedTextField1_dataAbastecimento.getText()).getTime());
-                        
+
                 IGastosCombustivelDao comb = new GastosCombustivelDao();
                 GastosCombustivel gastos = new GastosCombustivel(0, ClassificacaoGastos.COMBUSTIVEL,
-                        TiposCombustiveisGastos.valueOf(tipoCombustivel), Float.parseFloat(jTextField1_LitrosColocados.getText()), 
+                        TiposCombustiveisGastos.valueOf(tipoCombustivel), Float.parseFloat(jTextField1_LitrosColocados.getText()),
                         Float.parseFloat(jTextField1_precoLitro.getText()), Float.parseFloat(jTextField1_kmsPercorridosLItro.getText()), (java.sql.Date) data,
                         veiculos.buscarVeiculos(jComboBox1_veiculos.getSelectedItem().toString()));
-                
-                
+
                 comb.InserirGastos(gastos);
-               
-            
+                limparTela();
+                JOptionPane.showMessageDialog(rootPane, "Gasto cadastrado com sucesso!");
+            }
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }
@@ -258,23 +266,28 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_iNCLUIRActionPerformed
 
     private void jComboBox1_tipoDeCombustivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_tipoDeCombustivelActionPerformed
-        if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 0){
-                    tipoCombustivel = TiposCombustiveisGastos.Gasolina+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 1){
-                    tipoCombustivel = TiposCombustiveisGastos.Gasolina_Aditivada+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 2){
-                    tipoCombustivel = TiposCombustiveisGastos.Gasolina_Premium+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 3){
-                    tipoCombustivel = TiposCombustiveisGastos.Etanol+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 4){
-                    tipoCombustivel = TiposCombustiveisGastos.Etanol_aditivado+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 5){
-                    tipoCombustivel = TiposCombustiveisGastos.GNV+"";
-                } if(jComboBox1_tipoDeCombustivel.getSelectedIndex() == 6){
-                    tipoCombustivel = TiposCombustiveisGastos.Diesel+"";
-                }
-                
-        
+        if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 0) {
+            tipoCombustivel = TiposCombustiveisGastos.Gasolina + "";
+        }
+        if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 1) {
+            tipoCombustivel = TiposCombustiveisGastos.Gasolina_Aditivada + "";
+        }
+        if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 2) {
+            tipoCombustivel = TiposCombustiveisGastos.Gasolina_Premium + "";
+        }
+        if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 3) {
+            tipoCombustivel = TiposCombustiveisGastos.Etanol + "";
+        }
+        if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 4) {
+            tipoCombustivel = TiposCombustiveisGastos.Etanol_aditivado + "";
+        }
+        if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 5) {
+            tipoCombustivel = TiposCombustiveisGastos.GNV + "";
+        }
+        if (jComboBox1_tipoDeCombustivel.getSelectedIndex() == 6) {
+            tipoCombustivel = TiposCombustiveisGastos.Diesel + "";
+        }
+
         System.out.println(tipoCombustivel);
     }//GEN-LAST:event_jComboBox1_tipoDeCombustivelActionPerformed
 
@@ -282,13 +295,15 @@ public class TelaGastoCombustiveis extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1_veiculosActionPerformed
 
-    public void limparTela(){
+    public void limparTela() {
         jTextField1_LitrosColocados.setText("");
         jTextField1_precoLitro.setText("");
         jTextField1_kmsPercorridosLItro.setText("");
         jFormattedTextField1_dataAbastecimento.setText("");
+        jComboBox1_tipoDeCombustivel.setSelectedIndex(0);
+        jComboBox1_veiculos.setSelectedIndex(0);
     }
-    
+
     /**
      * @param args the command line arguments
      */

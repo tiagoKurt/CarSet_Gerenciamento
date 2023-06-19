@@ -32,7 +32,7 @@ public class telaMarcas extends javax.swing.JFrame {
      */
     public telaMarcas() {
         initComponents();
-        
+
         jTextField1_DescricaoMarca1.setDocument(new limitaCaracteres(55, limitaCaracteres.tipoEntrada.DESCRICAO));
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -278,7 +278,7 @@ public class telaMarcas extends javax.swing.JFrame {
             ImagensMarcas.setIcon(iconLogo);
             ImagensMarcas1.setVisible(false);
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, erro);
+            JOptionPane.showMessageDialog(this, "Arquivo não selecionado!");
         }
     }//GEN-LAST:event_BuscarMarcasActionPerformed
 
@@ -294,7 +294,7 @@ public class telaMarcas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e);
         }
     }//GEN-LAST:event_jButton_RemoverActionPerformed
-    
+
     private void jButton_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AlterarActionPerformed
         try {
             IMarcasDAO marcasDAO = null;
@@ -310,16 +310,22 @@ public class telaMarcas extends javax.swing.JFrame {
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
-            File fis = new File(jTextField1_urlImagens.getText());
-            Marcas marca = null;
-            marca = new Marcas(0, jTextField1_DescricaoMarca1.getText(), jTextField1_urlImagens.getText(), fis);
 
-            IMarcasDAO marcasDAO = null;
-            marcasDAO = new MarcasDAO();
-            marcasDAO.InserirMarca(marca);
-            limparTela();
-            ImagensMarcas1.setVisible(true);
-            imprimirDadosNaGrid(marcasDAO.listaDeMarcas());
+            if (jTextField1_DescricaoMarca1.getText().matches("") || jTextField1_urlImagens.getText().matches("")) {
+                JOptionPane.showMessageDialog(rootPane, "Preencha o campo corretamente ou selecione uma imagem");
+
+            } else {
+                File fis = new File(jTextField1_urlImagens.getText());
+                Marcas marca = null;
+                marca = new Marcas(0, jTextField1_DescricaoMarca1.getText(), jTextField1_urlImagens.getText(), fis);
+
+                IMarcasDAO marcasDAO = null;
+                marcasDAO = new MarcasDAO();
+                marcasDAO.InserirMarca(marca);
+                limparTela();
+                ImagensMarcas1.setVisible(true);
+                imprimirDadosNaGrid(marcasDAO.listaDeMarcas());
+            }
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }
@@ -329,10 +335,9 @@ public class telaMarcas extends javax.swing.JFrame {
         jTextField1_IDMarcas.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 0).toString());
         jTextField1_DescricaoMarca1.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 1).toString());
         jTextField1_urlImagens.setText(jTable1_tabelaMarcas.getValueAt(jTable1_tabelaMarcas.getSelectedRow(), 2).toString());
-        
+
         String nomeDoArquivo = jTextField1_urlImagens.getText();
-       
-       
+
         ImageIcon iconLogo = new ImageIcon(nomeDoArquivo);
         iconLogo.setImage(iconLogo.getImage().getScaledInstance(
                 ImagensMarcas.getWidth(), ImagensMarcas.getHeight(), 1));
@@ -341,9 +346,9 @@ public class telaMarcas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1_tabelaMarcasMouseClicked
 
     private void jTextField1_DescricaoMarca1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1_DescricaoMarca1KeyTyped
-        char c=evt.getKeyChar();
+        char c = evt.getKeyChar();
 
-        if(Character.isLowerCase(c)){
+        if (Character.isLowerCase(c)) {
             evt.setKeyChar(Character.toUpperCase(c));
         }
     }//GEN-LAST:event_jTextField1_DescricaoMarca1KeyTyped
@@ -383,7 +388,7 @@ public class telaMarcas extends javax.swing.JFrame {
                 saida[0] = aux.getId() + "";
                 saida[1] = aux.getDescricao();
                 saida[2] = aux.getUrl();
-                saida[3] = aux.getImageFile()+"";
+                saida[3] = aux.getImageFile() + "";
 
                 ImageIcon iconlogo = new ImageIcon((aux.getUrl()));
                 Object[] dados = {saida[0], saida[1], saida[2], saida[3]};

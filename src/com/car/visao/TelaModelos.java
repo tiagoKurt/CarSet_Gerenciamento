@@ -51,7 +51,7 @@ public class TelaModelos extends javax.swing.JFrame {
         }
         
         
-        jTextField1_DescricaoModelo.setDocument(new limitaCaracteres(55, limitaCaracteres.tipoEntrada.DESCRICAO));
+        jTextField1_DescricaoModelo.setDocument(new limitaCaracteres(25, limitaCaracteres.tipoEntrada.DESCRICAO));
 
         try {
             conexao = ConexaoBD.getConexao();
@@ -345,18 +345,22 @@ public class TelaModelos extends javax.swing.JFrame {
             ImagensMarcas.setIcon(iconLogo);
             ImagensModelos.setVisible(false);
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, erro);
+            JOptionPane.showMessageDialog(this, "Arquivo não selecionado!");
         }
     }//GEN-LAST:event_BuscarMarcasActionPerformed
 
     private void jButton_RemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RemoverActionPerformed
         try {
+            if(jTextField1_IDModelos.getText().matches("")){
+                JOptionPane.showMessageDialog(rootPane, "Nenhum modelo foi selecionado para deletar!");
+            }else{
             IModelosDAO modelosDAO = null;
             modelosDAO = new ModelosDAO();
             modelosDAO.excluir(Integer.parseInt(jTextField1_IDModelos.getText()));
             limparTela();
             imprimirDadosNaGrid(modelosDAO.listagemDeModelos());
             ImagensModelos.setVisible(true);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
@@ -468,11 +472,14 @@ public class TelaModelos extends javax.swing.JFrame {
     }
 
     private void jButton_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AlterarActionPerformed
-
+        
     }//GEN-LAST:event_jButton_AlterarActionPerformed
 
     private void jButton_iNCLUIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iNCLUIRActionPerformed
         try {
+            if(jTextField1_DescricaoModelo.getText().matches("")){
+                JOptionPane.showMessageDialog(rootPane, "Alguns campos não foram preenchidos!");
+            }else{
             File fis = new File(jTextField1_urlImagens.getText());
             IModelosDAO modelooo = null;
             modelooo = new ModelosDAO();
@@ -498,6 +505,7 @@ public class TelaModelos extends javax.swing.JFrame {
             ImagensModelos.setVisible(true);
             imprimirDadosNaGrid(modelosDAO.listagemDeModelos());
             jComboBox1_ListaMarcas.setSelectedIndex(0);
+            }
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this, err);
         }
